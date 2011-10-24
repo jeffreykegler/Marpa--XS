@@ -136,7 +136,7 @@ no symbol is directly marked as a terminal,
 and the L<C<lhs_terminals> named argument|/"lhs_terminals"> is set or
 left at its default,
 then all symbols are terminals.
- 
+
 =item * The only case not covered above is that in which
 a grammar contains one or more empty rules,
 no symbol is directly marked as a terminal,
@@ -291,7 +291,7 @@ the hash key is the argument name
 and the hash value is the value of
 the named argument.
 The available named arguments are described
-L<below|/"Named Arguments">.
+L<below|/"NAMED ARGUMENTS">.
 
 =head1 MUTATORS
 
@@ -325,7 +325,7 @@ The arguments to the
 C<set> method are
 references to hashes of named arguments.
 The available named arguments are described
-L<below|/"Named Arguments">.
+L<below|/"NAMED ARGUMENTS">.
 C<set> either returns true or throws an exception.
 
 =head1 ACCESSORS
@@ -588,7 +588,7 @@ If C<lhs_terminals> is unset,
 but some symbols are directly marked,
 it is a fatal error for a terminal to appear on the LHS of a rule.
 For more, see
-L<the discussion of terminals above|/"Terminal Symbols">.
+L<the discussion of terminals above|/"Terminal symbols">.
 
 =head2 rules
 
@@ -640,7 +640,7 @@ C<terminals> named argument
 is one way of
 B<directly marking> it as a terminal.
 See
-L<the discussion of terminals above|/"Terminal Symbols">.
+L<the discussion of terminals above|/"Terminal symbols">.
 
 =head2 trace_file_handle
 
@@ -947,7 +947,7 @@ A boolean.
 If true, it B<directly marks> the symbol as a terminal.
 If false, it unmarks the symbol as a terminal.
 For details, see
-L<the section on terminals|/"Terminal Symbols">.
+L<the section on terminals|/"Terminal symbols">.
 
 =head1 COPYRIGHT AND LICENSE
 

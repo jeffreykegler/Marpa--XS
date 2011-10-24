@@ -37,7 +37,7 @@ ignore: 1
 
 Given the input 'x', this grammar will produce
 these parses 
- 
+
 =for Marpa::XS::Display
 ignore: 1
 

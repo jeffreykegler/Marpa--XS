@@ -44,7 +44,7 @@ Everything that the user needs to know
 is explained in this section.
 
 =head2 Dotted rules
- 
+
 The idea behind Earley's algorithm is that you can
 parse by building a table of rules
 and where you are in those rules.
@@ -74,7 +74,7 @@ a pair, a rule and a dot location are called a B<dotted rule>.
 Here's our rule with a dot location indicated:
 
 S<C<E<nbsp>E<nbsp>E<nbsp>E<nbsp>termbinop -E<gt> E<middot> term ASSIGNOP term>>
-     
+
 The dot location in this dotted rule is at the beginning.
 A dot location at the beginning of a dotted rule means
 that we have not recognized any symbols in the rule yet.

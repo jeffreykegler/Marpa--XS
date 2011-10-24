@@ -148,7 +148,7 @@ are called B<rule nodes>.
 Rule nodes are always
 associated with a rule.
 The value of a rule node is computed at
-L<Node Evaluation Time|/"Node Evaluation Time">.
+Node Evaluation Time.
 Applications can specify,
 on a per-rule basis,
 Perl closures to evaluate rule nodes.
