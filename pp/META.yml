@@ -39,7 +39,7 @@ no_index:
 provides:
   Marpa::PP:
     file: lib/Marpa/PP.pm
-    version: 0.009_004
+    version: 0.011_000
   Marpa::PP::Grammar:
     file: lib/Marpa/PP/Grammar.pm
     version: 0
@@ -76,4 +76,4 @@ requires:
   Task::Weaken: 0
 resources:
   repository: git://github.com/jeffreykegler/Marpa-PP.git
-version: 0.009_004
+version: 0.011_000

@@ -69,7 +69,7 @@
    "provides" : {
       "Marpa::PP" : {
          "file" : "lib/Marpa/PP.pm",
-         "version" : "0.009_004"
+         "version" : "0.011_000"
       },
       "Marpa::PP::Grammar" : {
          "file" : "lib/Marpa/PP/Grammar.pm",
@@ -110,5 +110,5 @@
          "url" : "git://github.com/jeffreykegler/Marpa-PP.git"
       }
    },
-   "version" : "0.009_004"
+   "version" : "0.011_000"
 }
