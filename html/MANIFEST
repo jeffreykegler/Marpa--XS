@@ -32,6 +32,7 @@ etc/change_version.pl
 etc/check_links.pl
 inc/drafts/Implementation.pod
 lib/Marpa/HTML.pm
+lib/Marpa/HTML/.gitignore
 lib/Marpa/HTML/Callback.pm
 lib/Marpa/HTML/Doc/HTML.pod
 lib/Marpa/HTML/Doc/Support.pod

@@ -20,8 +20,8 @@ use warnings;
     'Data::Dumper'        => '2.125',
     'HTML::Parser'        => '3.64',
     'HTML::PullParser'    => '3.57',
-    'Marpa::PP'           => '0.008000',
-    'Marpa::XS'           => '0.010000',
+    'Marpa::PP'           => '0.010000',
+    'Marpa::XS'           => '0.018000',
     'Module::Build'       => 0.3601,
     'Test::More'          => 0.94,
 );
