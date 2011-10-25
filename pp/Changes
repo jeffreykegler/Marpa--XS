@@ -15,12 +15,11 @@
 
 Revision history for Marpa::PP
 
-0.009_004 Sat Oct  8 23:09:54 PDT 2011
-0.009_003 Tue Oct  4 09:23:49 PDT 2011
-0.009_002 Tue Sep  6 21:08:12 PDT 2011
-0.009_001 Mon Aug  8 18:05:00 PDT 2011
-0.009_000 Fri Aug  5 15:04:38 PDT 2011
-     * Starting a new series of developer's releases.
+0.010000 Tue Oct 25 08:56:47 PDT 2011
+
+     * Tracking Marpa::XS
+
+     * Differs from Marpa-XS-0.018000: no ranking methods
 
 0.008000
      First official release (ALPHA).

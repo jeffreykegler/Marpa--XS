@@ -26,11 +26,13 @@ xst: xs_basic_test xs_html_test
 libs: pplib xslib
 
 pplib:
-	(cd dpplib; rm -rf *)
+	-mkdir dpplib
+	-rm -rf dpplib/lib dpplib/man dpplib/html
 	(cd pp; ./Build install --install_base ../dpplib)
 
 xslib:
-	(cd dxslib; rm -rf *)
+	-mkdir dxslib
+	-rm -rf dxslib/lib dxslib/man dxslib/html
 	(cd xs; ./Build install --install_base ../dxslib)
 
 html_blib:
