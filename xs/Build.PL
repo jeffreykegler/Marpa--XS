@@ -55,10 +55,10 @@ $pod_files{'pod/Marpa_XS.pod'} = 'lib/Marpa/XS.pod';
 my @no_index_namespace_inclusive = (
 
     # not for now, at least
-    qw(Marpa::XS::Value Marpa::Perl Marpa::Test Marpa::Display ),
+    qw(Marpa::XS::Value Marpa::XS::Perl Marpa::XS::Test Marpa::XS::Display ),
 
     # never intended to see the light of day
-    qw( Marpa::XS::Internal Marpa::PP ),
+    qw( Marpa::XS::Internal ),
 
 );
 

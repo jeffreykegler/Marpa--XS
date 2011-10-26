@@ -20,7 +20,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION $STRING_VERSION @ISA $DEBUG);
-$VERSION        = '0.019_003';
+$VERSION        = '0.019_004';
 $STRING_VERSION = $VERSION;
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
 $VERSION = eval $VERSION;
@@ -33,27 +33,27 @@ use English qw( -no_match_vars );
 use Marpa::XS::Version;
 
 # Die if more than one of the Marpa modules is loaded
-if ( defined $Marpa::MODULE ) {
+if ( defined $Marpa::XS::MODULE ) {
     Carp::croak( "You can only load one of the Marpa modules at a time\n",
-        'The module ', $Marpa::MODULE, " is already loaded\n" );
+        'The module ', $Marpa::XS::MODULE, " is already loaded\n" );
 }
-$Marpa::MODULE = 'Marpa::XS';
+$Marpa::XS::MODULE = 'Marpa::XS';
 if ( defined $Marpa::PP::VERSION ) {
     Carp::croak( 'Attempt to load Marpa::XS when Marpa::PP ',
         $Marpa::PP::VERSION, ' already loaded' );
 }
-if ($Marpa::USING_PP) {
+if ($Marpa::XS::USING_PP) {
     Carp::croak('Attempt to load Marpa::XS when already using Marpa::PP');
 }
-if ($Marpa::USING_XS) {
+if ($Marpa::XS::USING_XS) {
     die 'Internal error: Attempt to load Marpa::XS twice';
 }
-if ($Marpa::USE_PP) {
+if ($Marpa::XS::USE_PP) {
     Carp::croak('Attempt to load Marpa::XS when USE_PP specified');
 }
 
-$Marpa::USING_XS = 1;
-$Marpa::USING_PP = 0;
+$Marpa::XS::USING_XS = 1;
+$Marpa::XS::USING_PP = 0;
 
 eval {
     require XSLoader;
@@ -75,18 +75,16 @@ Carp::croak( 'Marpa::XS ',
     "fails version check, wanted $version_wanted, found $version_found" )
     if $version_wanted ne $version_found;
 
-@Marpa::CARP_NOT = ();
-for my $start (qw(Marpa Marpa::PP Marpa::XS)) {
-    for my $middle ( q{}, '::Internal' ) {
-        for my $end ( q{}, qw(::Recognizer ::Callback ::Grammar ::Value) ) {
-            push @Marpa::CARP_NOT, $start . $middle . $end;
-        }
+@Marpa::XS::CARP_NOT = ();
+for my $middle ( q{}, '::Internal' ) {
+    for my $end ( q{}, qw(::Recognizer ::Callback ::Grammar ::Value) ) {
+        push @Marpa::XS::CARP_NOT, 'Marpa::XS' . $middle . $end;
     }
-} ## end for my $start (qw(Marpa Marpa::PP Marpa::XS))
-PACKAGE: for my $package (@Marpa::CARP_NOT) {
+}
+PACKAGE: for my $package (@Marpa::XS::CARP_NOT) {
     no strict 'refs';
     next PACKAGE if $package eq 'Marpa';
-    *{ $package . q{::CARP_NOT} } = \@Marpa::CARP_NOT;
+    *{ $package . q{::CARP_NOT} } = \@Marpa::XS::CARP_NOT;
 }
 
 if ( not $ENV{'MARPA_AUTHOR_TEST'} ) {

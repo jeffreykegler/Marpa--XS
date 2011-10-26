@@ -35,7 +35,7 @@ use Marpa::Display;
 my $warnings = 0;
 my $options_result = GetOptions( 'warnings' => \$warnings );
 
-Marpa::exception("$PROGRAM_NAME options parsing failed")
+Marpa::XS::exception("$PROGRAM_NAME options parsing failed")
     if not $options_result;
 
 my %exclude = map { ( $_, 1 ) } qw(
@@ -55,7 +55,7 @@ if ( not $debug_mode ) {
     }
 
     open my $manifest, '<', 'MANIFEST'
-        or Marpa::exception("Cannot open MANIFEST: $ERRNO");
+        or Marpa::XS::exception("Cannot open MANIFEST: $ERRNO");
     FILE: while ( my $file = <$manifest> ) {
         chomp $file;
         $file =~ s/\s*[#].*\z//xms;
@@ -89,11 +89,11 @@ my $error_file;
 ## no critic (InputOutput::RequireBriefOpen)
 if ($debug_mode) {
     open $error_file, '>&STDOUT'
-        or Marpa::exception("Cannot dup STDOUT: $ERRNO");
+        or Marpa::XS::exception("Cannot dup STDOUT: $ERRNO");
 }
 else {
     open $error_file, '>', 'author.t/display.errs'
-        or Marpa::exception("Cannot open display.errs: $ERRNO");
+        or Marpa::XS::exception("Cannot open display.errs: $ERRNO");
 }
 ## use critic
 

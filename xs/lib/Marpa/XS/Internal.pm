@@ -87,7 +87,7 @@ sub Marpa::XS::offset {
             $offset = $2 + 0;
         }
 
-        Marpa::exception("Unacceptable field name: $field")
+        Marpa::XS::exception("Unacceptable field name: $field")
             if $field =~ /[^A-Z0-9_]/xms;
         my $field_name = $prefix . $field;
         *{$field_name} = sub () {$offset};
