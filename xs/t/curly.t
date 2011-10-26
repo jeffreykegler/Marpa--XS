@@ -46,7 +46,7 @@ BEGIN {
 } ## end BEGIN
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::XS::Test;
 
 # Run in utility mode?
 my $utility = 0;
@@ -134,7 +134,7 @@ TEST: for my $test (@tests) {
     $parser = $parser->read( \$string );
     my @values = $parser->eval();
     $parser->foreach_completion( \&tag_completion );
-    Marpa::Test::is(
+    Marpa::XS::Test::is(
         ( scalar @values ),
         $expected_parse_count,
         'Count of values'
@@ -151,7 +151,7 @@ TEST: for my $test (@tests) {
         say $result or die 'say builtin failed';
     }
     else {
-        Marpa::Test::is( $result, $expected, qq{Test of "$string"} );
+        Marpa::XS::Test::is( $result, $expected, qq{Test of "$string"} );
     }
     %hash      = ();
     %codeblock = ();

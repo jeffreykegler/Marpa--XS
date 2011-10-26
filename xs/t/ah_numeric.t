@@ -24,7 +24,7 @@ use warnings;
 
 use Test::More tests => 11;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::XS::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::XS');
@@ -44,7 +44,7 @@ sub default_action {
 
 sub gen_grammar {
     my ($null_ranking) = @_;
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::XS::Grammar->new(
         {   start => 'S',
             rules => [
                 {   lhs          => 'S',
@@ -68,7 +68,7 @@ my @minimal = ( q{}, qw[(;;;a) (;;a;a) (;a;a;a) (a;a;a;a)] );
 
 for my $maximal ( 0, 1 ) {
     my $grammar = gen_grammar( $maximal ? 'low' : 'high' );
-    my $recce = Marpa::Recognizer->new(
+    my $recce = Marpa::XS::Recognizer->new(
         { grammar => $grammar, ranking_method => 'high_rule_only' } );
 
     my $input_length = 4;

@@ -21,7 +21,7 @@ use English qw( -no_match_vars );
 
 use Test::More tests => 5;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::XS::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::XS');
@@ -173,7 +173,7 @@ my @test_data = (
     [ 'time', q{time  / 25 ; # / ; die "this dies!"}, ['division, comment'] ]
 );
 
-my $g = Marpa::Grammar->new(
+my $g = Marpa::XS::Grammar->new(
     {   warnings => 1,
         actions  => 'main',
     },
@@ -185,7 +185,7 @@ $g->precompute();
 TEST: for my $test_data (@test_data) {
 
     my ( $test_name, $test_input, $test_results ) = @{$test_data};
-    my $recce = Marpa::Recognizer->new( { grammar => $g, mode => 'stream' } );
+    my $recce = Marpa::XS::Recognizer->new( { grammar => $g, mode => 'stream' } );
 
     my $input_length = length $test_input;
     pos $test_input = 0;
@@ -221,12 +221,12 @@ TEST: for my $test_data (@test_data) {
     }
     my $expected_parse_count = scalar @{$test_results};
     my $parse_count          = scalar @parses;
-    Marpa::Test::is( $parse_count, $expected_parse_count,
+    Marpa::XS::Test::is( $parse_count, $expected_parse_count,
         "$test_name: Parse count" );
 
     my $expected = join "\n", sort @{$test_results};
     my $actual   = join "\n", sort @parses;
-    Marpa::Test::is( $actual, $expected, "$test_name: Parse match" );
+    Marpa::XS::Test::is( $actual, $expected, "$test_name: Parse match" );
 } ## end for my $test_data (@test_data)
 
 sub show_perl_line {

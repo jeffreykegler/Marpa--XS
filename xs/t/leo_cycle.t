@@ -27,7 +27,7 @@ use English qw( -no_match_vars );
 use Test::More tests => 7;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::XS::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::XS');
@@ -38,7 +38,7 @@ sub main::default_action {
     return ( join q{}, grep {defined} @_ );
 }
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start => 'S',
         strip => 0,
         rules => [
@@ -60,7 +60,7 @@ my $grammar = Marpa::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::Test::is( $grammar->show_symbols(),
+Marpa::XS::Test::is( $grammar->show_symbols(),
     <<'END_OF_STRING', 'Leo166 Symbols' );
 0: a, lhs=[] rhs=[0 10 11] terminal
 1: S, lhs=[0 9 10 11] rhs=[1 12 20]
@@ -85,7 +85,7 @@ Marpa::Test::is( $grammar->show_symbols(),
 20: S['][], lhs=[21] rhs=[] nullable nulling
 END_OF_STRING
 
-Marpa::Test::is( $grammar->show_rules, <<'END_OF_STRING', 'Leo166 Rules' );
+Marpa::XS::Test::is( $grammar->show_rules, <<'END_OF_STRING', 'Leo166 Rules' );
 0: S -> a A /* !used */
 1: H -> S /* !used */
 2: B -> C /* !used */
@@ -165,14 +165,14 @@ E -> F .
 F -> G .
 END_OF_STRING
 
-Marpa::Test::is( $grammar->show_AHFA(), $expected_ahfa_output,
+Marpa::XS::Test::is( $grammar->show_AHFA(), $expected_ahfa_output,
     'Leo166 AHFA' );
 
 my $a_token = [ 'a', 'a' ];
 my $length = 20;
 
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+    Marpa::XS::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
 
 my $i                 = 0;
 my $latest_earley_set = $recce->latest_earley_set();
@@ -189,7 +189,7 @@ TOKEN: while ( $i++ < $length ) {
 # beginning with Earley set c, for some small
 # constant c
 my $expected_size = 4;
-Marpa::Test::is( $max_size, $expected_size, "size $max_size" );
+Marpa::XS::Test::is( $max_size, $expected_size, "size $max_size" );
 
 my $show_earley_sets_output = do {
     local $RS = undef;
@@ -197,12 +197,12 @@ my $show_earley_sets_output = do {
     <DATA>;
 };
 
-Marpa::Test::is( $recce->show_earley_sets(1),
+Marpa::XS::Test::is( $recce->show_earley_sets(1),
     $show_earley_sets_output, 'Leo cycle Earley sets' );
 
 my $value_ref = $recce->value( {} );
 my $value = $value_ref ? ${$value_ref} : 'No parse';
-Marpa::Test::is( $value, 'a' x $length, 'Leo cycle parse' );
+Marpa::XS::Test::is( $value, 'a' x $length, 'Leo cycle parse' );
 
 1;    # In case used as "do" file
 

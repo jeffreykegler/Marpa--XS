@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 2;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::XS::Test;
 use English qw( -no_match_vars );
 use Fatal qw(open close);
 
@@ -66,7 +66,7 @@ sub S {
     return 'S(' . ( join q{;}, map { $_ // '[ERROR!]' } @_ ) . ')';
 }
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start   => 'S',
         actions => 'main',
         rules   => [
@@ -93,7 +93,7 @@ my $grammar = Marpa::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
 
 $recce->read( 'X', 'x' );
 
@@ -113,7 +113,7 @@ END_OF_OUTPUT
 # Marpa::XS::Display::End
 
 my $value = $recce->value();
-Marpa::Test::is( ${$value}, $expected, 'Null example' );
+Marpa::XS::Test::is( ${$value}, $expected, 'Null example' );
 
 1;    # In case used as "do" file
 

@@ -42,11 +42,11 @@ BEGIN {
         Test::More::plan tests => 3;
     }
     Test::More::use_ok('Marpa::XS');
-    Test::More::use_ok('Marpa::Perl');
+    Test::More::use_ok('Marpa::XS::Perl');
 } ## end BEGIN
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::XS::Test;
 
 # Run in utility mode?
 my $utility = 0;
@@ -97,7 +97,7 @@ sub gen_closure {
     };
 } ## end sub gen_closure
 
-my $parser = Marpa::Perl->new( \&gen_closure );
+my $parser = Marpa::XS::Perl->new( \&gen_closure );
 
 my $string;
 if ($utility) {
@@ -144,7 +144,7 @@ if ($utility) {
     say $result or die 'say builtin failed';
 }
 else {
-    Marpa::Test::is( $result, $expected, 'Test of use statements' );
+    Marpa::XS::Test::is( $result, $expected, 'Test of use statements' );
 }
 
 1;    # In case used as "do" file
