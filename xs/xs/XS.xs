@@ -923,7 +923,7 @@ PREINIT:
     struct marpa_r* r;
 PPCODE:
     if (! sv_isa(g_sv, grammar_c_class_name)) {
-        g_debug("Marpa::Recognizer::new grammar arg is not in class %s",
+        g_debug("Marpa::XS::Recognizer::new grammar arg is not in class %s",
             grammar_c_class_name);
     }
     tmp = SvIV((SV*)SvRV(g_sv));

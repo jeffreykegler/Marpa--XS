@@ -28,7 +28,7 @@ $STRING_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 ## use critic
 
-*Marpa::exception = \&Carp::croak;
+*Marpa::XS::exception = \&Carp::croak;
 
 sub Marpa::XS::internal_error {
     Carp::confess(
@@ -47,7 +47,7 @@ use constant N_FORMAT_HIGH_BIT => 0x8000_0000;
 # in hex numbers
 use constant N_FORMAT_MAX => 0x7fff_ffff;
 
-sub Marpa::offset {
+sub Marpa::XS::offset {
     my (@desc) = @_;
     my @fields = ();
     for my $desc (@desc) {
@@ -93,6 +93,6 @@ sub Marpa::offset {
         *{$field_name} = sub () {$offset};
     } ## end for my $field (@fields)
     return 1;
-} ## end sub Marpa::offset
+} ## end sub Marpa::XS::offset
 
 1;
