@@ -45,7 +45,7 @@
       },
       "runtime" : {
          "recommends" : {
-            "Marpa::XS" : "0.010000"
+            "Marpa::XS" : "0.018000"
          },
          "requires" : {
             "Carp" : "1.08",
@@ -53,7 +53,7 @@
             "HTML::Parser" : "3.64",
             "HTML::PullParser" : "3.57",
             "List::Util" : "1.21",
-            "Marpa::PP" : "0.008000",
+            "Marpa::PP" : "0.010000",
             "Scalar::Util" : "1.21",
             "perl" : "5.01"
          }
