@@ -171,6 +171,5 @@ t/wall.t
 t/weaken.t
 tool/lib/Marpa/Display.pm
 tool/lib/Marpa/Test.pm
-tool/lib/Marpa/Test/Common.pm
 typemap
 xs/XS.xs
