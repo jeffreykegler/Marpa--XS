@@ -11,3 +11,15 @@ Document rule name, recce->rule_by_name() once there is a test for them
 Do not document DEFAULT_RANK and Symbol::RANK until there are tests for them
 Document Symbol::RANK
 Document LHS_RANK and TERMINAL_RANK once tested
+
+Marpa Pending release candidate: Marpa-HTML-0.103_001.tar.gz Wed, 26 Oct 2011 01:52:52 GMT
+* check test results
+* update version, change file
+* diff with last release
+
+Marpa Pending release candidate: Marpa-0.205_000.tar.gz Wed, 26 Oct 2011 04:38:48 GMT
+* check test results
+* update version, change file
+* diff with last release
+ 
+ 
