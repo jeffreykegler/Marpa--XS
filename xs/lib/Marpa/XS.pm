@@ -120,4 +120,60 @@ require Marpa::XS::Value;
 ( $version_result = version_ok($Marpa::XS::Value::VERSION) )
     and die 'Marpa::XS::Value::VERSION ', $version_result;
 
+*Marpa::Grammar::check_terminal  = \&Marpa::XS::Grammar::check_terminal;
+*Marpa::Grammar::new             = \&Marpa::XS::Grammar::new;
+*Marpa::Grammar::precompute      = \&Marpa::XS::Grammar::precompute;
+*Marpa::Grammar::set             = \&Marpa::XS::Grammar::set;
+*Marpa::Grammar::show_AHFA       = \&Marpa::XS::Grammar::show_AHFA;
+*Marpa::Grammar::show_AHFA_items = \&Marpa::XS::Grammar::show_AHFA_items;
+*Marpa::Grammar::show_NFA        = \&Marpa::XS::Grammar::show_NFA;
+*Marpa::Grammar::show_accessible_symbols =
+    \&Marpa::XS::Grammar::show_accessible_symbols;
+*Marpa::Grammar::show_dotted_rule = \&Marpa::XS::Grammar::show_dotted_rule;
+*Marpa::Grammar::show_nullable_symbols =
+    \&Marpa::XS::Grammar::show_nullable_symbols;
+*Marpa::Grammar::show_nulling_symbols =
+    \&Marpa::XS::Grammar::show_nulling_symbols;
+*Marpa::Grammar::show_productive_symbols =
+    \&Marpa::XS::Grammar::show_productive_symbols;
+*Marpa::Grammar::show_problems     = \&Marpa::XS::Grammar::show_problems;
+*Marpa::Grammar::brief_rule        = \&Marpa::XS::Grammar::brief_rule;
+*Marpa::Grammar::show_rule         = \&Marpa::XS::Grammar::show_rule;
+*Marpa::Grammar::show_rules        = \&Marpa::XS::Grammar::show_rules;
+*Marpa::Grammar::show_symbol       = \&Marpa::XS::Grammar::show_symbol;
+*Marpa::Grammar::show_symbols      = \&Marpa::XS::Grammar::show_symbols;
+*Marpa::Recognizer::alternative    = \&Marpa::XS::Recognizer::alternative;
+*Marpa::Recognizer::check_terminal = \&Marpa::XS::Recognizer::check_terminal;
+*Marpa::Recognizer::current_earleme =
+    \&Marpa::XS::Recognizer::current_earleme;
+*Marpa::Recognizer::earleme_complete =
+    \&Marpa::XS::Recognizer::earleme_complete;
+*Marpa::Recognizer::earley_set_size =
+    \&Marpa::XS::Recognizer::earley_set_size;
+*Marpa::Recognizer::end_input = \&Marpa::XS::Recognizer::end_input;
+*Marpa::Recognizer::exhausted = \&Marpa::XS::Recognizer::exhausted;
+*Marpa::Recognizer::latest_earley_set =
+    \&Marpa::XS::Recognizer::latest_earley_set;
+*Marpa::Recognizer::new  = \&Marpa::XS::Recognizer::new;
+*Marpa::Recognizer::read = \&Marpa::XS::Recognizer::read;
+*Marpa::Recognizer::reset_evaluation =
+    \&Marpa::XS::Recognizer::reset_evaluation;
+*Marpa::Recognizer::set = \&Marpa::XS::Recognizer::set;
+*Marpa::Recognizer::show_earley_sets =
+    \&Marpa::XS::Recognizer::show_earley_sets;
+*Marpa::Recognizer::show_and_nodes = \&Marpa::XS::Recognizer::show_and_nodes;
+*Marpa::Recognizer::show_bocage    = \&Marpa::XS::Recognizer::show_bocage;
+*Marpa::Recognizer::old_show_tree  = \&Marpa::XS::Recognizer::old_show_tree;
+*Marpa::Recognizer::old_show_fork  = \&Marpa::XS::Recognizer::old_show_fork;
+*Marpa::Recognizer::parse_count    = \&Marpa::XS::Recognizer::parse_count;
+*Marpa::Recognizer::show_fork      = \&Marpa::XS::Recognizer::show_fork;
+*Marpa::Recognizer::show_tree      = \&Marpa::XS::Recognizer::show_tree;
+*Marpa::Recognizer::show_or_nodes  = \&Marpa::XS::Recognizer::show_or_nodes;
+*Marpa::Recognizer::show_progress  = \&Marpa::XS::Recognizer::show_progress;
+*Marpa::Recognizer::status         = \&Marpa::XS::Recognizer::status;
+*Marpa::Recognizer::terminals_expected =
+    \&Marpa::XS::Recognizer::terminals_expected;
+*Marpa::Recognizer::tokens = \&Marpa::XS::Recognizer::tokens;
+*Marpa::Recognizer::value  = \&Marpa::XS::Recognizer::value;
+
 1;

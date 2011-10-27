@@ -234,7 +234,8 @@ package Marpa::XS::Internal::Grammar;
 my %grammar_by_id;
 
 sub Marpa::XS::Grammar::new {
-    my ( $class, @arg_hashes ) = @_;
+    my ( undef, @arg_hashes ) = @_;
+    my $class = 'Marpa::XS::Grammar';
 
     my $grammar = [];
     bless $grammar, $class;
@@ -1363,7 +1364,7 @@ sub populate_null_values {
 } ## end sub populate_null_values
 
 sub Marpa::XS::Internal::Symbol::new {
-    my ( $class, $grammar, $name ) = @_;
+    my ( undef, $grammar, $name ) = @_;
     my $grammar_c = $grammar->[Marpa::XS::Internal::Grammar::C];
     $grammar->[Marpa::XS::Internal::Grammar::NEXT_SYMBOL_NAME] = $name;
     my $symbol_id = $grammar_c->symbol_new();

@@ -112,7 +112,8 @@ sub message_cb {
 
 # Returns the new parse object or throws an exception
 sub Marpa::XS::Recognizer::new {
-    my ( $class, @arg_hashes ) = @_;
+    my ( undef, @arg_hashes ) = @_;
+    my $class = 'Marpa::XS::Recognizer';
     my $recce = bless [], $class;
 
     my $grammar;
