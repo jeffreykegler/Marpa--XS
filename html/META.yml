@@ -15,8 +15,7 @@ meta-spec:
 name: Marpa-HTML
 no_index:
   directory:
-    - inc
-    - t
+    - config
     - author.t
     - save
   namespace:
@@ -45,4 +44,4 @@ requires:
   perl: 5.01
 resources:
   repository: git://github.com/jeffreykegler/Marpa--HTML.git
-version: 0.103_001
+version: 0.103_002
