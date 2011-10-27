@@ -99,7 +99,7 @@ sub My_Actions::do_multiply {
 sub My_Actions::first_arg { shift; return shift; }
 
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar, trace_terminals => 2 } );
+    Marpa::XS::Recognizer->new( { grammar => $grammar, trace_terminals => 2 } );
 
 my $token_ix = 0;
 
