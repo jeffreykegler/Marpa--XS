@@ -12,10 +12,18 @@ Do not document DEFAULT_RANK and Symbol::RANK until there are tests for them
 Document Symbol::RANK
 Document LHS_RANK and TERMINAL_RANK once tested
 
-Marpa Pending release candidate: Marpa-HTML-0.103_001.tar.gz Wed, 26 Oct 2011 01:52:52 GMT
+Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01:52:52 GMT
+* Change 00-load, HTML.pm so Marpa::HTML tracks which version it is using -- more than one
+  may be loaded.
+* Replace all *::exception with Carp::croak or die.  Make sure there is "use Carp ();"
+* cleanup results of ack 'Marpa::[^H]' .
 * check test results
-* update version, change file
-* diff with last release
+* update version file
+* find last (0.102000) release: date was Sun, 21 Mar 2010 20:35:44 GMT
+* use as previous distributiion: Marpa-HTML-0.103_001.tar.gz Wed, 26 Oct 2011 01:52:52 GMT
+* compare git tagged baseline with CPAN distribution
+* diff previous with current
+* update change file: internal reorganization
 
 Marpa Pending release candidate: Marpa-0.205_000.tar.gz Wed, 26 Oct 2011 04:38:48 GMT
 * check test results
