@@ -120,6 +120,9 @@ require Marpa::XS::Value;
 ( $version_result = version_ok($Marpa::XS::Value::VERSION) )
     and die 'Marpa::XS::Value::VERSION ', $version_result;
 
+$Marpa::USING_XS = 1;
+$Marpa::USING_PP = undef;
+
 *Marpa::Grammar::check_terminal  = \&Marpa::XS::Grammar::check_terminal;
 *Marpa::Grammar::new             = \&Marpa::XS::Grammar::new;
 *Marpa::Grammar::precompute      = \&Marpa::XS::Grammar::precompute;
