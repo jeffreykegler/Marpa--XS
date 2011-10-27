@@ -34,7 +34,7 @@ my $progress_report = q{};
 # Marpa::XS::Display
 # name: Debug Example Part 1
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start          => 'Expression',
         actions        => 'My_Actions',
         default_action => 'first_arg',

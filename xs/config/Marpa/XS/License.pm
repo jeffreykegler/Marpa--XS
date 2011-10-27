@@ -248,16 +248,6 @@ sub file_type {
     return $closure if defined $closure;
     my ( $volume, $dirpart, $filepart ) = File::Spec->splitpath($filename);
     my @dirs = grep {length} File::Spec->splitdir($dirpart);
-    return \&license_problems_in_pp_perl_file
-        if scalar @dirs > 1
-            and $dirs[0] eq 'pperl'
-            and $filepart =~ /[.]pm\z/xms;
-    return \&license_problems_in_pp_perl_file
-        if scalar @dirs == 3
-            and $dirs[0] eq 't'
-            and $dirs[1] eq 'shared'
-            and $dirs[2] eq 'common'
-            and $filepart =~ /[.]t\z/xms;
     return \&trivial
         if scalar @dirs == 2
             and $dirs[0] eq 't'
