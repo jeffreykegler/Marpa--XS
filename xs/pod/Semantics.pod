@@ -24,7 +24,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::XS::Grammar->new(
         {   start          => 'Expression',
             actions        => 'My_Actions',
             default_action => 'first_arg',
