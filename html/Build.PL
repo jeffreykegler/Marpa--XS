@@ -50,7 +50,7 @@ my $build = Marpa::HTML::Build_Me->new(
             repository => 'git://github.com/jeffreykegler/Marpa--HTML.git',
         },
         no_index => {
-            directory => [qw( inc t author.t save )],
+            directory => [qw( config author.t save )],
             namespace => [
                 'Marpa::HTML::Internal', 'Marpa::HTML::Display::Internal',
                 'Marpa::HTML::Test',

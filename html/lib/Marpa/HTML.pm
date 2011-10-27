@@ -10,7 +10,7 @@ use strict;
 use warnings;
 
 use vars qw( $VERSION $STRING_VERSION );
-$VERSION = '0.103_001';
+$VERSION = '0.103_002';
 $STRING_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 
@@ -32,12 +32,17 @@ BEGIN {
     my $using_xs = eval { require Marpa::XS::Installed; 1 };
     if ($using_xs) {
         require Marpa::XS;
-	Marpa::XS->VERSION(0.018000);
-    } else {
+        Marpa::XS->VERSION(0.018000);
+        *Marpa::HTML::Grammar::new    = \&Marpa::XS::Grammar::new;
+        *Marpa::HTML::Recognizer::new = \&Marpa::XS::Recognizer::new;
+    } ## end if ($using_xs)
+    else {
         require Marpa::PP;
-	Marpa::PP->VERSION(0.010000);
-    }
-}
+        Marpa::PP->VERSION(0.010000);
+        *Marpa::HTML::Grammar::new    = \&Marpa::PP::Grammar::new;
+        *Marpa::HTML::Recognizer::new = \&Marpa::PP::Recognizer::new;
+    } ## end else [ if ($using_xs) ]
+} ## end BEGIN
 
 # use Smart::Comments '-ENV';
 
@@ -1102,7 +1107,7 @@ sub parse {
 
     } ## end DECIDE_CRUFT_TREATMENT:
 
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::HTML::Grammar->new(
         {   rules           => \@rules,
             start           => 'document',
             terminals       => \@terminals,
@@ -1123,7 +1128,7 @@ sub parse {
             or Carp::croak("Cannot print: $ERRNO");
     }
 
-    my $recce = Marpa::Recognizer->new(
+    my $recce = Marpa::HTML::Recognizer->new(
         {   grammar           => $grammar,
             trace_terminals   => $self->{trace_terminals},
             trace_earley_sets => $self->{trace_earley_sets},
