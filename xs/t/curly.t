@@ -42,7 +42,7 @@ BEGIN {
         Test::More::plan tests => 10;
     }
     Test::More::use_ok('Marpa::XS');
-    Test::More::use_ok('Marpa::Perl');
+    Test::More::use_ok('Marpa::XS::Perl');
 } ## end BEGIN
 
 use lib 'tool/lib';
@@ -126,7 +126,7 @@ sub tag_completion {
     return 1;
 } ## end sub tag_completion
 
-my $parser = Marpa::Perl->new( {} );
+my $parser = Marpa::XS::Perl->new( {} );
 
 TEST: for my $test (@tests) {
 

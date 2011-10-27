@@ -169,7 +169,7 @@ for my $test_data ( $cycle1_test, $cycle2_test, $cycle8_test ) {
         @{$test_data};
     my $trace = q{};
     open my $MEMORY, '>', \$trace;
-    my $grammar = Marpa::XS::Grammar->new(
+    my $grammar = Marpa::Grammar->new(
         {   infinite_action   => 'warn',
             trace_file_handle => $MEMORY,
         },
@@ -177,7 +177,7 @@ for my $test_data ( $cycle1_test, $cycle2_test, $cycle8_test ) {
     );
     $grammar->precompute();
 
-    my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
     $recce->tokens($input);
     my $value_ref = $recce->value();
     my $value = $value_ref ? ${$value_ref} : 'No parse';

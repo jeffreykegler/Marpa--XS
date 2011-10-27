@@ -50,7 +50,7 @@ my $min0 =
 # Marpa::XS::Display::End
 ; # semicolon to terminate rule
 
-$grammar = Marpa::XS::Grammar->new(
+$grammar = Marpa::Grammar->new(
     {   start     => 'sequence',
         terminals => [qw(item)],
         rules     => [$min0],
@@ -60,7 +60,7 @@ $grammar = Marpa::XS::Grammar->new(
 
 $grammar->precompute();
 
-$recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+$recce = Marpa::Recognizer->new( { grammar => $grammar } );
 
 $recce->tokens( [ [ 'item', '0' ], ['item', '1'] ]);
 
@@ -80,7 +80,7 @@ my $min1 =
 # Marpa::XS::Display::End
 ; # semicolon to terminate rule
 
-$grammar = Marpa::XS::Grammar->new({
+$grammar = Marpa::Grammar->new({
      start => 'sequence',
      rules => [ $min1 ],
         actions => 'main'
@@ -88,7 +88,7 @@ $grammar = Marpa::XS::Grammar->new({
 
 $grammar->precompute();
 
-$recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+$recce = Marpa::Recognizer->new( { grammar => $grammar } );
 
 $recce->tokens( [ [ 'item', '0' ], [ 'item', '1' ] ] );
 
@@ -109,7 +109,7 @@ my $multipart = [
 # Marpa::XS::Display::End
 ]; # semicolon to terminate rule
 
-$grammar = Marpa::XS::Grammar->new(
+$grammar = Marpa::Grammar->new(
     {   start => 'sequence',
         terminals => [qw(part1 part2)],
         rules => $multipart,
@@ -120,7 +120,7 @@ $grammar = Marpa::XS::Grammar->new(
 
 $grammar->precompute();
 
-$recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+$recce = Marpa::Recognizer->new( { grammar => $grammar } );
 
 $recce->tokens( [ [ 'part1', '0' ], [ 'part2', '1' ] ] );
 

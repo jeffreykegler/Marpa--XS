@@ -36,7 +36,7 @@ BEGIN {
 
 ## no critic (Subroutines::RequireArgUnpacking)
 
-my $grammar = Marpa::XS::Grammar->new(
+my $grammar = Marpa::Grammar->new(
     {   start          => 'Statement',
         actions        => 'My_Actions',
         default_action => 'first_arg',
@@ -73,7 +73,7 @@ my $grammar = Marpa::XS::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
 
 my @tokens = (
     [ 'Variable',         'a' ],

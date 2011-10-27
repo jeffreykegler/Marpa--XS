@@ -28,7 +28,7 @@ BEGIN {
     Test::More::use_ok('Marpa::XS');
 }
 
-my $grammar = Marpa::XS::Grammar->new(
+my $grammar = Marpa::Grammar->new(
     {   start          => 'Expression',
         actions        => 'My_Actions',
         default_action => 'first_arg',
@@ -48,7 +48,7 @@ my $grammar = Marpa::XS::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
 
 my @tokens = (
     [ 'Number',   42 ],

@@ -43,7 +43,7 @@ sub start_rule_action {
 
 sub gen_grammar {
     my ($is_count_up) = @_;
-    my $grammar = Marpa::XS::Grammar->new(
+    my $grammar = Marpa::Grammar->new(
         {   start => 'S',
             strip => 0,
             rules => [
@@ -81,7 +81,7 @@ my @counting_down = reverse @counting_up;
 for my $is_count_up ( 1, 0 ) {
     my $count = $is_count_up ? ( \@counting_up ) : ( \@counting_down );
     my $direction_desc = $is_count_up ? 'up' : 'down';
-    my $recce = Marpa::XS::Recognizer->new(
+    my $recce = Marpa::Recognizer->new(
         { grammar => gen_grammar($is_count_up), ranking_method => 'rule' } );
 
     my $input_length = 4;

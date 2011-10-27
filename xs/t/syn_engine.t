@@ -32,7 +32,7 @@ use Marpa::XS::Test;
 
 use Marpa::XS;
 
-my $grammar = Marpa::XS::Grammar->new(
+my $grammar = Marpa::Grammar->new(
     {   start          => 'Expression',
         actions        => 'My_Actions',
         default_action => 'first_arg',
@@ -51,7 +51,7 @@ my $grammar = Marpa::XS::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
 
 $recce->read( 'Number', 42 );
 $recce->read( 'Multiply', );
@@ -98,7 +98,7 @@ my $ambiguous_grammar = Marpa::Grammar->new(
 $ambiguous_grammar->precompute();
 
 my $ambiguous_recce =
-    Marpa::XS::Recognizer->new( { grammar => $ambiguous_grammar } );
+    Marpa::Recognizer->new( { grammar => $ambiguous_grammar } );
 
 $ambiguous_recce->read( 'Number', 42 );
 $ambiguous_recce->read( 'Multiply', );
@@ -126,7 +126,7 @@ sub fix_things {
 # Marpa::XS::Display
 # name: Engine Synopsis Interactive Parse
 
-$recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+$recce = Marpa::Recognizer->new( { grammar => $grammar } );
 
 my @tokens = (
     [ 'Number', 42 ],

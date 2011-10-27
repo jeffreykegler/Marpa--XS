@@ -44,7 +44,7 @@ sub default_action {
 
 sub gen_grammar {
     my ($null_ranking) = @_;
-    my $grammar = Marpa::XS::Grammar->new(
+    my $grammar = Marpa::Grammar->new(
         {   start => 'S',
             rules => [
                 {   lhs          => 'S',
@@ -68,7 +68,7 @@ my @minimal = ( q{}, qw[(;;;a) (;;a;a) (;a;a;a) (a;a;a;a)] );
 
 for my $maximal ( 0, 1 ) {
     my $grammar = gen_grammar( $maximal ? 'low' : 'high' );
-    my $recce = Marpa::XS::Recognizer->new(
+    my $recce = Marpa::Recognizer->new(
         { grammar => $grammar, ranking_method => 'high_rule_only' } );
 
     my $input_length = 4;

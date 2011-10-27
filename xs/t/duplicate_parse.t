@@ -42,7 +42,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::XS::Grammar->new(
+my $grammar = Marpa::Grammar->new(
     {   start => 'S',
         strip => 0,
 
@@ -141,7 +141,7 @@ END_OF_STRING
 use constant SPACE => 0x60;
 
 my $input_length = 3;
-my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
 $recce->tokens(
     [ map { [ 'a', chr( SPACE + $_ ), 1 ] } ( 1 .. $input_length ) ] );
 

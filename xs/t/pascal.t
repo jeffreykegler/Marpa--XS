@@ -34,7 +34,7 @@ BEGIN {
 sub ah_extended {
     my $n = shift;
 
-    my $g = Marpa::XS::Grammar->new(
+    my $g = Marpa::Grammar->new(
         {   start => 'S',
 
             rules => [
@@ -51,7 +51,7 @@ sub ah_extended {
     );
     $g->precompute();
 
-    my $recce = Marpa::XS::Recognizer->new( { grammar => $g } );
+    my $recce = Marpa::Recognizer->new( { grammar => $g } );
 
     $recce->tokens( [ ( [ 'a', 'a', 1 ] ) x ($n) ] );
 

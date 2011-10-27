@@ -173,7 +173,7 @@ my @test_data = (
     [ 'time', q{time  / 25 ; # / ; die "this dies!"}, ['division, comment'] ]
 );
 
-my $g = Marpa::XS::Grammar->new(
+my $g = Marpa::Grammar->new(
     {   warnings => 1,
         actions  => 'main',
     },
@@ -185,7 +185,7 @@ $g->precompute();
 TEST: for my $test_data (@test_data) {
 
     my ( $test_name, $test_input, $test_results ) = @{$test_data};
-    my $recce = Marpa::XS::Recognizer->new( { grammar => $g, mode => 'stream' } );
+    my $recce = Marpa::Recognizer->new( { grammar => $g, mode => 'stream' } );
 
     my $input_length = length $test_input;
     pos $test_input = 0;
