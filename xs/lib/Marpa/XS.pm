@@ -30,30 +30,19 @@ $DEBUG = 0;
 use Carp;
 use English qw( -no_match_vars );
 
-use Marpa::XS::Version;
-
 # Die if more than one of the Marpa modules is loaded
-if ( defined $Marpa::XS::MODULE ) {
-    Carp::croak( "You can only load one of the Marpa modules at a time\n",
-        'The module ', $Marpa::XS::MODULE, " is already loaded\n" );
-}
-$Marpa::XS::MODULE = 'Marpa::XS';
-if ( defined $Marpa::PP::VERSION ) {
-    Carp::croak( 'Attempt to load Marpa::XS when Marpa::PP ',
-        $Marpa::PP::VERSION, ' already loaded' );
-}
-if ($Marpa::XS::USING_PP) {
-    Carp::croak('Attempt to load Marpa::XS when already using Marpa::PP');
-}
-if ($Marpa::XS::USING_XS) {
-    die 'Internal error: Attempt to load Marpa::XS twice';
-}
-if ($Marpa::XS::USE_PP) {
-    Carp::croak('Attempt to load Marpa::XS when USE_PP specified');
+BEGIN {
+    if ( defined $Marpa::VERSION ) {
+	Carp::croak( "You can only load one of the Marpa modules at a time\n",
+	    'Version ', $Marpa::VERSION, " of Marpa is already loaded\n" );
+    }
+    if ( defined $Marpa::PP::VERSION ) {
+	Carp::croak( "You can only load one of the Marpa modules at a time\n",
+	    'Version ', $Marpa::PP::VERSION, " of Marpa::PP is already loaded\n" );
+    }
 }
 
-$Marpa::XS::USING_XS = 1;
-$Marpa::XS::USING_PP = 0;
+use Marpa::XS::Version;
 
 eval {
     require XSLoader;
@@ -122,6 +111,7 @@ require Marpa::XS::Value;
 
 $Marpa::USING_XS = 1;
 $Marpa::USING_PP = undef;
+$Marpa::MODULE = 'Marpa::XS';
 
 *Marpa::Grammar::check_terminal  = \&Marpa::XS::Grammar::check_terminal;
 *Marpa::Grammar::new             = \&Marpa::XS::Grammar::new;
