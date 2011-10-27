@@ -85,7 +85,8 @@ Marpa::XS::Test::is( $grammar->show_symbols(),
 20: S['][], lhs=[21] rhs=[] nullable nulling
 END_OF_STRING
 
-Marpa::XS::Test::is( $grammar->show_rules, <<'END_OF_STRING', 'Leo166 Rules' );
+Marpa::XS::Test::is( $grammar->show_rules,
+    <<'END_OF_STRING', 'Leo166 Rules' );
 0: S -> a A /* !used */
 1: H -> S /* !used */
 2: B -> C /* !used */

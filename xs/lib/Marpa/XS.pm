@@ -33,14 +33,15 @@ use English qw( -no_match_vars );
 # Die if more than one of the Marpa modules is loaded
 BEGIN {
     if ( defined $Marpa::VERSION ) {
-	Carp::croak( "You can only load one of the Marpa modules at a time\n",
-	    'Version ', $Marpa::VERSION, " of Marpa is already loaded\n" );
+        Carp::croak( "You can only load one of the Marpa modules at a time\n",
+            'Version ', $Marpa::VERSION, " of Marpa is already loaded\n" );
     }
     if ( defined $Marpa::PP::VERSION ) {
-	Carp::croak( "You can only load one of the Marpa modules at a time\n",
-	    'Version ', $Marpa::PP::VERSION, " of Marpa::PP is already loaded\n" );
+        Carp::croak( "You can only load one of the Marpa modules at a time\n",
+            'Version ', $Marpa::PP::VERSION,
+            " of Marpa::PP is already loaded\n" );
     }
-}
+} ## end BEGIN
 
 use Marpa::XS::Version;
 
@@ -111,7 +112,7 @@ require Marpa::XS::Value;
 
 $Marpa::USING_XS = 1;
 $Marpa::USING_PP = undef;
-$Marpa::MODULE = 'Marpa::XS';
+$Marpa::MODULE   = 'Marpa::XS';
 
 *Marpa::Grammar::check_terminal  = \&Marpa::XS::Grammar::check_terminal;
 *Marpa::Grammar::new             = \&Marpa::XS::Grammar::new;

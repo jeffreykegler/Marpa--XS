@@ -541,7 +541,8 @@ sub Marpa::XS::Grammar::precompute {
         return $grammar if $error eq 'precomputed';
 
         if ( $error eq 'no rules' ) {
-            Marpa::XS::exception('Attempted to precompute grammar with no rules');
+            Marpa::XS::exception(
+                'Attempted to precompute grammar with no rules');
         }
         if ( $error eq 'empty rule and unmarked terminals' ) {
             Marpa::XS::exception(
@@ -560,7 +561,8 @@ sub Marpa::XS::Grammar::precompute {
             my $symbol_id = $grammar_c->context('symid');
             my $name =
                 $symbols->[$symbol_id]->[Marpa::XS::Internal::Symbol::NAME];
-            Marpa::XS::exception(qq{Start symbol "$name" not on LHS of any rule});
+            Marpa::XS::exception(
+                qq{Start symbol "$name" not on LHS of any rule});
         } ## end if ( $error eq 'start symbol not on LHS' )
         if ( $error eq 'unproductive start symbol' ) {
             my $symbol_id = $grammar_c->context('symid');
@@ -1438,7 +1440,8 @@ sub assign_user_symbol {
             $symbol->[Marpa::XS::Internal::Symbol::TERMINAL_RANK] = $value;
         } ## end if ( $property eq 'terminal_rank' )
         if ( $property eq 'lhs_rank' ) {
-            Marpa::XS::exception(qq{Symbol "$name": lhs_rank must be an integer})
+            Marpa::XS::exception(
+                qq{Symbol "$name": lhs_rank must be an integer})
                 if not Scalar::Util::looks_like_number($value)
                     or int($value) != $value;
             $symbol->[Marpa::XS::Internal::Symbol::LHS_RANK] = $value;

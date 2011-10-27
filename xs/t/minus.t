@@ -125,7 +125,8 @@ Marpa::XS::Test::is( $grammar->show_rules,
 5: E['] -> E /* vlhs real=1 */
 END_RULES
 
-Marpa::XS::Test::is( $grammar->show_AHFA, <<'END_AHFA', 'Minuses Equation AHFA' );
+Marpa::XS::Test::is( $grammar->show_AHFA,
+    <<'END_AHFA', 'Minuses Equation AHFA' );
 * S0:
 E['] -> . E
  <E> => S2; leo(E['])

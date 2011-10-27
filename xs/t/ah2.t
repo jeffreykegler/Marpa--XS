@@ -78,7 +78,8 @@ Marpa::XS::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 14: S['][] -> /* empty vlhs real=1 */
 EOS
 
-Marpa::XS::Test::is( $grammar->show_symbols, <<'EOS', 'Aycock/Horspool Symbols' );
+Marpa::XS::Test::is( $grammar->show_symbols,
+    <<'EOS', 'Aycock/Horspool Symbols' );
 0: S, lhs=[0 4 5 6] rhs=[13]
 1: A, lhs=[1 2] rhs=[0 4 5 7 8 10 11 12]
 2: a, lhs=[] rhs=[1] terminal

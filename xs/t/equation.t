@@ -130,7 +130,8 @@ print $grammar->show_rules()
 
 # Marpa::XS::Display::End
 
-Marpa::XS::Test::is( ${$actual_ref}, <<'END_RULES', 'Ambiguous Equation Rules' );
+Marpa::XS::Test::is( ${$actual_ref},
+    <<'END_RULES', 'Ambiguous Equation Rules' );
 0: E -> E Op E
 1: E -> Number
 2: E['] -> E /* vlhs real=1 */
@@ -171,7 +172,8 @@ if ($Marpa::USING_PP) {
     $actual_ref = save_stdout();
     print $grammar->show_NFA()
         or die "print failed: $ERRNO";
-    Marpa::XS::Test::is( ${$actual_ref}, <<'END_NFA', 'Ambiguous Equation NFA' );
+    Marpa::XS::Test::is( ${$actual_ref},
+        <<'END_NFA', 'Ambiguous Equation NFA' );
 S0: /* empty */
  empty => S7
 S1: E -> . E Op E
@@ -203,7 +205,8 @@ print $grammar->show_AHFA()
 
 # Marpa::XS::Display::End
 
-Marpa::XS::Test::is( ${$actual_ref}, <<'END_AHFA', 'Ambiguous Equation AHFA' );
+Marpa::XS::Test::is( ${$actual_ref},
+    <<'END_AHFA', 'Ambiguous Equation AHFA' );
 * S0:
 E['] -> . E
  <E> => S2; leo(E['])

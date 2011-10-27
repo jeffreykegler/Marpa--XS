@@ -80,7 +80,8 @@ Marpa::XS::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 14: S['][] -> /* empty vlhs real=1 */
 EOS
 
-Marpa::XS::Test::is( $grammar->show_symbols, <<'EOS', 'Aycock/Horspool Symbols' );
+Marpa::XS::Test::is( $grammar->show_symbols,
+    <<'EOS', 'Aycock/Horspool Symbols' );
 0: S, lhs=[0 4 5 6] rhs=[13]
 1: A, lhs=[1 2] rhs=[0 4 5 7 8 10 11 12]
 2: a, lhs=[] rhs=[1] terminal
@@ -552,7 +553,8 @@ R11:2@2-3
 R12:2@2-3
 END_OF_TEXT
 
-Marpa::XS::Test::is( $recce->show_or_nodes(), $or_node_output, 'XS Or nodes' );
+Marpa::XS::Test::is( $recce->show_or_nodes(), $or_node_output,
+    'XS Or nodes' );
 
 my $and_node_output = <<'END_OF_TEXT';
 R6:1@0-0S5@0
@@ -580,7 +582,8 @@ R11:2@2-3S5@3
 R12:2@2-3C1@2
 END_OF_TEXT
 
-Marpa::XS::Test::is( $recce->show_and_nodes(), $and_node_output, 'XS And nodes' );
+Marpa::XS::Test::is( $recce->show_and_nodes(),
+    $and_node_output, 'XS And nodes' );
 
 my $bocage_output = <<'END_OF_TEXT';
 R6:1@0-0 - S5

@@ -684,7 +684,8 @@ sub Marpa::XS::Internal::Recognizer::evaluate {
         my $closure =
             Marpa::XS::Internal::Recognizer::resolve_semantics( $recce,
             $constructor_name );
-        Marpa::XS::exception(qq{Could not find constructor "$constructor_name"})
+        Marpa::XS::exception(
+            qq{Could not find constructor "$constructor_name"})
             if not defined $closure;
         $action_object_constructor = $closure;
     } ## end if ( defined $action_object_class )

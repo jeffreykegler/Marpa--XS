@@ -344,7 +344,8 @@ sub Marpa::XS::Recognizer::set {
         } ## end if ( defined( my $value = $args->{'trace_actions'} ))
 
         if ( defined( my $value = $args->{'trace_and_nodes'} ) ) {
-            Marpa::XS::exception('trace_and_nodes must be set to a number >= 0')
+            Marpa::XS::exception(
+                'trace_and_nodes must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
             $recce->[Marpa::XS::Internal::Recognizer::TRACE_AND_NODES] =
                 $value + 0;
@@ -366,7 +367,8 @@ sub Marpa::XS::Recognizer::set {
         } ## end if ( defined( my $value = $args->{'trace_bocage'} ) )
 
         if ( defined( my $value = $args->{'trace_or_nodes'} ) ) {
-            Marpa::XS::exception('trace_or_nodes must be set to a number >= 0')
+            Marpa::XS::exception(
+                'trace_or_nodes must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
             $recce->[Marpa::XS::Internal::Recognizer::TRACE_OR_NODES] =
                 $value + 0;
@@ -976,7 +978,8 @@ sub Marpa::XS::Recognizer::alternative {
 
     my ( $recce, $symbol_name, $value, $length ) = @_;
 
-    Marpa::XS::exception('No recognizer object for Marpa::XS::Recognizer::tokens')
+    Marpa::XS::exception(
+        'No recognizer object for Marpa::XS::Recognizer::tokens')
         if not defined $recce
             or ref $recce ne 'Marpa::XS::Recognizer';
 
@@ -1032,7 +1035,8 @@ sub Marpa::XS::Recognizer::tokens {
     my ( $recce, $tokens, $token_ix_ref ) = @_;
     my $recce_c = $recce->[Marpa::XS::Internal::Recognizer::C];
 
-    Marpa::XS::exception('No recognizer object for Marpa::XS::Recognizer::tokens')
+    Marpa::XS::exception(
+        'No recognizer object for Marpa::XS::Recognizer::tokens')
         if not defined $recce
             or ref $recce ne 'Marpa::XS::Recognizer';
 
