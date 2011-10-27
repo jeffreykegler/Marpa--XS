@@ -674,7 +674,7 @@ document.
 name: Debug Example Part 1
 perltidy: '-dcsc -sil=0'
 
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::XS::Grammar->new(
         {   start          => 'Expression',
             actions        => 'My_Actions',
             default_action => 'first_arg',

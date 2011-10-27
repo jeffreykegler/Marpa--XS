@@ -30,7 +30,7 @@ use Perl::Tidy;
 use Text::Wrap;
 
 use lib 'tool/lib';
-use Marpa::Display;
+use Marpa::XS::Display;
 
 my $warnings = 0;
 my $options_result = GetOptions( 'warnings' => \$warnings );
