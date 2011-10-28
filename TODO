@@ -12,10 +12,11 @@ Do not document DEFAULT_RANK and Symbol::RANK until there are tests for them
 Document Symbol::RANK
 Document LHS_RANK and TERMINAL_RANK once tested
 
+In Marpa::HTML, eliminate use of Marpa namespace for invoking Marpa::XS, Marpa::PP
+
 Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01:52:52 GMT
 * Change 00-load, HTML.pm so Marpa::HTML tracks which version it is using -- more than one
   may be loaded.
-* Replace all *::exception with Carp::croak or die.  Make sure there is "use Carp ();"
 * cleanup results of ack 'Marpa::[^H]' .
 * check test results
 * update version file
