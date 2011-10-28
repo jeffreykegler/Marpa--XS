@@ -17,11 +17,6 @@ In Marpa::HTML, eliminate use of Marpa namespace for invoking Marpa::XS, Marpa::
 Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01:52:52 GMT
 * DONE: On CPAN, Checked Diff from Marpa-HTML-0.102000 to Marpa-HTML-0.103_001
 * DONE: Checked Git vs. CPAN for Marpa-HTML-0.103_001
-* cleanup results of ack 'Marpa::[^H]' .
-* check test results
-* update version file
-* diff previous with current
-* update change file: internal reorganization
 
 Marpa Pending release candidate: Marpa-0.205_000.tar.gz Wed, 26 Oct 2011 04:38:48 GMT
 * check test results
