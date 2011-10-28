@@ -139,7 +139,7 @@ END_RULES
 
 # Alternative tests: AHFA items if XS, NFA items if PP
 
-if ($Marpa::USING_XS) {
+if ( defined $Marpa::XS::VERSION ) {
 
     $actual_ref = save_stdout();
 
@@ -166,9 +166,9 @@ AHFA item 7: sort = 7; completion
     E['] -> E .
 EOS
 
-}    # USING_XS
+} ## end if ( defined $Marpa::XS::VERSION )
 
-if ($Marpa::USING_PP) {
+if ( defined $Marpa::PP::VERSION ) {
     $actual_ref = save_stdout();
     print $grammar->show_NFA()
         or die "print failed: $ERRNO";
@@ -193,7 +193,7 @@ S7: E['] -> . E
  <E> => S8
 S8: E['] -> E .
 END_NFA
-}    # USING_PP
+} ## end if ( defined $Marpa::PP::VERSION )
 
 $actual_ref = save_stdout();
 
