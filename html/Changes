@@ -13,6 +13,8 @@ Revision history for Marpa::HTML
 
     * Cut back use of Marpa namespace.
 
+    * Many packaging improvements
+
 0.102000 Sun Mar 21 13:28:14 2010
 
     * Added missing 'requires' for Marpa package.

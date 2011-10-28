@@ -10,7 +10,7 @@ use strict;
 use warnings;
 
 use vars qw( $VERSION $STRING_VERSION );
-$VERSION = '0.103_002';
+$VERSION = '0.103_003';
 $STRING_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 
@@ -33,9 +33,11 @@ BEGIN {
     if ($using_xs) {
         require Marpa::XS;
 	Marpa::XS->VERSION(0.018000);
+	$Marpa::HTML::MARPA_MODULE = 'Marpa::XS';
     } else {
         require Marpa::PP;
 	Marpa::PP->VERSION(0.010000);
+	$Marpa::HTML::MARPA_MODULE = 'Marpa::PP';
     }
 }
 
