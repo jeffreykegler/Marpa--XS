@@ -22,7 +22,9 @@ Revision history for Marpa::XS
 
     * New series of developer's release
 
-    * Cosmetic fix to indexing
+    * Cosmetic fix to indexing and docs
+
+    * Restrict use of Marpa namespace
 
 0.018000 Thu Oct 20 14:56:52 PDT 2011
 
