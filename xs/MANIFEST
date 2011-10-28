@@ -153,6 +153,8 @@ t/leo_cycle.t
 t/leo_example.t
 t/limits.t
 t/minus.t
+t/no_bare.t
+t/no_pp.t
 t/null_example.t
 t/null_infinite1.t
 t/null_infinite4.t
