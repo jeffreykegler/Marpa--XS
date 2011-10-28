@@ -44,4 +44,4 @@ requires:
   perl: 5.01
 resources:
   repository: git://github.com/jeffreykegler/Marpa--HTML.git
-version: 0.103_002
+version: 0.103_003
