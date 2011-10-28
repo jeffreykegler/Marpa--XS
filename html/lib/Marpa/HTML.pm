@@ -22,7 +22,7 @@ BEGIN { @EXPORT_OK = qw(html); }
 
 package Marpa::HTML::Internal;
 
-use Carp ();
+use Carp;
 use HTML::PullParser;
 use HTML::Entities qw(decode_entities);
 use HTML::Tagset ();
@@ -160,7 +160,7 @@ sub tdesc_list_to_literal {
                     ( $end_offset - $offset );
             } ## end when ('UNVALUED_SPAN')
             default {
-                Marpa::exception(qq{Internal error: unknown tdesc type "$_"});
+                Carp::croak(qq{Internal error: unknown tdesc type "$_"});
             }
         } ## end given
     } ## end for my $tdesc ( @{$tdesc_list} )
@@ -332,7 +332,7 @@ sub create_tdesc_handler {
                             $tdesc->[Marpa::HTML::Internal::TDesc::END_TOKEN];
                     } ## end when ('UNVALUED_SPAN')
                     default {
-                        Marpa::exception("Unknown text description type: $_");
+                        Carp::croak("Unknown text description type: $_");
                     }
                 } ## end given
             } ## end PARSE_TDESC:
@@ -480,7 +480,7 @@ my %ARGS = (
 sub add_handler {
     my ( $self, $handler_description ) = @_;
     my $ref_type = ref $handler_description || 'not a reference';
-    Marpa::exception(
+    Carp::croak(
         "Long form handler description should be ref to hash, but it is $ref_type"
     ) if $ref_type ne 'HASH';
     my $element     = delete $handler_description->{element};
@@ -488,12 +488,12 @@ sub add_handler {
     my $class       = delete $handler_description->{class};
     my $pseudoclass = delete $handler_description->{pseudoclass};
     my $action      = delete $handler_description->{action};
-    Marpa::exception(
+    Carp::croak(
         'Unknown option(s) in Long form handler description: ',
         ( join q{ }, keys %{$handler_description} )
     ) if scalar keys %{$handler_description};
 
-    Marpa::exception('Handler action must be CODE ref')
+    Carp::croak('Handler action must be CODE ref')
         if ref $action ne 'CODE';
 
     $element = ( not $element or $element eq q{*} ) ? 'ANY' : lc $element;
@@ -515,7 +515,7 @@ sub add_handler {
 sub add_handlers_from_hashes {
     my ( $self, $handler_specs ) = @_;
     my $ref_type = ref $handler_specs || 'not a reference';
-    Marpa::exception(
+    Carp::croak(
         "handlers arg must must be ref to ARRAY, it is $ref_type")
         if $ref_type ne 'ARRAY';
     for my $handler_spec ( keys %{$handler_specs} ) {
@@ -541,11 +541,11 @@ sub add_handlers {
             ]
             )
         {
-            Marpa::exception( qq{pseudoclass "$pseudoclass" is not known:\n},
+            Carp::croak( qq{pseudoclass "$pseudoclass" is not known:\n},
                 "Specifier was $specifier\n" );
         } ## end if ( $pseudoclass and not $pseudoclass ~~ [ ...])
         if ( $pseudoclass and $element ) {
-            Marpa::exception(
+            Carp::croak(
                 qq{pseudoclass "$pseudoclass" may not have an element specified:\n},
                 "Specifier was $specifier\n"
             );
@@ -577,12 +577,12 @@ sub create {
             Marpa::HTML::Internal::add_handlers( $self, $arg );
             next ARG;
         }
-        Marpa::exception(
+        Carp::croak(
             "Argument must be hash or refs to hash: it is $ref_type")
             if $ref_type ne 'REF';
         my $option_hash = ${$arg};
         $ref_type = ref $option_hash || 'not a reference';
-        Marpa::exception(
+        Carp::croak(
             "Argument must be hash or refs to hash: it is ref to $ref_type")
             if $ref_type ne 'HASH';
         OPTION: for my $option ( keys %{$option_hash} ) {
@@ -596,7 +596,7 @@ sub create {
                 ]
                 )
             {
-                Marpa::exception("unknown option: $option");
+                Carp::croak("unknown option: $option");
             } ## end if ( not $option ~~ [ ...])
             $self->{$option} = $option_hash->{$option};
         } ## end for my $option ( keys %{$option_hash} )
@@ -850,7 +850,7 @@ sub parse {
     my %start_tags = ();
     my %end_tags   = ();
 
-    Marpa::exception(
+    Carp::croak(
         "parse() already run on this object\n",
         'For a new parse, create a new object'
     ) if $self->{document};
@@ -860,7 +860,7 @@ sub parse {
     my $trace_conflicts = $self->{trace_conflicts};
     my $trace_fh        = $self->{trace_fh};
     my $ref_type        = ref $document_ref;
-    Marpa::exception('Arg to parse() must be ref to string')
+    Carp::croak('Arg to parse() must be ref to string')
         if not $ref_type
             or $ref_type ne 'SCALAR'
             or not defined ${$document_ref};
@@ -1401,7 +1401,7 @@ sub parse {
         # As of now, there are
         # no per-element pseudo-classes, and since I can't regression test
         # this logic any more, I'm commenting it out.
-        Marpa::exception('per-element pseudo-classes not implemented');
+        Carp::croak('per-element pseudo-classes not implemented');
 
         # my ( $pseudoclass, $element ) = @{$data};
         # my $pseudoclass_action =
@@ -1426,7 +1426,7 @@ sub parse {
             }
         );
     };
-    Marpa::exception('No parse: evaler returned undef') if not defined $value;
+    Carp::croak('No parse: evaler returned undef') if not defined $value;
     return ${$value};
 
 } ## end sub parse

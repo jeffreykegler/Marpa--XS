@@ -7,8 +7,9 @@ package Marpa::HTML::Test;
 use 5.010;
 use strict;
 use warnings;
+use Carp;
 
-Marpa::exception('Test::More not loaded')
+Carp::croak('Test::More not loaded')
     if not defined &Test::More::is;
 
 BEGIN {

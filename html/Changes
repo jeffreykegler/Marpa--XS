@@ -11,7 +11,7 @@ Revision history for Marpa::HTML
 
     * A series of developer's releases.
 
-    * No use of Marpa namespace.
+    * Cut back use of Marpa namespace.
 
 0.102000 Sun Mar 21 13:28:14 2010
 

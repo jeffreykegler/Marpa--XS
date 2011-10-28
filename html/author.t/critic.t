@@ -30,8 +30,7 @@ my %exclude = map { ( $_, 1 ) } qw(
     inc/Test/Weaken.pm
 );
 
-open my $manifest, '<', 'MANIFEST'
-    or Marpa::Exception("open of MANIFEST failed: $ERRNO");
+open my $manifest, '<', 'MANIFEST';
 
 my @test_files = ();
 FILE: while ( my $file = <$manifest> ) {
