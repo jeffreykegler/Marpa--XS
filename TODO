@@ -12,17 +12,34 @@ Do not document DEFAULT_RANK and Symbol::RANK until there are tests for them
 Document Symbol::RANK
 Document LHS_RANK and TERMINAL_RANK once tested
 
-In Marpa::HTML, eliminate use of Marpa namespace for invoking Marpa::XS, Marpa::PP
-
 Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01:52:52 GMT
 * DONE: On CPAN, Checked Diff from Marpa-HTML-0.102000 to Marpa-HTML-0.103_001
 * DONE: Checked Git vs. CPAN for Marpa-HTML-0.103_001
 
 Marpa Pending release candidate: Marpa-0.205_000.tar.gz Wed, 26 Oct 2011 04:38:48 GMT
+
+Marpa Pending release candidate: Marpa-XS-0.019_004
 * DONE: On CPAN, Checked Diff from Marpa-XS-0.018000 to Marpa-XS-0.019_003
 * DONE: Checked Git vs. CPAN for Marpa-XS-0.019_003
 * DONE: diff of git CPAN_XS-0.019_003 vs. CPAN-0.019_004 checked
 * DONE: ack 'Marpa::[^X]' checked for namespace issues at git CPAN-0.019_004
 * DONE: Uploaded CPAN-0.019_004
+
+For Marpa::HTML:
+* Eliminate use of Marpa namespace for invoking Marpa::XS, Marpa::PP once
+official releases of these bless objects into their own namespace.
+Make sure I require versions of Marpa::XS, Marpa::PP which have the
+necessary blessing behavior.
+
+For Marpa::PP
+* Add no_xs.t, no_bare.t
+* Restrict use of Marpa namespace
+* Add Marpa::PP::DEPRECATED_OK as guard for constant ranking method
+* Add deprecated.t, eiliminate tokens, Marpa namespace from all other *.t
  
- 
+For Marpa::XS
+* Add deprecated.t, eiliminate tokens, Marpa namespace from all other *.t
+
+For Marpa::PP and Marpa::XS, later
+* Add COMPATIBILITY mode, with compatibility.t
+* Add COMPATIBILITY to all *.t but deprecated.t
