@@ -19,6 +19,8 @@ Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01
 * DONE: Checked Git vs. CPAN for Marpa-HTML-0.103_001
 
 Marpa Pending release candidate: Marpa-0.205_000.tar.gz Wed, 26 Oct 2011 04:38:48 GMT
+* DONE: On CPAN, Checked Diff from Marpa-XS-0.018000 to Marpa-XS-0.019_003
+* DONE: Checked Git vs. CPAN for Marpa-XS-0.019_003
 * check test results
 * update version, change file
 * diff with last release
