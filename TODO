@@ -18,9 +18,7 @@ Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01
 * Make sure I have enought cpantesters results for Marpa::XS 0.019_004
 * Make sure I have enought cpantesters results for Marpa::XS 0.018000
 
-Marpa Pending release candidate: Marpa-0.205_000.tar.gz Wed, 26 Oct 2011 04:38:48 GMT
-
-Marpa Pending release candidate: Marpa-XS-0.019_004
+Marpa Pending release candidate: Marpa-XS-0.019_004 Fri, 28 Oct 2011 03:32:43 GMT
 * DONE: On CPAN, Checked Diff from Marpa-XS-0.018000 to Marpa-XS-0.019_003
 * DONE: Checked Git vs. CPAN for Marpa-XS-0.019_003
 * DONE: diff of git CPAN_XS-0.019_003 vs. CPAN-0.019_004 checked
