@@ -75,15 +75,15 @@
    "provides" : {
       "Marpa::XS" : {
          "file" : "lib/Marpa/XS.pm",
-         "version" : "0.019_004"
+         "version" : "0.020000"
       },
       "Marpa::XS::Grammar" : {
          "file" : "lib/Marpa/XS/Grammar.pm",
-         "version" : "0.019_004"
+         "version" : "0.020000"
       },
       "Marpa::XS::Internal" : {
          "file" : "lib/Marpa/XS/Internal.pm",
-         "version" : "0.019_004"
+         "version" : "0.020000"
       },
       "Marpa::XS::Internal::Grammar" : {
          "file" : "lib/Marpa/XS/Grammar.pm",
@@ -99,18 +99,18 @@
       },
       "Marpa::XS::Recognizer" : {
          "file" : "lib/Marpa/XS/Recognizer.pm",
-         "version" : "0.019_004"
+         "version" : "0.020000"
       },
       "Marpa::XS::Value" : {
          "file" : "lib/Marpa/XS/Value.pm",
-         "version" : "0.019_004"
+         "version" : "0.020000"
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "repository" : {
          "url" : "git://github.com/jeffreykegler/Marpa-XS.git"
       }
    },
-   "version" : "0.019_004"
+   "version" : "0.020000"
 }
