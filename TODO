@@ -18,7 +18,9 @@ Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01
 * DONE: In git, checked diff of CPAN_HTML-0.103_001 vs. CPAN_HTML-0.103_003
 * DONE: On CPAN, checked Diff from Marpa-HTML-0.103_001 to Marpa-HTML-0.103_003
 * Make sure I have enough cpantesters results for Marpa::XS 0.019_004
+  Just one as of Sun Oct 30 08:41:39 PDT 2011!
 * Make sure I have enough cpantesters results for Marpa::XS 0.018000
+  Just one as of Sun Oct 30 08:41:39 PDT 2011!
 
 Marpa Pending release candidate: Marpa-XS-0.019_004 Fri, 28 Oct 2011 03:32:43 GMT
 * DONE: On CPAN, Checked Diff from Marpa-XS-0.018000 to Marpa-XS-0.019_003
@@ -28,6 +30,7 @@ Marpa Pending release candidate: Marpa-XS-0.019_004 Fri, 28 Oct 2011 03:32:43 GM
 * DONE: ack 'Marpa::[^X]' checked for namespace issues at git CPAN-0.019_004
 * DONE: Uploaded CPAN-0.019_004
 * Make sure I have enough cpantesters results for Marpa::HTML w/ CPAN-0.019_004
+  Just one as of Sun Oct 30 08:41:39 PDT 2011!
 
 For Marpa::HTML:
 * Eliminate use of Marpa namespace for invoking Marpa::XS, Marpa::PP once
