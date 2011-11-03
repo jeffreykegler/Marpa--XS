@@ -21,7 +21,7 @@ use warnings;
     'HTML::Parser'        => '3.64',
     'HTML::PullParser'    => '3.57',
     'Marpa::PP'           => '0.010000',
-    'Marpa::XS'           => '0.018000',
+    'Marpa::XS'           => '0.020000',
     'Module::Build'       => 0.3601,
     'Test::More'          => 0.94,
 );

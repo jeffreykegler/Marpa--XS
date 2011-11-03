@@ -10,7 +10,7 @@ use strict;
 use warnings;
 
 use vars qw( $VERSION $STRING_VERSION );
-$VERSION = '0.103_003';
+$VERSION = '0.103_004';
 $STRING_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 
@@ -32,14 +32,22 @@ BEGIN {
     my $using_xs = eval { require Marpa::XS::Installed; 1 };
     if ($using_xs) {
         require Marpa::XS;
-	Marpa::XS->VERSION(0.018000);
-	$Marpa::HTML::MARPA_MODULE = 'Marpa::XS';
-    } else {
+        Marpa::XS->VERSION(0.020000);
+        $Marpa::HTML::MARPA_MODULE = 'Marpa::XS';
+        no strict 'refs';
+        *Marpa::HTML::Recognizer::new = \&Marpa::XS::Recognizer::new;
+        *Marpa::HTML::Grammar::new    = \&Marpa::XS::Grammar::new;
+    } ## end if ($using_xs)
+    else {
         require Marpa::PP;
-	Marpa::PP->VERSION(0.010000);
-	$Marpa::HTML::MARPA_MODULE = 'Marpa::PP';
-    }
-}
+        Marpa::PP->VERSION(0.010000);
+        $Marpa::HTML::MARPA_MODULE = 'Marpa::PP';
+        no strict 'refs';
+        no strict 'refs';
+        *Marpa::HTML::Recognizer::new = \&Marpa::PP::Recognizer::new;
+        *Marpa::HTML::Grammar::new    = \&Marpa::PP::Grammar::new;
+    } ## end else [ if ($using_xs) ]
+} ## end BEGIN
 
 # use Smart::Comments '-ENV';
 
@@ -1104,7 +1112,7 @@ sub parse {
 
     } ## end DECIDE_CRUFT_TREATMENT:
 
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::HTML::Grammar->new(
         {   rules           => \@rules,
             start           => 'document',
             terminals       => \@terminals,
@@ -1125,7 +1133,7 @@ sub parse {
             or Carp::croak("Cannot print: $ERRNO");
     }
 
-    my $recce = Marpa::Recognizer->new(
+    my $recce = Marpa::HTML::Recognizer->new(
         {   grammar           => $grammar,
             trace_terminals   => $self->{trace_terminals},
             trace_earley_sets => $self->{trace_earley_sets},
@@ -1141,14 +1149,15 @@ sub parse {
     my %start_virtuals_used           = ();
     my $earleme_of_last_start_virtual = -1;
 
-    RECCE_RESPONSE: for ( my $token_ix = 0;; ) {
+    my $marpa_token = shift @marpa_tokens;
+    RECCE_RESPONSE: while ( defined $marpa_token ) {
 
-        my ( $current_earleme, $expected_terminals ) =
-            $recce->tokens( \@marpa_tokens, \$token_ix );
+        my $read_result = $recce->read( @{$marpa_token} );
+        if ( defined $read_result ) {
+            $marpa_token = shift @marpa_tokens;
+            next RECCE_RESPONSE;
+        }
 
-        last RECCE_RESPONSE if $token_ix > $#marpa_tokens;
-
-        my $marpa_token     = $marpa_tokens[$token_ix];
         my $actual_terminal = $marpa_token->[0];
         if ($trace_terminals) {
             say {$trace_fh} 'Literal Token not accepted: ', $actual_terminal
@@ -1162,7 +1171,7 @@ sub parse {
             my @virtuals_expected =
                 sort { $optional_terminals{$a} <=> $optional_terminals{$b} }
                 grep { defined $optional_terminals{$_} }
-                @{$expected_terminals};
+                @{ $recce->terminals_expected() };
             if ($trace_conflicts) {
                 say {$trace_fh} 'Conflict of virtual choices'
                     or Carp::croak("Cannot print: $ERRNO");
@@ -1288,6 +1297,7 @@ sub parse {
                 # Are we at the same earleme as we were when the last
                 # virtual start was added?  If not, no problem.
                 # But we need to reinitialize.
+                my $current_earleme = $recce->current_earleme();
                 if ( $current_earleme != $earleme_of_last_start_virtual ) {
                     $earleme_of_last_start_virtual = $current_earleme;
                     %start_virtuals_used           = ();
@@ -1320,7 +1330,7 @@ sub parse {
         } ## end FIND_VIRTUAL_TOKEN:
 
         if ( defined $virtual_token_to_add ) {
-            $recce->tokens( [$virtual_token_to_add] );
+            $recce->read( @{$virtual_token_to_add} );
             next RECCE_RESPONSE;
         }
 
@@ -1337,7 +1347,7 @@ sub parse {
         $marpa_token->[0] = 'CRUFT';
         if ($trace_cruft) {
             my ( $line, $col ) =
-                earleme_to_linecol( $self, $current_earleme );
+                earleme_to_linecol( $self, $recce->current_earleme() );
 
             # HTML::Parser uses one-based line numbers,
             # but zero-based column numbers
@@ -1350,7 +1360,7 @@ sub parse {
                 or Carp::croak("Cannot print: $ERRNO");
         } ## end if ($trace_cruft)
 
-    } ## end for ( my $token_ix = 0;; )
+    } ## end while ( defined $marpa_token )
 
     if ($trace_terminals) {
         say {$trace_fh} 'at end of tokens'

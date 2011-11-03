@@ -32,7 +32,7 @@ provides:
     file: lib/Marpa/HTML.pm
     version: 0
 recommends:
-  Marpa::XS: 0.018000
+  Marpa::XS: 0.020000
 requires:
   Carp: 1.08
   Data::Dumper: 2.125
@@ -44,4 +44,4 @@ requires:
   perl: 5.01
 resources:
   repository: git://github.com/jeffreykegler/Marpa--HTML.git
-version: 0.103_003
+version: 0.103_004
