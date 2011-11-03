@@ -17,9 +17,7 @@ Marpa Pending release candidate: Marpa-HTML-0.103_004.tar.gz Thu, 03 Nov 2011 05
 * DONE: Checked Git vs. CPAN for Marpa-HTML-0.103_001
 * DONE: In git, checked diff of CPAN_HTML-0.103_001 vs. CPAN_HTML-0.103_003
 * DONE: On CPAN, checked Diff from Marpa-HTML-0.103_001 to Marpa-HTML-0.103_003
-* Make sure I have enough cpantesters results for Marpa::XS 0.019_004
-  Just one as of Sun Oct 30 08:41:39 PDT 2011!
-  Actually, now check vs. Marpa::XS 0.020000
+* Make sure I have enough cpantesters results for Marpa::XS 0.020000
 
 For Marpa::PP
 * Add no_xs.t, no_bare.t
@@ -28,7 +26,9 @@ For Marpa::PP
 * Add deprecated.t, eiliminate tokens, Marpa namespace from all other *.t
  
 For Marpa::XS
-* Add deprecated.t, eliminate Marpa namespace from all other *.t
+* Add deprecated{1,2}.t
+* Eliminate Marpa namespace from all other *.t
+* Eliminate use of tokens() call from everything but deprecated*.t
 
 For Marpa::PP and Marpa::XS, later
 * Add COMPATIBILITY mode, with compatibility.t
