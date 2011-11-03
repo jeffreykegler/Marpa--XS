@@ -12,7 +12,7 @@ Do not document DEFAULT_RANK and Symbol::RANK until there are tests for them
 Document Symbol::RANK
 Document LHS_RANK and TERMINAL_RANK once tested
 
-Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01:52:52 GMT
+Marpa Pending release candidate: Marpa-HTML-0.103_004.tar.gz Thu, 03 Nov 2011 05:03:01 GMT
 * DONE: On CPAN, Checked Diff from Marpa-HTML-0.102000 to Marpa-HTML-0.103_001
 * DONE: Checked Git vs. CPAN for Marpa-HTML-0.103_001
 * DONE: In git, checked diff of CPAN_HTML-0.103_001 vs. CPAN_HTML-0.103_003
@@ -20,14 +20,6 @@ Marpa Pending release candidate: Marpa-HTML-0.103_002.tar.gz Wed, 26 Oct 2011 01
 * Make sure I have enough cpantesters results for Marpa::XS 0.019_004
   Just one as of Sun Oct 30 08:41:39 PDT 2011!
   Actually, now check vs. Marpa::XS 0.020000
-* Make sure I have enough cpantesters results for Marpa::XS 0.018000
-  Just one as of Sun Oct 30 08:41:39 PDT 2011!
-
-For Marpa::HTML:
-* Eliminate use of Marpa namespace for invoking Marpa::XS, Marpa::PP once
-official releases of these bless objects into their own namespace.
-Make sure I require versions of Marpa::XS, Marpa::PP which have the
-necessary blessing behavior.
 
 For Marpa::PP
 * Add no_xs.t, no_bare.t
