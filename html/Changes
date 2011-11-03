@@ -5,6 +5,7 @@
 
 Revision history for Marpa::HTML
 
+0.103_004 Wed Nov  2 21:58:40 PDT 2011
 0.103_003 Thu Oct 27 19:03:15 PDT 2011
 0.103_002 Thu Oct 27 08:43:48 PDT 2011
 0.103_001 Tue Oct 25 09:26:41 PDT 2011
@@ -12,9 +13,11 @@ Revision history for Marpa::HTML
 
     * A series of developer's releases.
 
-    * Cut back use of Marpa namespace.
+    * Eliminate use of tokens() call.
 
-    * Many packaging improvements
+    * Eliminate use of Marpa:: namespace.
+
+    * Many packaging improvements.
 
 0.102000 Sun Mar 21 13:28:14 2010
 
