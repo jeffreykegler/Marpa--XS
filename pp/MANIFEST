@@ -30,6 +30,7 @@ author.t/.gitignore
 author.t/Makefile
 author.t/accept_tidy
 author.t/ampersand.t
+author.t/create_critic_list.pl
 author.t/critic.t
 author.t/critic1
 author.t/display.t
@@ -38,6 +39,7 @@ author.t/perlcriticrc
 author.t/perltidyrc
 author.t/pod.t
 author.t/spelling_exceptions.list
+author.t/tidy.t
 author.t/tidy1
 config/Marpa/PP/Build_Me.pm
 config/Marpa/PP/Config.pm
@@ -77,7 +79,6 @@ t/chaf.t
 t/code_diag.t
 t/counter.t
 t/curly.t
-t/cycle_count.t
 t/debug.t
 t/debug_leo.t
 t/debug_seq.t

@@ -39,16 +39,16 @@ no_index:
 provides:
   Marpa::PP:
     file: lib/Marpa/PP.pm
-    version: 0.011_000
+    version: 0.011_001
   Marpa::PP::Callback:
     file: lib/Marpa/PP/Callback.pm
-    version: 0.011_000
+    version: 0.011_001
   Marpa::PP::Grammar:
     file: lib/Marpa/PP/Grammar.pm
-    version: 0.011_000
+    version: 0.011_001
   Marpa::PP::Internal:
     file: lib/Marpa/PP/Internal.pm
-    version: 0.011_000
+    version: 0.011_001
   Marpa::PP::Internal::Callback:
     file: lib/Marpa/PP/Callback.pm
     version: 0
@@ -63,10 +63,10 @@ provides:
     version: 0.011_000
   Marpa::PP::Recognizer:
     file: lib/Marpa/PP/Recognizer.pm
-    version: 0.011_000
+    version: 0.011_001
   Marpa::PP::Value:
     file: lib/Marpa/PP/Value.pm
-    version: 0.011_000
+    version: 0.011_001
 recommends:
   PPI: 1.206
   Test::Weaken: 3.004000
@@ -79,4 +79,4 @@ requires:
   Task::Weaken: 0
 resources:
   repository: git://github.com/jeffreykegler/Marpa-PP.git
-version: 0.011_000
+version: 0.011_001

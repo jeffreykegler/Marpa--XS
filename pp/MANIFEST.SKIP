@@ -17,8 +17,11 @@
 ^\.git\/
 ^\.gitignore$
 ^\_build\/
-^author.t/all.errs$
-^author.t/display.errs$
+^author.t/all[.]errs$
+^author.t/critic[.]errs$
+^author.t/critic[.]list$
+^author.t/display[.]errs$
+^author.t/tidy[.]errs$
 ^author.t/perlcritic.errs$
 ^blib/
 ^errs$
