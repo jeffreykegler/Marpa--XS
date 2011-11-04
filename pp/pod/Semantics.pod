@@ -24,7 +24,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::PP::Grammar->new(
         {   start          => 'Expression',
             actions        => 'My_Actions',
             default_action => 'first_arg',
@@ -666,12 +666,12 @@ on parse order|Marpa::PP::Semantics::Order>.
 =head1 CONTEXT-AWARE STATIC METHODS
 
 =for Marpa::PP::Display
-name: Marpa::token_location example
+name: Marpa::PP::token_location example
 perltidy: '-dcsc -sil=0'
 
     sub rank_null_a {
         return \( ( $MyTest::MAXIMAL ? -1 : 1 )
-            * 10**( 3 - Marpa::token_location() ) );
+            * 10**( 3 - Marpa::PP::token_location() ) );
     }
 
 =for Marpa::PP::Display::End
@@ -686,11 +686,11 @@ static methods are available for the
 ranking actions only.
 This may change in the future.
 
-=head2 Marpa::location
+=head2 Marpa::PP::location
 
 Returns the location of the origin (or start) of the rule.
 
-=head2 Marpa::token_location
+=head2 Marpa::PP::token_location
 
 Returns the location of the token.
 Intended for use in callbacks

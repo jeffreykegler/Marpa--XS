@@ -24,7 +24,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::PP::Grammar->new(
         {   start   => 'Expression',
             actions => 'My_Actions',
             default_action => 'first_arg',
@@ -165,7 +165,7 @@ As of this writing,
 the maximum number of repetitions is always infinite.
 
 =for Marpa::PP::Display
-name: Marpa::Grammar min 0 sequence example
+name: Marpa::PP::Grammar min 0 sequence example
 partial: 1
 normalize-whitespace: 1
 
@@ -179,7 +179,7 @@ This is the equivalent of using the star quantifier
 standard regular expression notation.
 
 =for Marpa::PP::Display
-name: Marpa::Grammar min 1 sequence example
+name: Marpa::PP::Grammar min 1 sequence example
 partial: 1
 normalize-whitespace: 1
 
@@ -244,7 +244,7 @@ Of course, applications will often want to repeat sequences of multiple symbols.
 That is easy to do indirectly:
 
 =for Marpa::PP::Display
-name: Marpa::Grammar multipart rhs sequence example
+name: Marpa::PP::Grammar multipart rhs sequence example
 partial: 1
 normalize-whitespace: 1
 
@@ -262,7 +262,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::PP::Grammar->new(
         {   start   => 'Expression',
             actions => 'My_Actions',
             default_action => 'first_arg',
@@ -281,10 +281,10 @@ normalize-whitespace: 1
 
 =for Marpa::PP::Display::End
 
-C<Marpa::Grammar::new> 
+C<Marpa::PP::Grammar::new> 
 returns a new Marpa grammar object or throws an exception.
 The arguments to
-C<Marpa::Grammar::new> are
+C<Marpa::PP::Grammar::new> are
 references to hashes of named arguments.
 In each key/value pair of this hash,
 the hash key is the argument name

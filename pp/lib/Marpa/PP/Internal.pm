@@ -50,7 +50,7 @@ use constant N_FORMAT_HIGH_BIT => 0x8000_0000;
 use constant N_FORMAT_MAX => 0x7fff_ffff;
 
 sub Marpa::PP::offset {
-    my (@desc)   = @_;
+    my (@desc) = @_;
     my @fields = ();
     for my $desc (@desc) {
         push @fields, split ' ', $desc;
@@ -91,12 +91,12 @@ sub Marpa::PP::offset {
             $offset = $2 + 0;
         }
 
-        Marpa::exception("Unacceptable field name: $field")
+        Marpa::PP::exception("Unacceptable field name: $field")
             if $field =~ /[^A-Z0-9_]/xms;
         my $field_name = $prefix . $field;
         *{$field_name} = sub () {$offset};
     } ## end for my $field (@fields)
     return 1;
-} ## end sub Marpa::offset
+} ## end sub Marpa::PP::offset
 
 1;
