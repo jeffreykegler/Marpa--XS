@@ -14,6 +14,10 @@
 # General Public License along with Marpa::PP.  If not, see
 # http://www.gnu.org/licenses/.
 
+# This test uses two DEPRECATED features: the tokens() method and
+# method using the bare Marpa namespace (Marpa::) instead of Marpa::PP.
+# This code is NOT to be taken as an example.
+
 # the example grammar in Aycock/Horspool "Practical Earley Parsing",
 # _The Computer Journal_, Vol. 45, No. 6, pp. 620-630,
 # in its "NNF" form
