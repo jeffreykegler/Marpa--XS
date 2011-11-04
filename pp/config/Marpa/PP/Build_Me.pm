@@ -86,7 +86,7 @@ sub write_file {
 
 sub ACTION_manifest {
     die qq{Automatic generation of the MANIFEST file is disabled\n}
-	. qq{The Marpa MANIFEST file is handwritten\n};
+	. qq{The Marpa::PP MANIFEST file is handwritten\n};
 }
 
 sub ACTION_licensecheck {
@@ -137,10 +137,10 @@ sub ACTION_code {
     my $self = shift;
     say STDERR "Writing version files";
     write_installed_pm($self, qw(lib Marpa PP ) );
-    write_installed_pm($self, qw(pperl Marpa Perl ) );
-    my $perl_version_pm = version_contents( $self, 'Marpa::Perl', @marpa_pp_perl_use );
+    write_installed_pm($self, qw(pperl Marpa PP Perl ) );
+    my $perl_version_pm = version_contents( $self, 'Marpa::PP::Perl', @marpa_pp_perl_use );
     my $version_pm = version_contents( $self, 'Marpa::PP', @marpa_pp_use );
     $self->write_file($version_pm, qw(lib Marpa PP Version.pm) );
-    $self->write_file($perl_version_pm, qw(pperl Marpa Perl Version.pm) );
+    $self->write_file($perl_version_pm, qw(pperl Marpa PP Perl Version.pm) );
     $self->SUPER::ACTION_code;
 }
