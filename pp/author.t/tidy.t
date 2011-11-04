@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 # Copyright 2011 Jeffrey Kegler
 # This file is part of Marpa::PP.  Marpa::PP is free software: you can
 # redistribute it and/or modify it under the terms of the GNU Lesser
@@ -13,24 +14,30 @@
 # General Public License along with Marpa::PP.  If not, see
 # http://www.gnu.org/licenses/.
 
-.PHONY: all all_tests critic display tidy
+use 5.010;
+use strict;
+use warnings;
+use English qw( -no_match_vars );
+use Fatal qw( open close );
+use Carp;
+use Perl::Critic;
+use Test::Perl::Critic;
+use Test::More;
 
-all: all_tests
+# Test that the module passes perlcritic
+BEGIN {
+    $OUTPUT_AUTOFLUSH = 1;
+}
 
-critic.list: ../MANIFEST create_critic_list.pl
-	perl ./create_critic_list.pl > critic.list
+open my $critic_list, '<', 'author.t/critic.list';
+my @test_files = <$critic_list>;
+close $critic_list;
+chomp @test_files;
 
-all_tests: critic.list
-	-(cd ..; prove author.t/*.t ) 2>&1 | tee all.errs
-
-tidy: critic.list
-	-(cd ..; prove author.t/tidy.t) 2>&1 | tee tidy.errs
-
-critic: critic.list
-	-(cd ..; prove author.t/critic.t) 2>&1 | tee critic.errs
-
-display:
-	-(cd ..; prove author.t/display.t) 2>&1 | tee display.errs
-
-pod:
-	-(cd ..; prove author.t/pod.t)
+my $rcfile = File::Spec->catfile( 'author.t', 'perlcriticrc' );
+Test::Perl::Critic->import(
+    -verbose         => '%l:%c %p %r',
+    -profile         => $rcfile,
+    '-single-policy' => 'CodeLayout::RequireTidyCode',
+);
+Test::Perl::Critic::all_critic_ok(@test_files);

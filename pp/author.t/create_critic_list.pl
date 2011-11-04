@@ -15,16 +15,32 @@
 # http://www.gnu.org/licenses/.
 
 use 5.010;
-use warnings;
 use strict;
-
-use Test::More tests => 1;
+use warnings;
 use English qw( -no_match_vars );
+use Fatal qw( open close );
 
-my $loaded_marpa_bare = eval { require Marpa; 1 };
-SKIP: {
-    Test::More::skip 'No Marpa, which is OK', 1 unless $loaded_marpa_bare;
-    my $loaded_marpa = eval { require Marpa::PP; 1 };
-    Test::More::ok(!$loaded_marpa, 'Marpa incompatible with Marpa::PP');
-}
+my %exclude = map { ( $_, 1 ) } qw(
+    Makefile.PL
+);
 
+open my $manifest, '<', '../MANIFEST'
+    or die "open of ../MANIFEST failed: $ERRNO";
+
+my @test_files = ();
+FILE: while ( my $file = <$manifest> ) {
+    chomp $file;
+    $file =~ s/\s*[#].*\z//xms;
+    next FILE if $exclude{$file};
+    my ($ext) = $file =~ / [.] ([^.]+) \z /xms;
+    given ( lc $ext ) {
+        when (undef) {
+            break
+        }
+        when ('pl') { say $file or die "Cannot say: $ERRNO" }
+        when ('pm') { say $file or die "Cannot say: $ERRNO" }
+        when ('t')  { say $file or die "Cannot say: $ERRNO" }
+    } ## end given
+} ## end while ( my $file = <$manifest> )
+
+close $manifest;
