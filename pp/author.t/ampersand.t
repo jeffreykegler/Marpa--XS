@@ -19,6 +19,7 @@ use warnings;
 use strict;
 
 use Test::More tests => 5;
+use lib 'lib';
 use lib 'tool/lib';
 use lib 'pperl';
 
