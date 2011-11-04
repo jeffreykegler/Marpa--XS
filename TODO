@@ -20,10 +20,9 @@ Marpa Pending release candidate: Marpa-HTML-0.103_004.tar.gz Thu, 03 Nov 2011 05
 * Make sure I have enough cpantesters results for Marpa::XS 0.020000
 
 For Marpa::PP
-* Add no_xs.t, no_bare.t
 * Restrict use of Marpa namespace
 * Add Marpa::PP::DEPRECATED_OK as guard for constant ranking method
-* Add deprecated.t, eiliminate tokens, Marpa namespace from all other *.t
+* Add eliminate tokens(), Marpa namespace from all but deprecated*.t
  
 For Marpa::XS
 * Add deprecated{1,2}.t
