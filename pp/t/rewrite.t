@@ -25,7 +25,7 @@ use Fatal qw(open close);
 use Test::More tests => 3;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -78,7 +78,7 @@ my $sequence_rule =
 
 #>>> no perltidy
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start   => 'block',
         strip   => 0,
         symbols => {
@@ -102,7 +102,7 @@ my $grammar = Marpa::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
 # While we are at it, test the handling of null parses in
 # the Single Parse Evaluator
@@ -119,7 +119,7 @@ my $show_rules_output = $grammar->show_rules();
 # start-after-line: END_RULES
 # end-before-line: '^END_RULES$'
 
-Marpa::Test::is( $show_rules_output, <<'END_RULES', 'Rewritten Rules' );
+Marpa::PP::Test::is( $show_rules_output, <<'END_RULES', 'Rewritten Rules' );
 0: statement -> optional_whitespace expression optional_whitespace optional_modifier optional_whitespace /* !used */
 1: statements -> statement /* !used discard_sep */
 2: statements -> statements[Subseq:8:5] /* vrhs real=0 */
@@ -154,7 +154,7 @@ END_RULES
 my $value_ref = $recce->value();
 my $value = $value_ref ? ${$value_ref} : 'No Parse';
 
-Marpa::Test::is( $value, 'Null parse', 'Null parse value' );
+Marpa::PP::Test::is( $value, 'Null parse', 'Null parse value' );
 
 1;    # In case used as "do" file
 

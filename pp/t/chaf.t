@@ -22,7 +22,7 @@ use warnings;
 
 use Test::More tests => 3;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -40,7 +40,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start   => 'S',
         strip   => 0,
         rules   => [
@@ -59,7 +59,7 @@ $grammar->set( { terminals => ['a'], } );
 
 $grammar->precompute();
 
-Marpa::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
+Marpa::PP::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 0: S -> A B B B C C /* !used */
 1: A -> a
 2: B -> a
@@ -76,7 +76,7 @@ Marpa::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 EOS
 
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar  } );
+    Marpa::PP::Recognizer->new( { grammar => $grammar  } );
 
 $recce->tokens( [ [ 'a', 'a' ] ], );
 

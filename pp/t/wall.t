@@ -29,7 +29,7 @@ use warnings;
 
 use Test::More tests => 13;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -85,7 +85,7 @@ sub default_action {
 
 ## use critic
 
-my $g = Marpa::Grammar->new(
+my $g = Marpa::PP::Grammar->new(
     {   start   => 'E',
         actions => 'main',
         rules   => [
@@ -108,7 +108,7 @@ for my $n ( 1 .. 12 ) {
     # Set max_parses just in case there's an infinite loop.
     # This is for debugging, after all
     my $recce =
-        Marpa::Recognizer->new( { grammar => $g, max_parses => 300 } );
+        Marpa::PP::Recognizer->new( { grammar => $g, max_parses => 300 } );
     $recce->tokens(
         [   [ 'Number', 6, 1 ],
             ( ( [ 'Minus', q{-}, 1 ] ) x $n ),
@@ -118,7 +118,7 @@ for my $n ( 1 .. 12 ) {
 
     my $parse_count = 0;
     while ( $recce->value() ) { $parse_count++; }
-    Marpa::Test::is( $expected[$n], $parse_count,
+    Marpa::PP::Test::is( $expected[$n], $parse_count,
         "Wall Series Number $n" );
 
 } ## end for my $n ( 1 .. 12 )

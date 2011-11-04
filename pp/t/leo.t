@@ -25,7 +25,7 @@ use warnings;
 use Test::More tests => 18;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -50,7 +50,7 @@ my $default_action = generate_action(q{?});
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start => 'S',
         strip => 0,
         rules => [
@@ -66,7 +66,7 @@ my $grammar = Marpa::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::Test::is( $grammar->show_symbols(),
+Marpa::PP::Test::is( $grammar->show_symbols(),
     <<'END_OF_STRING', 'Leo168 Symbols' );
 0: a, lhs=[] rhs=[0 2 4 5 7 8] terminal
 1: b, lhs=[] rhs=[2 7 8] terminal
@@ -78,7 +78,7 @@ Marpa::Test::is( $grammar->show_symbols(),
 7: S['][], lhs=[10] rhs=[] nullable nulling
 END_OF_STRING
 
-Marpa::Test::is( $grammar->show_rules,
+Marpa::PP::Test::is( $grammar->show_rules,
     <<'END_OF_STRING', 'Leo168 Rules' );
 0: S -> a S /* !used */
 1: S -> C /* !used */
@@ -93,7 +93,7 @@ Marpa::Test::is( $grammar->show_rules,
 10: S['][] -> /* empty vlhs real=1 */
 END_OF_STRING
 
-Marpa::Test::is( $grammar->show_AHFA, <<'END_OF_STRING', 'Leo168 AHFA' );
+Marpa::PP::Test::is( $grammar->show_AHFA, <<'END_OF_STRING', 'Leo168 AHFA' );
 * S0:
 S['] -> . S
 S['][] -> .
@@ -152,7 +152,7 @@ for my $a_length ( 1 .. 4 ) {
     for my $b_length ( 0 .. $a_length ) {
 
         my $string = ( 'a' x $a_length ) . ( 'b' x $b_length );
-        my $recce = Marpa::Recognizer->new(
+        my $recce = Marpa::PP::Recognizer->new(
             {   grammar  => $grammar,
                 closures => {
                     'C_action'       => $C_action,
@@ -166,7 +166,7 @@ for my $a_length ( 1 .. 4 ) {
 
         my $value_ref = $recce->value();
         my $value = $value_ref ? ${$value_ref} : 'No parse';
-        Marpa::Test::is( $value, $expected{$string}, "Parse of $string" );
+        Marpa::PP::Test::is( $value, $expected{$string}, "Parse of $string" );
 
     } ## end for my $b_length ( 0 .. $a_length )
 } ## end for my $a_length ( 1 .. 4 )

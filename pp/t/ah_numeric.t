@@ -32,11 +32,11 @@ BEGIN {
 ## no critic (Subroutines::RequireArgUnpacking)
 
 # Marpa::PP::Display
-# name: Marpa::token_location example
+# name: Marpa::PP::token_location example
 
 sub rank_null_a {
     return \( ( $MyTest::MAXIMAL ? -1 : 1 )
-        * 10**( 3 - Marpa::token_location() ) );
+        * 10**( 3 - Marpa::PP::token_location() ) );
 }
 
 # Marpa::PP::Display::End
@@ -51,7 +51,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start => 'S',
         rules => [
             [ 'S', [qw/A A A A/] ],
@@ -69,7 +69,7 @@ $grammar->set( { terminals => ['a'], } );
 
 $grammar->precompute();
 
-my $recce = Marpa::Recognizer->new(
+my $recce = Marpa::PP::Recognizer->new(
     { grammar => $grammar, ranking_method => 'constant' } );
 
 my $input_length = 4;

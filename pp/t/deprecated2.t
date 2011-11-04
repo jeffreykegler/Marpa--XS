@@ -195,12 +195,7 @@ TEST: for my $test_data (@test_data) {
     my $input_length = length $test_input;
     pos $test_input = 0;
 
-# Marpa::PP::Display
-# name: Recognizer terminals_expected Synopsis
-
     my $terminals_expected = $recce->terminals_expected();
-
-# Marpa::PP::Display::End
 
     for ( my $pos = 0; $pos < $input_length; $pos++ ) {
         my @tokens = ();

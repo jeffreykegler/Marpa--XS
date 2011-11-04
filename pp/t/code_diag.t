@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 8;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 use English qw( -no_match_vars );
 
 BEGIN {
@@ -177,7 +177,7 @@ sub run_test {
     ### e_op_action: $e_op_action
     ### e_number_action: $e_number_action
 
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::PP::Grammar->new(
         {   start => 'S',
             rules => [
                 [ 'S', [qw/T trailer optional_trailer1 optional_trailer2/], ],
@@ -198,7 +198,7 @@ sub run_test {
     );
     $grammar->precompute();
 
-    my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
     my @tokens = (
         [ Number => 2 ],
@@ -220,7 +220,7 @@ sub run_test {
     my $expected  = '(((2*3)+(4*1))==10;trailer;[default null];[null])';
     my $value_ref = $recce->value();
     my $value     = $value_ref ? ${$value_ref} : 'No parse';
-    Marpa::Test::is( $value, $expected, 'Ambiguous Equation Value' );
+    Marpa::PP::Test::is( $value, $expected, 'Ambiguous Equation Value' );
 
     return 1;
 
@@ -252,7 +252,7 @@ for my $test (@tests) {
             my $eval_error = $EVAL_ERROR;
             my $where      = $where{$feature};
             my $long_where = $long_where{$feature};
-            Marpa::Test::is(
+            Marpa::PP::Test::is(
                 canonical( $eval_error,                $where, $long_where ),
                 canonical( $expected{$test}{$feature}, $where, $long_where ),
                 $test_name

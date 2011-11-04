@@ -20,7 +20,7 @@ use warnings;
 
 use Test::More tests => 2;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -88,13 +88,13 @@ $Test_Grammar::MARPA_OPTIONS = [
 
 package main;
 
-my $g = Marpa::Grammar->new( @{$Test_Grammar::MARPA_OPTIONS} );
+my $g = Marpa::PP::Grammar->new( @{$Test_Grammar::MARPA_OPTIONS} );
 $g->precompute();
-my $recce = Marpa::Recognizer->new( { grammar => $g } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $g } );
 $recce->tokens( [ [ 'Z', 'Z' ] ] );
 my $ref_value = $recce->value();
 my $value = $ref_value ? ${$ref_value} : 'No parse';
-Marpa::Test::is(
+Marpa::PP::Test::is(
     $value,
     'A is missing, but Zorro was here',
     'null value example'

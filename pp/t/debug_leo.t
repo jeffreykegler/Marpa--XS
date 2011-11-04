@@ -23,7 +23,7 @@ use Test::More tests => 3;
 use English qw( -no_match_vars );
 use Fatal qw( open close );
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -31,7 +31,7 @@ BEGIN {
 
 my $progress_report = q{};
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start         => 'S',
         strip         => 0,
         lhs_terminals => 0,
@@ -53,7 +53,7 @@ $grammar->precompute();
 
 my @tokens = ( ['T'] ) x 20;
 
-my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
 my $current_earleme = $recce->tokens( \@tokens );
 
@@ -77,7 +77,7 @@ Test::More::ok( $value_ref, 'Parse ok?' );
 # start-after-line: END_PROGRESS_REPORT
 # end-before-line: '^END_PROGRESS_REPORT$'
 
-Marpa::Test::is( $progress_report,
+Marpa::PP::Test::is( $progress_report,
     <<'END_PROGRESS_REPORT', 'sorted progress report' );
 F0 @0-20 S -> Top_sequence .
 P1 @20-20 Top_sequence -> . Top Top_sequence

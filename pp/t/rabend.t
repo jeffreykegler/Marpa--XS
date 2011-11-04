@@ -23,7 +23,6 @@ use Test::More tests => 7;
 use English qw( -no_match_vars );
 use Fatal qw( open close );
 use lib 'tool/lib';
-use Marpa::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -64,7 +63,7 @@ sub catch_problem {
     return;
 } ## end sub catch_problem
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start => 'Top',
         strip => 0,
         rules => [
@@ -90,7 +89,7 @@ $test_name = 'duplicate terminal 1';
 $trace     = q{};
 ## no critic (InputOutput::RequireBriefOpen)
 open $memory, q{>}, \$trace;
-$recce = Marpa::Recognizer->new(
+$recce = Marpa::PP::Recognizer->new(
     {   grammar           => $grammar,
         trace_terminals   => 1,
         trace_file_handle => $memory
@@ -134,7 +133,7 @@ $test_name = 'duplicate terminal 2';
 $trace     = q{};
 close $memory;
 open $memory, q{>}, \$trace;
-$recce = Marpa::Recognizer->new(
+$recce = Marpa::PP::Recognizer->new(
     {   grammar           => $grammar,
         trace_terminals   => 1,
         trace_file_handle => $memory

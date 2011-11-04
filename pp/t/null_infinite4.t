@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 2;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -55,7 +55,7 @@ sub rule_f {
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start           => 'S',
         strip           => 0,
         infinite_action => 'quiet',
@@ -88,14 +88,14 @@ my @expected = qw{
 
 my $input_length = 1;
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar, max_parses => 99 } );
+    Marpa::PP::Recognizer->new( { grammar => $grammar, max_parses => 99 } );
 $recce->tokens( [ ( [ 'a', 'A' ] ) x $input_length ] );
 my $expected = $expected[$input_length];
 my @values   = ();
 while ( my $value_ref = $recce->value() ) {
     push @values, ${$value_ref};
 }
-Marpa::Test::is(
+Marpa::PP::Test::is(
     ( join "\n", sort @values ),
     ( join "\n", @expected ),
     "value for input length $input_length"

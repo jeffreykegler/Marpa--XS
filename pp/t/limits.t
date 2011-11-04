@@ -22,7 +22,7 @@ use Test::More tests => 6;
 use Fatal qw(open close);
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -45,7 +45,7 @@ sub test_grammar {
 
     my $grammar;
     my $eval_ok =
-        eval { $grammar = Marpa::Grammar->new($grammar_args); 1; };
+        eval { $grammar = Marpa::PP::Grammar->new($grammar_args); 1; };
     die("Exception while creating Grammar:\n$EVAL_ERROR")
         if not $eval_ok;
     die("Grammar not created\n") if not $grammar;
@@ -53,7 +53,7 @@ sub test_grammar {
 
     my $recce;
     $eval_ok = eval {
-        $recce = Marpa::Recognizer->new(
+        $recce = Marpa::PP::Recognizer->new(
             { grammar => $grammar, mode => 'stream' } );
         1;
     };
@@ -175,7 +175,7 @@ REPORT_RESULT: {
         Test::More::fail("Eval error: $eval_error");
         last REPORT_RESULT;
     }
-    Marpa::Test::is(
+    Marpa::PP::Test::is(
         $trace,
         qq{Zero length sequence for symbol without null value: "Seq"\n},
         'Missing null value warning'

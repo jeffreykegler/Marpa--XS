@@ -26,7 +26,7 @@ use warnings;
 
 use Test::More tests => 21;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -44,7 +44,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start   => 'S',
         strip   => 0,
         rules   => [
@@ -62,7 +62,7 @@ $grammar->set( { terminals => ['a'], } );
 
 $grammar->precompute();
 
-Marpa::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
+Marpa::PP::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 0: S -> A A A A /* !used */
 1: A -> a
 2: A -> E /* !used */
@@ -80,7 +80,7 @@ Marpa::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 14: S['][] -> /* empty vlhs real=1 */
 EOS
 
-Marpa::Test::is( $grammar->show_symbols,
+Marpa::PP::Test::is( $grammar->show_symbols,
     <<'EOS', 'Aycock/Horspool Symbols' );
 0: S, lhs=[0 4 5 6] rhs=[13]
 1: A, lhs=[1 2] rhs=[0 4 5 7 8 10 11 12]
@@ -94,29 +94,29 @@ Marpa::Test::is( $grammar->show_symbols,
 9: S['][], lhs=[14] rhs=[] nullable nulling
 EOS
 
-Marpa::Test::is(
+Marpa::PP::Test::is(
     $grammar->show_nullable_symbols,
     q{A[] E S['][] S[]},
     'Aycock/Horspool Nullable Symbols'
 );
-Marpa::Test::is(
+Marpa::PP::Test::is(
     $grammar->show_nulling_symbols,
     q{A[] E S['][] S[]},
     'Aycock/Horspool Nulling Symbols'
 );
-Marpa::Test::is(
+Marpa::PP::Test::is(
     $grammar->show_productive_symbols,
     q{A A[] E S S['] S['][] S[R0:1] S[R0:2] S[] a},
     'Aycock/Horspool Productive Symbols'
 );
-Marpa::Test::is(
+Marpa::PP::Test::is(
     $grammar->show_accessible_symbols,
     q{A A[] E S S['] S['][] S[R0:1] S[R0:2] S[] a},
     'Aycock/Horspool Accessible Symbols'
 );
 
-if ($Marpa::USING_XS ) {
-    Marpa::Test::is( $grammar->show_AHFA_items(), <<'EOS', 'Aycock/Horspool AHFA Items' );
+if (defined $Marpa::XS::VERSION ) {
+    Marpa::PP::Test::is( $grammar->show_AHFA_items(), <<'EOS', 'Aycock/Horspool AHFA Items' );
 AHFA item 0: sort = 9; postdot = "a"
     A -> . a
 AHFA item 1: sort = 14; completion
@@ -172,8 +172,8 @@ AHFA item 25: sort = 25; completion
 EOS
 }
 
-if ($Marpa::USING_PP ) {
-    Marpa::Test::is( $grammar->show_NFA, <<'EOS', 'Aycock/Horspool NFA' );
+if (defined $Marpa::PP::VERSION ) {
+    Marpa::PP::Test::is( $grammar->show_NFA, <<'EOS', 'Aycock/Horspool NFA' );
 S0: /* empty */
  empty => S33 S35
 S1: A -> . a
@@ -259,7 +259,7 @@ S35: S['][] -> .
 EOS
 }
 
-Marpa::Test::is( $grammar->show_AHFA, <<'EOS', 'Aycock/Horspool AHFA' );
+Marpa::PP::Test::is( $grammar->show_AHFA, <<'EOS', 'Aycock/Horspool AHFA' );
 * S0:
 S['] -> . S
 S['][] -> .
@@ -341,7 +341,7 @@ A -> . a
 EOS
 
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+    Marpa::PP::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
 
 my @set = (
     <<'END_OF_SET0', <<'END_OF_SET1', <<'END_OF_SET2', <<'END_OF_SET3' );
@@ -491,7 +491,7 @@ $recce->read( 'a', 'a' );
 $recce->read( 'a', 'a' );
 $recce->read( 'a', 'a' );
 
-Marpa::Test::is(
+Marpa::PP::Test::is(
     $recce->show_earley_sets(1),
     "Last Completed: 3; Furthest: 3\n"
         . ( join q{}, @set[ 0 .. 3 ] ),
@@ -511,8 +511,8 @@ while ( my $value_ref = $recce->value() ) {
     if ($value_ref) {
         $value = ${$value_ref};
         SKIP: {
-            skip "Not using XS", 1 if not $Marpa::USING_XS;
-            Marpa::Test::is( $recce->show_tree(), $tree_expected{$value},
+            Test::More::skip "Not using XS", 1 if not $Marpa::XS::VERSION;
+            Marpa::PP::Test::is( $recce->show_tree(), $tree_expected{$value},
                 qq{Tree, "$value"} );
         }
     } ## end if ($value_ref)
@@ -555,7 +555,7 @@ R11:2@2-3
 R12:2@2-3
 END_OF_TEXT
 
-Marpa::Test::is($recce->show_or_nodes(), $or_node_output, "XS Or nodes");
+Marpa::PP::Test::is($recce->show_or_nodes(), $or_node_output, "XS Or nodes");
 
 my $and_node_output = <<'END_OF_TEXT';
 R6:1@0-0S5@0
@@ -583,7 +583,7 @@ R11:2@2-3S5@3
 R12:2@2-3C1@2
 END_OF_TEXT
 
-Marpa::Test::is($recce->show_and_nodes(), $and_node_output, "XS And nodes");
+Marpa::PP::Test::is($recce->show_and_nodes(), $and_node_output, "XS And nodes");
 
 my $bocage_output = <<'END_OF_TEXT';
 R6:1@0-0 - S5
@@ -612,8 +612,8 @@ R12:2@2-3 R12:1@2-2 R1:1@2-3
 END_OF_TEXT
 
 SKIP: {
-    skip "Not using XS", 1 if not $Marpa::USING_XS;
-    Marpa::Test::is( $recce->show_bocage(), $bocage_output, "XS Bocage" );
+    skip "Not using XS", 1 if not defined $Marpa::XS::VERSION;
+    Marpa::PP::Test::is( $recce->show_bocage(), $bocage_output, "XS Bocage" );
 }
 
 1;    # In case used as "do" file

@@ -22,13 +22,13 @@ use Fatal qw(open close);
 use Test::More tests => 9;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
 }
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start          => 'Expression',
         actions        => 'My_Actions',
         default_action => 'first_arg',
@@ -48,7 +48,7 @@ my $grammar = Marpa::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
 my @tokens = (
     [ 'Number',   42 ],
@@ -77,13 +77,13 @@ sub My_Actions::first_arg { shift; return shift; }
 my $value_ref = $recce->value();
 my $value = $value_ref ? ${$value_ref} : 'No Parse';
 
-Marpa::Test::is( 49, $value, 'Implementation Example Value 1' );
+Marpa::PP::Test::is( 49, $value, 'Implementation Example Value 1' );
 
 $recce->reset_evaluation();
 
 my $show_symbols_output = $grammar->show_symbols();
 
-Marpa::Test::is( $show_symbols_output,
+Marpa::PP::Test::is( $show_symbols_output,
     <<'END_SYMBOLS', 'Implementation Example Symbols' );
 0: Expression, lhs=[0] rhs=[5] terminal
 1: Term, lhs=[1 3] rhs=[0 3] terminal
@@ -96,7 +96,7 @@ END_SYMBOLS
 
 my $show_rules_output = $grammar->show_rules();
 
-Marpa::Test::is( $show_rules_output,
+Marpa::PP::Test::is( $show_rules_output,
     <<'END_RULES', 'Implementation Example Rules' );
 0: Expression -> Term
 1: Term -> Factor
@@ -108,7 +108,7 @@ END_RULES
 
 my $show_AHFA_output = $grammar->show_AHFA();
 
-Marpa::Test::is( $show_AHFA_output,
+Marpa::PP::Test::is( $show_AHFA_output,
     <<'END_AHFA', 'Implementation Example AHFA' );
 * S0:
 Expression['] -> . Expression
@@ -199,7 +199,7 @@ S5@4-5 [p=S7@4-4; s=Number; t=\7]
 S11@4-5 [p=S7@4-4; c=S4@4-5]
 END_EARLEY_SETS
 
-Marpa::Test::is( $show_earley_sets_output,
+Marpa::PP::Test::is( $show_earley_sets_output,
     $expected_earley_sets, 'Implementation Example Earley Sets' );
 
 my $trace_output;
@@ -209,7 +209,7 @@ $recce->set( { trace_fh => \*STDOUT, trace_values => 0 } );
 close $trace_fh;
 
 $value = $value_ref ? ${$value_ref} : 'No Parse';
-Marpa::Test::is( 49, $value, 'Implementation Example Value 2' );
+Marpa::PP::Test::is( 49, $value, 'Implementation Example Value 2' );
 
 my $expected_trace_output = <<'END_TRACE_OUTPUT';
 Pushed value from R2:1@0-1S3@0: Number = \42
@@ -237,14 +237,14 @@ New Virtual Rule: R5:1@0-5C0@0, rule: 5: Expression['] -> Expression
 Real symbol count is 1
 END_TRACE_OUTPUT
 
-Marpa::Test::is( $trace_output,
+Marpa::PP::Test::is( $trace_output,
     $expected_trace_output, 'Implementation Example Trace Output' );
 
 $recce->reset_evaluation();
 
 $value_ref = $recce->value();
 $value = $value_ref ? ${$value_ref} : 'No Parse';
-Marpa::Test::is( 49, $value, 'Implementation Example Value 3' );
+Marpa::PP::Test::is( 49, $value, 'Implementation Example Value 3' );
 
 1;    # In case used as "do" file
 

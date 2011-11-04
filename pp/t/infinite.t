@@ -23,7 +23,7 @@ use Fatal qw(open close chdir);
 
 use Test::More tests => 7;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -169,7 +169,7 @@ for my $test_data ( $cycle1_test, $cycle2_test, $cycle8_test ) {
         @{$test_data};
     my $trace = q{};
     open my $MEMORY, '>', \$trace;
-    my $grammar = Marpa::Grammar->new(
+    my $grammar = Marpa::PP::Grammar->new(
         {   infinite_action   => 'warn',
             trace_file_handle => $MEMORY,
         },
@@ -177,15 +177,15 @@ for my $test_data ( $cycle1_test, $cycle2_test, $cycle8_test ) {
     );
     $grammar->precompute();
 
-    my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
     $recce->tokens($input);
     my $value_ref = $recce->value();
     my $value = $value_ref ? ${$value_ref} : 'No parse';
 
     close $MEMORY;
 
-    Marpa::Test::is( $value, $expected,       "$test_name result" );
-    Marpa::Test::is( $trace, $expected_trace, "$test_name trace" );
+    Marpa::PP::Test::is( $value, $expected,       "$test_name result" );
+    Marpa::PP::Test::is( $trace, $expected_trace, "$test_name trace" );
 
 } ## end for my $test_data ( $cycle1_test, $cycle2_test, $cycle8_test)
 

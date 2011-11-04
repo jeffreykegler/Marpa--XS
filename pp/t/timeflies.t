@@ -41,7 +41,7 @@ use English qw( -no_match_vars );
 
 use Test::More tests => 2;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -63,7 +63,7 @@ sub preposition       { return "pr($_[1])" }
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start   => 'sentence',
         strip   => 0,
         actions => 'main',
@@ -108,7 +108,7 @@ while ( my ( $lexical_class, $words ) = each %lexical_class ) {
 
 for my $data ( 'time flies like an arrow', 'fruit flies like a banana' ) {
 
-    my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
     die 'Failed to create recognizer' if not $recce;
 
     for my $word ( split q{ }, $data ) {
@@ -140,7 +140,7 @@ for my $data ( 'time flies like an arrow', 'fruit flies like a banana' ) {
     }
 } ## end for my $data ( 'time flies like an arrow', ...)
 
-Marpa::Test::is( ( join "\n", sort @actual ) . "\n",
+Marpa::PP::Test::is( ( join "\n", sort @actual ) . "\n",
     $expected, 'Ambiguous English sentences' );
 
 1;    # In case used as "do" file

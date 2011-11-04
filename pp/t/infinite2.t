@@ -22,7 +22,7 @@ use English qw( -no_match_vars );
 use Fatal qw(open close chdir);
 use Test::More tests => 4;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -64,18 +64,18 @@ $Test_Grammar::MARPA_OPTIONS = [
 
 my $trace;
 open my $MEMORY, '>', \$trace;
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     { trace_file_handle => $MEMORY, infinite_action => 'warn' },
     @{$Test_Grammar::MARPA_OPTIONS} );
 $grammar->precompute();
 close $MEMORY;
 
-Marpa::Test::is( $trace, <<'EOS', 'cycle detection' );
+Marpa::PP::Test::is( $trace, <<'EOS', 'cycle detection' );
 Cycle found involving rule: 1: a -> b
 Cycle found involving rule: 3: b -> a
 EOS
 
-my $recce = Marpa::Recognizer->new(
+my $recce = Marpa::PP::Recognizer->new(
     {   grammar           => $grammar,
         trace_file_handle => *STDERR,
     }

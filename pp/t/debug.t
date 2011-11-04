@@ -23,7 +23,7 @@ use Test::More tests => 4;
 use English qw( -no_match_vars );
 use Fatal qw( open close );
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -34,7 +34,7 @@ my $progress_report = q{};
 # Marpa::PP::Display
 # name: Debug Example Part 1
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start          => 'Expression',
         actions        => 'My_Actions',
         default_action => 'first_arg',
@@ -98,7 +98,7 @@ sub My_Actions::do_multiply {
 
 sub My_Actions::first_arg { shift; return shift; }
 
-my $recce = Marpa::Recognizer->new(
+my $recce = Marpa::PP::Recognizer->new(
     { grammar => $grammar, trace_terminals => 2 } );
 
 my $token_ix = 0;
@@ -121,7 +121,7 @@ Test::More::is( $value, 42, 'value' );
 # start-after-line: END_PROGRESS_REPORT
 # end-before-line: '^END_PROGRESS_REPORT$'
 
-Marpa::Test::is( $progress_report,
+Marpa::PP::Test::is( $progress_report,
     <<'END_PROGRESS_REPORT', 'progress report' );
 P0 @0-0 Expression -> . Factor
 P2 @0-0 Factor -> . Number
@@ -148,7 +148,7 @@ END_PROGRESS_REPORT
 # start-after-line: END_TRACE_OUTPUT
 # end-before-line: '^END_TRACE_OUTPUT$'
 
-Marpa::Test::is( $trace_output, <<'END_TRACE_OUTPUT', 'trace output' );
+Marpa::PP::Test::is( $trace_output, <<'END_TRACE_OUTPUT', 'trace output' );
 Inaccessible symbol: Add
 Inaccessible symbol: Term
 Setting trace_terminals option

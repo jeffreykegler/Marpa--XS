@@ -19,7 +19,7 @@ use strict;
 use warnings;
 use Test::More tests => 8;
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
 
@@ -46,7 +46,7 @@ $g->set( { terminals => ['a'] } );
 
 $g->precompute();
 
-Marpa::Test::is( $g->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
+Marpa::PP::Test::is( $g->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 0: S -> A A A A /* stripped !used */
 1: A -> a /* stripped */
 2: A -> E /* stripped !used */
@@ -64,7 +64,7 @@ Marpa::Test::is( $g->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 14: S['][] -> /* empty stripped vlhs real=1 */
 EOS
 
-Marpa::Test::is( $g->show_symbols, <<'EOS', 'Aycock/Horspool Symbols' );
+Marpa::PP::Test::is( $g->show_symbols, <<'EOS', 'Aycock/Horspool Symbols' );
 0: S, stripped
 1: A, stripped
 2: a, stripped terminal
@@ -77,16 +77,16 @@ Marpa::Test::is( $g->show_symbols, <<'EOS', 'Aycock/Horspool Symbols' );
 9: S['][], stripped nullable nulling
 EOS
 
-Marpa::Test::is( $g->show_nullable_symbols, 'stripped_',
+Marpa::PP::Test::is( $g->show_nullable_symbols, 'stripped_',
     'Aycock/Horspool Nullable Symbols' );
-Marpa::Test::is( $g->show_nulling_symbols, 'stripped_',
+Marpa::PP::Test::is( $g->show_nulling_symbols, 'stripped_',
     'Aycock/Horspool Nulling Symbols' );
-Marpa::Test::is( $g->show_productive_symbols, 'stripped_',
+Marpa::PP::Test::is( $g->show_productive_symbols, 'stripped_',
     'Aycock/Horspool Productive Symbols' );
-Marpa::Test::is( $g->show_accessible_symbols, 'stripped_',
+Marpa::PP::Test::is( $g->show_accessible_symbols, 'stripped_',
     'Aycock/Horspool Accessible Symbols' );
 
-Marpa::Test::is( $g->show_NFA, <<'EOS', 'Aycock/Horspool NFA' );
+Marpa::PP::Test::is( $g->show_NFA, <<'EOS', 'Aycock/Horspool NFA' );
 stripped
 EOS
 

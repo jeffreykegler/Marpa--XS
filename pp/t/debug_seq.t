@@ -25,7 +25,7 @@ use Test::More tests => 4;
 use English qw( -no_match_vars );
 use Fatal qw( open close );
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -36,7 +36,7 @@ my $progress_report = q{};
 # Marpa::PP::Display
 # name: Debug Sequence Example
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start         => 'Document',
         strip         => 0,
         lhs_terminals => 0,
@@ -51,7 +51,7 @@ $grammar->precompute();
 my @tokens = ( ( ['Stuff'] ) x 3 );
 
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+    Marpa::PP::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
 
 # Marpa::PP::Display
 # name: Recognizer check_terminal Synopsis
@@ -77,7 +77,7 @@ Test::More::ok( $value_ref, 'Parse ok?' );
 # start-after-line: END_PROGRESS_REPORT
 # end-before-line: '^END_PROGRESS_REPORT$'
 
-Marpa::Test::is( $progress_report,
+Marpa::PP::Test::is( $progress_report,
     << 'END_PROGRESS_REPORT', 'progress report' );
 P1 @0-0 Document -> . Document[Subseq:0:1]
 P2 @0-0 Document[Subseq:0:1] -> . Stuff

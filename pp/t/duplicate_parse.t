@@ -23,7 +23,7 @@ use warnings;
 use Test::More tests => 6;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -42,7 +42,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start => 'S',
         strip => 0,
 
@@ -60,7 +60,7 @@ my $grammar = Marpa::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::Test::is( $grammar->show_rules,
+Marpa::PP::Test::is( $grammar->show_rules,
     <<'END_OF_STRING', 'duplicate parse Rules' );
 0: S -> p p p n /* !used */
 1: p -> a
@@ -75,7 +75,7 @@ Marpa::Test::is( $grammar->show_rules,
 10: S['] -> S /* vlhs real=1 */
 END_OF_STRING
 
-Marpa::Test::is( $grammar->show_AHFA,
+Marpa::PP::Test::is( $grammar->show_AHFA,
     <<'END_OF_STRING', 'duplicate parse AHFA' );
 * S0:
 S['] -> . S
@@ -141,7 +141,7 @@ END_OF_STRING
 use constant SPACE => 0x60;
 
 my $input_length = 3;
-my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 $recce->tokens(
     [ map { [ 'a', chr( SPACE + $_ ), 1 ] } ( 1 .. $input_length ) ] );
 

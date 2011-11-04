@@ -28,7 +28,7 @@ use Fatal qw(open close);
 use Test::More tests => 8;
 
 use lib 'tool/lib';
-use Marpa::Test;
+use Marpa::PP::Test;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -36,7 +36,7 @@ BEGIN {
 
 ## no critic (Subroutines::RequireArgUnpacking)
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::PP::Grammar->new(
     {   start          => 'Statement',
         actions        => 'My_Actions',
         default_action => 'first_arg',
@@ -73,7 +73,7 @@ my $grammar = Marpa::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
 my @tokens = (
     [ 'Variable',         'a' ],
@@ -115,7 +115,7 @@ sub My_Actions::first_arg { return $_[1] }
 
 my $show_symbols_output = $grammar->show_symbols();
 
-Marpa::Test::is( $show_symbols_output,
+Marpa::PP::Test::is( $show_symbols_output,
     <<'END_SYMBOLS', 'Leo Example Symbols' );
 0: Statement, lhs=[0] rhs=[7] terminal
 1: Expression, lhs=[1 2 3 4 5] rhs=[0 1 2 3 4] terminal
@@ -130,7 +130,7 @@ END_SYMBOLS
 
 my $show_rules_output = $grammar->show_rules();
 
-Marpa::Test::is( $show_rules_output, <<'END_RULES', 'Leo Example Rules' );
+Marpa::PP::Test::is( $show_rules_output, <<'END_RULES', 'Leo Example Rules' );
 0: Statement -> Expression
 1: Expression -> Lvalue AssignOp Expression
 2: Expression -> Lvalue AddAssignOp Expression
@@ -143,7 +143,7 @@ END_RULES
 
 my $show_AHFA_output = $grammar->show_AHFA();
 
-Marpa::Test::is( $show_AHFA_output, <<'END_AHFA', 'Leo Example AHFA' );
+Marpa::PP::Test::is( $show_AHFA_output, <<'END_AHFA', 'Leo Example AHFA' );
 * S0:
 Statement['] -> . Statement
  <Statement> => S2; leo(Statement['])
@@ -207,7 +207,7 @@ END_AHFA
 
 my $show_earley_sets_output_before = $recce->show_earley_sets();
 
-Marpa::Test::is( $show_earley_sets_output_before,
+Marpa::PP::Test::is( $show_earley_sets_output_before,
     <<'END_EARLEY_SETS', 'Leo Example Earley Sets "Before"' );
 Last Completed: 9; Furthest: 9
 Earley Set 0
@@ -266,13 +266,13 @@ my $value_ref = $recce->value( { trace_fh => $trace_fh, trace_values => 1 } );
 close $trace_fh;
 
 my $value = ref $value_ref ? ${$value_ref} : 'No Parse';
-Marpa::Test::is( $value, 'a=42 b=42 c=-5 d=6 e=3', 'Leo Example Value' );
+Marpa::PP::Test::is( $value, 'a=42 b=42 c=-5 d=6 e=3', 'Leo Example Value' );
 
 my $show_earley_sets_output_after = $recce->show_earley_sets();
 
 SKIP: {
-    skip "Not relevant to XS", 1 if $Marpa::USING_XS;
-    Marpa::Test::is( $show_earley_sets_output_after,
+    Test::More::skip "Not relevant to XS", 1 if defined $Marpa::XS::VERSION;
+    Marpa::PP::Test::is( $show_earley_sets_output_after,
         <<'END_EARLEY_SETS', 'Leo Example Earley Sets "After"' );
 Last Completed: 9; Furthest: 9
 Earley Set 0
@@ -363,7 +363,7 @@ New Virtual Rule: R7:1@0-9C0@0, rule: 7: Statement['] -> Statement
 Real symbol count is 1
 END_TRACE_OUTPUT
 
-Marpa::Test::is( $trace_output,
+Marpa::PP::Test::is( $trace_output,
     $expected_trace_output, 'Leo Example Trace Output' );
 
 1;    # In case used as "do" file
