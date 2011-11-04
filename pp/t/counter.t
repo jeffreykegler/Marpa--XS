@@ -104,7 +104,7 @@ for my $up ( 1, 0 ) {
     while ( my $result = $recce->value() ) {
         my $got      = ${$result};
         my $expected = reverse $count->[$i];
-        say ${$result} or die("Could not print to STDOUT: $ERRNO");
+        say ${$result} or die "say: $ERRNO";
         Test::More::is( $got, $expected, "counting $direction $i" );
         $i++;
     } ## end while ( my $result = $recce->value() )

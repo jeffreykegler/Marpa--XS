@@ -312,6 +312,7 @@ severity=5
 [Subroutines::RequireArgUnpacking]
 severity=5
 allow_subscripts = 1
+short_subroutine_statements = 3
 
 [Subroutines::RequireFinalReturn]
 severity=5

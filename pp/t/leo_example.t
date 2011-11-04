@@ -271,7 +271,7 @@ Marpa::PP::Test::is( $value, 'a=42 b=42 c=-5 d=6 e=3', 'Leo Example Value' );
 my $show_earley_sets_output_after = $recce->show_earley_sets();
 
 SKIP: {
-    Test::More::skip "Not relevant to XS", 1 if defined $Marpa::XS::VERSION;
+    Test::More::skip 'Not relevant to XS', 1 if defined $Marpa::XS::VERSION;
     Marpa::PP::Test::is( $show_earley_sets_output_after,
         <<'END_EARLEY_SETS', 'Leo Example Earley Sets "After"' );
 Last Completed: 9; Furthest: 9
