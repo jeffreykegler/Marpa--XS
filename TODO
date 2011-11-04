@@ -1,34 +1,32 @@
-For R2, visit action names vs. rule names -- both needed?
-For R2, default semantics => 'arbitrary'
-For R2, add 'arg0' semantics
-For R2, revisit LHS as action name
-For R2, in libmarpa, special-case null parse
-For R2, eliminate SINGLE_PARSE_MODE
-For R2, eliminate tokens()
-Remove Marpa::XS::length static method
-Document recce->latest_earley_set method
-Document rule name, recce->rule_by_name() once there is a test for them
-Do not document DEFAULT_RANK and Symbol::RANK until there are tests for them
-Document Symbol::RANK
-Document LHS_RANK and TERMINAL_RANK once tested
+Left over TODO's from alpha (save for R2?):
+* Remove Marpa::XS::length static method
+* Document recce->latest_earley_set method
+* Document rule name, recce->rule_by_name() once there is a test for them
+* Do not document DEFAULT_RANK and Symbol::RANK until there are tests for them
+* Document Symbol::RANK
+* Document LHS_RANK and TERMINAL_RANK once tested
 
 Marpa Pending release candidate: Marpa-HTML-0.103_004.tar.gz Thu, 03 Nov 2011 05:03:01 GMT
 * DONE: On CPAN, Checked Diff from Marpa-HTML-0.102000 to Marpa-HTML-0.103_001
 * DONE: Checked Git vs. CPAN for Marpa-HTML-0.103_001
 * DONE: In git, checked diff of CPAN_HTML-0.103_001 vs. CPAN_HTML-0.103_003
 * DONE: On CPAN, checked Diff from Marpa-HTML-0.103_001 to Marpa-HTML-0.103_003
-* Make sure I have enough cpantesters results for Marpa::XS 0.020000
+* DONE: Make sure I have enough cpantesters results for Marpa::XS 0.020000
 
 For Marpa::PP
-* Restrict use of Marpa namespace
-* Add Marpa::PP::DEPRECATED_OK as guard for constant ranking method
-* Add eliminate tokens(), Marpa namespace from all but deprecated*.t
+* Add Marpa::PP::TESTING_ONLY as guard for constant ranking method
+* Add eliminate tokens() from all but deprecated*.t
+* perlcritic, perltidy
  
 For Marpa::XS
 * Add deprecated{1,2}.t
 * Eliminate Marpa namespace from all other *.t
 * Eliminate use of tokens() call from everything but deprecated*.t
 
-For Marpa::PP and Marpa::XS, later
-* Add COMPATIBILITY mode, with compatibility.t
-* Add COMPATIBILITY to all *.t but deprecated.t
+For Marpa::XS, later
+* Add Marpa::XS::CLEAN_NAMESPACE global
+* Set Marpa::XS::CLEAN_NAMESPACE in all *.t but deprecated.t
+
+For Marpa::PP, later
+* Add Marpa::PP::CLEAN_NAMESPACE global
+* Set Marpa::PP::CLEAN_NAMESPACE in all *.t but deprecated.t
