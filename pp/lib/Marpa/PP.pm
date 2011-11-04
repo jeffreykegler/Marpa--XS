@@ -18,47 +18,43 @@ package Marpa::PP;
 use 5.010;
 use strict;
 use warnings;
+
 use vars qw($VERSION $STRING_VERSION $DEBUG);
 $VERSION = '0.011_000';
 $STRING_VERSION = $VERSION;
+## no critic (BuiltinFunctions::ProhibitStringyEval)
 $VERSION = eval $VERSION;
+## use critic
 $DEBUG = 0;
 
 use Carp;
 use English qw( -no_match_vars );
 
+# Die if more than one of the Marpa modules is loaded
+BEGIN {
+    if ( defined $Marpa::VERSION ) {
+        Carp::croak( "You can only load one of the Marpa modules at a time\n",
+            'Version ', $Marpa::VERSION, " of Marpa is already loaded\n" );
+    }
+    if ( defined $Marpa::XS::VERSION ) {
+        Carp::croak( "You can only load one of the Marpa modules at a time\n",
+            'Version ', $Marpa::XS::VERSION,
+            " of Marpa::XS is already loaded\n" );
+    }
+} ## end BEGIN
+
 use Marpa::PP::Version;
 
-# Die if more than one of the Marpa modules is loaded
-if ( defined $Marpa::MODULE ) {
-    Carp::croak("You can only load one of the Marpa modules at a time\n",
-        "The module ", $Marpa::MODULE, " is already loaded\n");
-}
-$Marpa::MODULE = "Marpa::PP";
-$Marpa::USING_PP = 1;
-$Marpa::USING_XS = 0;
-if ( defined $Marpa::VERSION ) {
-    Carp::croak('Cannot load both Marpa::PP and Marpa');
-}
-if ( defined $Marpa::XS::VERSION ) {
-    Carp::croak('Cannot load both Marpa::PP and Marpa::XS');
-}
-
-@Marpa::CARP_NOT = ();
-for my $start (qw(Marpa Marpa::PP Marpa::XS))
-{
-    for my $middle ('', '::Internal')
-    {
-	for my $end ('', qw(::Recognizer ::Callback ::Grammar ::Value))
-	{
-	    push @Marpa::CARP_NOT, $start . $middle . $end;
-	}
+@Marpa::PP::CARP_NOT = ();
+for my $middle ( q{}, '::Internal' ) {
+    for my $end ( q{}, qw(::Recognizer ::Callback ::Grammar ::Value) ) {
+        push @Marpa::PP::CARP_NOT, 'Marpa::PP' . $middle . $end;
     }
 }
-PACKAGE: for my $package (@Marpa::CARP_NOT) {
+PACKAGE: for my $package (@Marpa::PP::CARP_NOT) {
     no strict 'refs';
-    next PACKAGE if  $package eq 'Marpa';
-    *{ $package . q{::CARP_NOT} } = \@Marpa::CARP_NOT;
+    next PACKAGE if $package eq 'Marpa';
+    *{ $package . q{::CARP_NOT} } = \@Marpa::PP::CARP_NOT;
 }
 
 if (not $ENV{'MARPA_AUTHOR_TEST'}) {
@@ -67,11 +63,38 @@ if (not $ENV{'MARPA_AUTHOR_TEST'}) {
     $Marpa::PP::DEBUG = 1;
 }
 
+sub version_ok {
+    my ($sub_module_version) = @_;
+    return 'not defined' if not defined $sub_module_version;
+    return "$sub_module_version does not match Marpa::PP::VERSION " . $VERSION
+        if $sub_module_version != $VERSION;
+    return;
+} ## end sub version_ok
+
+my $version_result;
 require Marpa::PP::Internal;
+( $version_result = version_ok($Marpa::PP::Internal::VERSION) )
+    and die 'Marpa::PP::Internal::VERSION ', $version_result;
+
 require Marpa::PP::Grammar;
+( $version_result = version_ok($Marpa::PP::Grammar::VERSION) )
+    and die 'Marpa::PP::Grammar::VERSION ', $version_result;
+
 require Marpa::PP::Recognizer;
+( $version_result = version_ok($Marpa::PP::Recognizer::VERSION) )
+    and die 'Marpa::PP::Recognizer::VERSION ', $version_result;
+
 require Marpa::PP::Value;
+( $version_result = version_ok($Marpa::PP::Value::VERSION) )
+    and die 'Marpa::PP::Value::VERSION ', $version_result;
+
 require Marpa::PP::Callback;
+( $version_result = version_ok($Marpa::PP::Callback::VERSION) )
+    and die 'Marpa::PP::Callback::VERSION ', $version_result;
+
+$Marpa::USING_PP = 1;
+$Marpa::USING_XS = undef;
+$Marpa::MODULE   = 'Marpa::PP';
 
 *Marpa::Grammar::check_terminal = \&Marpa::PP::Grammar::check_terminal;
 *Marpa::Grammar::new = \&Marpa::PP::Grammar::new;

@@ -21,7 +21,14 @@ use warnings;
 use integer;
 use Carp;
 
-*Marpa::exception = \&Carp::croak;
+use vars qw($VERSION $STRING_VERSION);
+$VERSION        = '0.011_000';
+$STRING_VERSION = $VERSION;
+## no critic (BuiltinFunctions::ProhibitStringyEval)
+$VERSION = eval $VERSION;
+## use critic
+
+*Marpa::PP::exception = \&Carp::croak;
 
 ## no critic (Subroutines::RequireArgUnpacking)
 sub Marpa::PP::internal_error {
@@ -42,7 +49,7 @@ use constant N_FORMAT_HIGH_BIT => 0x8000_0000;
 # in hex numbers
 use constant N_FORMAT_MAX => 0x7fff_ffff;
 
-sub Marpa::offset {
+sub Marpa::PP::offset {
     my (@desc)   = @_;
     my @fields = ();
     for my $desc (@desc) {

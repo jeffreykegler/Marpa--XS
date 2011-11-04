@@ -13,18 +13,34 @@
 # General Public License along with Marpa::PP.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::PP::Internal::Value;
+package Marpa::PP::Value;
 
 use 5.010;
 use warnings;
 use strict;
 use integer;
 
+use vars qw($VERSION $STRING_VERSION);
+$VERSION        = '0.011_000';
+$STRING_VERSION = $VERSION;
+## no critic (BuiltinFunctions::ProhibitStringyEval)
+$VERSION = eval $VERSION;
+## use critic
+
+package Marpa::PP::Internal::Value;
+
 use English qw( -no_match_vars );
 
 # This perlcritic check is broken as of 9 Aug 2010
 ## no critic (TestingAndDebugging::ProhibitNoWarnings)
 no warnings qw(qw);
+## use critic
+
+use vars qw($VERSION $STRING_VERSION);
+$VERSION        = '0.011_000';
+$STRING_VERSION = $VERSION;
+## no critic (BuiltinFunctions::ProhibitStringyEval)
+$VERSION = eval $VERSION;
 ## use critic
 
 BEGIN {
@@ -45,7 +61,7 @@ my $structure = <<'END_OF_STRUCTURE';
 
     =LAST_FIELD
 END_OF_STRUCTURE
-    Marpa::offset($structure);
+    Marpa::PP::offset($structure);
 } ## end BEGIN
 
 BEGIN {
@@ -83,7 +99,7 @@ my $structure = <<'END_OF_STRUCTURE';
     =LAST_FIELD
 
 END_OF_STRUCTURE
-    Marpa::offset($structure);
+    Marpa::PP::offset($structure);
 } ## end BEGIN
 
 BEGIN {
@@ -111,7 +127,7 @@ my $structure = <<'END_OF_STRUCTURE';
     be recalculated }
 
 END_OF_STRUCTURE
-    Marpa::offset($structure);
+    Marpa::PP::offset($structure);
 } ## end BEGIN
 
 BEGIN {
@@ -130,7 +146,7 @@ my $structure = <<'END_OF_STRUCTURE';
     STACK_INODE
 
 END_OF_STRUCTURE
-    Marpa::offset($structure);
+    Marpa::PP::offset($structure);
 } ## end BEGIN
 
 BEGIN {
@@ -147,7 +163,7 @@ my $structure = <<'END_OF_STRUCTURE';
     VIRTUAL_TAIL
 
 END_OF_STRUCTURE
-    Marpa::offset($structure);
+    Marpa::PP::offset($structure);
 } ## end BEGIN
 
 BEGIN {
@@ -161,7 +177,7 @@ my $structure = <<'END_OF_STRUCTURE';
     RANK { *NOT* a rank ref }
 
 END_OF_STRUCTURE
-    Marpa::offset($structure);
+    Marpa::PP::offset($structure);
 } ## end BEGIN
 
 use constant SKIP => -1;
@@ -442,7 +458,7 @@ sub Marpa::PP::Internal::Recognizer::set_null_values {
                 'Setting null value for symbol ',
                 $symbol->[Marpa::PP::Internal::Symbol::NAME],
                 ' to ', Data::Dumper->new( [ \$null_value ] )->Terse(1)->Dump
-                or Marpa::exception('Could not print to trace file');
+                or Marpa::PP::exception('Could not print to trace file');
         } ## end if ($trace_values)
 
     } ## end for my $symbol ( @{$symbols} )
@@ -460,14 +476,14 @@ sub Marpa::PP::Internal::Recognizer::resolve_semantics {
     my $trace_actions =
         $recce->[Marpa::PP::Internal::Recognizer::TRACE_ACTIONS];
 
-    Marpa::exception(q{Trying to resolve 'undef' as closure name})
+    Marpa::PP::exception(q{Trying to resolve 'undef' as closure name})
         if not defined $closure_name;
 
     if ( my $closure = $closures->{$closure_name} ) {
         if ($trace_actions) {
             print {$Marpa::PP::Internal::TRACE_FH}
                 qq{Resolved "$closure_name" to explicit closure\n}
-                or Marpa::exception('Could not print to trace file');
+                or Marpa::PP::exception('Could not print to trace file');
         }
 
         return $closure;
@@ -511,7 +527,7 @@ sub Marpa::PP::Internal::Recognizer::resolve_semantics {
             ( $closure ? 'Successful' : 'Failed' )
             . qq{ resolution of "$closure_name" },
             'to ', $fully_qualified_name, "\n"
-            or Marpa::exception('Could not print to trace file');
+            or Marpa::PP::exception('Could not print to trace file');
     } ## end if ($trace_actions)
 
     return $closure;
@@ -534,7 +550,7 @@ sub Marpa::PP::Internal::Recognizer::set_actions {
         $default_action_closure =
             Marpa::PP::Internal::Recognizer::resolve_semantics( $recce,
             $default_action );
-        Marpa::exception(
+        Marpa::PP::exception(
             "Could not resolve default action named '$default_action'")
             if not $default_action_closure;
     } ## end if ( defined $default_action )
@@ -579,7 +595,7 @@ sub Marpa::PP::Internal::Recognizer::set_actions {
                 Marpa::PP::Internal::Recognizer::resolve_semantics( $recce,
                 $action );
 
-            Marpa::exception(qq{Could not resolve action name: "$action"})
+            Marpa::PP::exception(qq{Could not resolve action name: "$action"})
                 if not defined $closure;
             push @{$ops}, Marpa::PP::Internal::Op::CALL, $closure;
             next RULE;
@@ -639,7 +655,7 @@ sub do_rank_all {
         $cycle_closure =
             Marpa::PP::Internal::Recognizer::resolve_semantics( $recce,
             $cycle_ranking_action );
-        Marpa::exception(
+        Marpa::PP::exception(
             "Could not resolve cycle ranking action named '$cycle_ranking_action'"
         ) if not $cycle_closure;
     } ## end if ( defined $cycle_ranking_action )
@@ -654,7 +670,7 @@ sub do_rank_all {
             Marpa::PP::Internal::Recognizer::resolve_semantics( $recce,
             $ranking_action );
         my $symbol_name = $symbol->[Marpa::PP::Internal::Symbol::NAME];
-        Marpa::exception(
+        Marpa::PP::exception(
             "Could not resolve ranking action for symbol.\n",
             qq{    Symbol was "$symbol_name".},
             qq{    Ranking action was "$ranking_action".}
@@ -671,7 +687,7 @@ sub do_rank_all {
         my $ranking_closure;
         my $cycle_rule = $rule->[Marpa::PP::Internal::Rule::CYCLE];
 
-        Marpa::exception(
+        Marpa::PP::exception(
             "Rule which cycles has an explicit ranking action\n",
             qq{   The ranking action is "$ranking_action"\n},
             qq{   To solve this problem,\n},
@@ -683,7 +699,7 @@ sub do_rank_all {
             $ranking_closure =
                 Marpa::PP::Internal::Recognizer::resolve_semantics( $recce,
                 $ranking_action );
-            Marpa::exception(
+            Marpa::PP::exception(
                 "Ranking closure '$ranking_action' not found")
                 if not defined $ranking_closure;
         } ## end if ($ranking_action)
@@ -699,7 +715,7 @@ sub do_rank_all {
         # unused (because of the CHAF rewrite) or the special
         # null start rule.
         if ( not scalar @{ $rule->[Marpa::PP::Internal::Rule::RHS] } ) {
-            Marpa::exception(
+            Marpa::PP::exception(
                 "Ranking closure '$ranking_action' not found")
                 if not defined $ranking_closure;
 
@@ -978,7 +994,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
         my $closure =
             Marpa::PP::Internal::Recognizer::resolve_semantics( $recce,
             $constructor_name );
-        Marpa::exception(
+        Marpa::PP::exception(
             qq{Could not find constructor "$constructor_name"})
             if not defined $closure;
         $action_object_constructor = $closure;
@@ -1025,11 +1041,11 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
             for my $i ( reverse 0 .. $#evaluation_stack ) {
                 printf {$Marpa::PP::Internal::TRACE_FH} 'Stack position %3d:',
                     $i
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
                 print {$Marpa::PP::Internal::TRACE_FH} q{ },
                     Data::Dumper->new( [ $evaluation_stack[$i] ] )->Terse(1)
                     ->Dump
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             } ## end for my $i ( reverse 0 .. $#evaluation_stack )
         } ## end if ( $trace_values >= 3 )
 
@@ -1048,7 +1064,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                     $and_node->[Marpa::PP::Internal::And_Node::TAG], ': ',
                     ( $token_name ? qq{$token_name = } : q{} ),
                     Data::Dumper->new( [$value_ref] )->Terse(1)->Dump
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             } ## end if ($trace_values)
 
         }    # defined $value_ref
@@ -1076,7 +1092,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                             ' values to evaluate ',
                             $and_node->[Marpa::PP::Internal::And_Node::TAG],
                             ', rule: ', Marpa::PP::brief_rule($rule)
-                            or Marpa::exception(
+                            or Marpa::PP::exception(
                             'Could not print to trace file');
                     } ## end if ($trace_values)
 
@@ -1102,7 +1118,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                             'Currently ',
                             ( scalar @virtual_rule_stack ),
                             ' rules; ', $virtual_rule_stack[-1], ' symbols;',
-                            or Marpa::exception(
+                            or Marpa::PP::exception(
                             'Could not print to trace file');
                     } ## end if ($trace_values)
 
@@ -1127,7 +1143,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                             $and_node->[Marpa::PP::Internal::And_Node::TAG],
                             ', rule: ', Marpa::PP::brief_rule($rule),
                             "\nAdding $real_symbol_count",
-                            or Marpa::exception(
+                            or Marpa::PP::exception(
                             'Could not print to trace file');
                     } ## end if ($trace_values)
 
@@ -1145,7 +1161,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                             $and_node->[Marpa::PP::Internal::And_Node::TAG],
                             ', rule: ', Marpa::PP::brief_rule($rule),
                             "\nReal symbol count is $real_symbol_count",
-                            or Marpa::exception(
+                            or Marpa::PP::exception(
                             'Could not print to trace file');
                     } ## end if ($trace_values)
 
@@ -1160,7 +1176,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                             'Constant result: ',
                             'Pushing 1 value on stack: ',
                             Data::Dumper->new( [$result] )->Terse(1)->Dump
-                            or Marpa::exception(
+                            or Marpa::PP::exception(
                             'Could not print to trace file');
                     } ## end if ($trace_values)
                     push @evaluation_stack, $result;
@@ -1214,7 +1230,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                         print {$Marpa::PP::Internal::TRACE_FH}
                             'Calculated and pushed value: ',
                             Data::Dumper->new( [$result] )->Terse(1)->Dump
-                            or Marpa::exception(
+                            or Marpa::PP::exception(
                             'print to trace handle failed');
                     } ## end if ($trace_values)
 
@@ -1223,7 +1239,7 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                 } ## end when (Marpa::PP::Internal::Op::CALL)
 
                 default {
-                    Marpa::exception("Unknown evaluator Op: $_");
+                    Marpa::PP::exception("Unknown evaluator Op: $_");
                 }
 
             } ## end given
@@ -1290,7 +1306,7 @@ sub Marpa::PP::Recognizer::value {
         $recce->[Marpa::PP::Internal::Recognizer::RANKING_METHOD];
 
     if ( $recce->[Marpa::PP::Internal::Recognizer::SINGLE_PARSE_MODE] ) {
-        Marpa::exception(
+        Marpa::PP::exception(
             qq{Arguments were passed directly to value() in a previous call\n},
             qq{Only one call to value() is allowed per recognizer when arguments are passed directly\n},
             qq{This is the second call to value()\n}
@@ -1300,14 +1316,14 @@ sub Marpa::PP::Recognizer::value {
     my $parse_count = $recce->[Marpa::PP::Internal::Recognizer::PARSE_COUNT];
     my $max_parses  = $recce->[Marpa::PP::Internal::Recognizer::MAX_PARSES];
     if ( $max_parses and $parse_count > $max_parses ) {
-        Marpa::exception("Maximum parse count ($max_parses) exceeded");
+        Marpa::PP::exception("Maximum parse count ($max_parses) exceeded");
     }
 
     for my $arg_hash (@arg_hashes) {
 
         if ( exists $arg_hash->{end} ) {
             if ($parse_count) {
-                Marpa::exception(
+                Marpa::PP::exception(
                     q{Cannot change "end" after first parse result});
             }
             $recce->[Marpa::PP::Internal::Recognizer::SINGLE_PARSE_MODE] = 1;
@@ -1317,13 +1333,13 @@ sub Marpa::PP::Recognizer::value {
 
         if ( exists $arg_hash->{closures} ) {
             if ($parse_count) {
-                Marpa::exception(
+                Marpa::PP::exception(
                     q{Cannot change "closures" after first parse result});
             }
             $recce->[Marpa::PP::Internal::Recognizer::SINGLE_PARSE_MODE] = 1;
             my $closures = $arg_hash->{closures};
             while ( my ( $action, $closure ) = each %{$closures} ) {
-                Marpa::exception(qq{Bad closure for action "$action"})
+                Marpa::PP::exception(qq{Bad closure for action "$action"})
                     if ref $closure ne 'CODE';
             }
             $recce->[Marpa::PP::Internal::Recognizer::CLOSURES] = $closures;
@@ -1356,7 +1372,7 @@ sub Marpa::PP::Recognizer::value {
         } ## end for my $trace_fh_alias (qw(trace_fh trace_file_handle))
 
         my @unknown_arg_names = keys %{$arg_hash};
-        Marpa::exception(
+        Marpa::PP::exception(
             'Unknown named argument(s) to Marpa::PP::Recognizer::value: ',
             ( join q{ }, @unknown_arg_names ) )
             if @unknown_arg_names;
@@ -1370,7 +1386,7 @@ sub Marpa::PP::Recognizer::value {
         $recce->[Marpa::PP::Internal::Recognizer::FURTHEST_EARLEME];
     my $last_completed_earleme =
         $recce->[Marpa::PP::Internal::Recognizer::LAST_COMPLETED_EARLEME];
-    Marpa::exception(
+    Marpa::PP::exception(
         "Attempt to evaluate incompletely recognized parse:\n",
         "  Last token ends at location $furthest_earleme\n",
         "  Recognition done only as far as location $last_completed_earleme\n"
@@ -1455,7 +1471,7 @@ sub Marpa::PP::Recognizer::value {
                 print {$Marpa::PP::Internal::TRACE_FH}
                     'Task: INITIALIZE; ',
                     ( scalar @task_list ), " tasks pending\n"
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             } ## end if ($trace_tasks)
 
             my $start_rule_id = $start_rule->[Marpa::PP::Internal::Rule::ID];
@@ -1525,7 +1541,7 @@ sub Marpa::PP::Recognizer::value {
                 print {$Marpa::PP::Internal::TRACE_FH}
                     'Task: ITERATE; ',
                     ( scalar @task_list ), " tasks pending\n"
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             } ## end if ($trace_tasks)
 
             $iteration_node_worklist = undef;
@@ -1645,7 +1661,7 @@ sub Marpa::PP::Recognizer::value {
                     ( scalar @{$iteration_node_worklist} ),
                     " current iteration node #$working_node_ix; ",
                     ( scalar @task_list ), " tasks pending\n"
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             } ## end if ($trace_tasks)
 
             # We are done fixing the tree is the worklist is empty
@@ -1713,7 +1729,7 @@ sub Marpa::PP::Recognizer::value {
                     'Task: POPULATE_OR_NODE o',
                     $work_or_node->[Marpa::PP::Internal::Or_Node::ID],
                     q{; }, ( scalar @task_list ), " tasks pending\n"
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             } ## end if ($trace_tasks)
 
             my $work_node_name =
@@ -1949,7 +1965,7 @@ sub Marpa::PP::Recognizer::value {
                         $predecessor_id =
                             ( push @{$or_nodes}, $predecessor_or_node ) - 1;
 
-                        Marpa::exception(
+                        Marpa::PP::exception(
                             "Too many or-nodes for evaluator: $predecessor_id"
                             )
                             if $predecessor_id
@@ -2029,7 +2045,7 @@ sub Marpa::PP::Recognizer::value {
                             $cause_id =
                                 ( push @{$or_nodes}, $cause_or_node ) - 1;
 
-                            Marpa::exception(
+                            Marpa::PP::exception(
                                 "Too many or-nodes for evaluator: $cause_id")
                                 if $cause_id
                                     & ~(Marpa::PP::Internal::N_FORMAT_MAX);
@@ -2103,7 +2119,7 @@ sub Marpa::PP::Recognizer::value {
                 $and_node->[Marpa::PP::Internal::And_Node::END_EARLEME] =
                     $work_set;
                 my $id = ( push @{$and_nodes}, $and_node ) - 1;
-                Marpa::exception("Too many and-nodes for evaluator: $id")
+                Marpa::PP::exception("Too many and-nodes for evaluator: $id")
                     if $id & ~(Marpa::PP::Internal::N_FORMAT_MAX);
                 $and_node->[Marpa::PP::Internal::And_Node::ID] = $id;
                 $and_node->[Marpa::PP::Internal::And_Node::TAG] =
@@ -2130,7 +2146,7 @@ sub Marpa::PP::Recognizer::value {
                     'Task: STACK_INODE o',
                     $or_node->[Marpa::PP::Internal::Or_Node::ID],
                     q{; }, ( scalar @task_list ), " tasks pending\n"
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             } ## end if ($trace_tasks)
 
             my $and_node_ids =
@@ -2265,7 +2281,7 @@ sub Marpa::PP::Recognizer::value {
             if ($trace_tasks) {
                 print {$Marpa::PP::Internal::TRACE_FH} 'Task: RANK_ALL; ',
                     ( scalar @task_list ), " tasks pending\n"
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             }
 
             do_rank_all($recce);
@@ -2286,7 +2302,7 @@ sub Marpa::PP::Recognizer::value {
                 print {$Marpa::PP::Internal::TRACE_FH}
                     'Task: POPULATE_DEPTH; ',
                     ( scalar @task_list ), " tasks pending\n"
-                    or Marpa::exception('print to trace handle failed');
+                    or Marpa::PP::exception('print to trace handle failed');
             } ## end if ($trace_tasks)
 
             # We can assume all or-nodes in the list are populated

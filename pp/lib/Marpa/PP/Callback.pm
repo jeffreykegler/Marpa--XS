@@ -13,17 +13,26 @@
 # General Public License along with Marpa::PP.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::PP::Internal::Callback;
+package Marpa::PP::Callback;
 
 use 5.010;
 use warnings;
 use strict;
 use integer;
 
+use vars qw($VERSION $STRING_VERSION);
+$VERSION        = '0.011_000';
+$STRING_VERSION = $VERSION;
+## no critic (BuiltinFunctions::ProhibitStringyEval)
+$VERSION = eval $VERSION;
+## use critic
+
+package Marpa::PP::Internal::Callback;
+
 use English qw( -no_match_vars );
 
 sub Marpa::PP::location {
-    Marpa::exception('No context for location callback')
+    Marpa::PP::exception('No context for location callback')
         if not my $context = $Marpa::PP::Internal::CONTEXT;
     my ( $context_type, $and_node, $recce ) = @{$context};
     if ( $context_type eq 'and-node' ) {
@@ -31,11 +40,11 @@ sub Marpa::PP::location {
 	my $earley_sets = $recce->[Marpa::PP::Internal::Recognizer::EARLEY_SETS];
 	return $earley_sets->[$earleme]->[Marpa::PP::Internal::Earley_Set::ORDINAL];
     }
-    Marpa::exception('LOCATION called outside and-node context');
+    Marpa::PP::exception('LOCATION called outside and-node context');
 } ## end sub Marpa::PP::location
 
 sub Marpa::PP::cause_location {
-    Marpa::exception('No context for cause_location callback')
+    Marpa::PP::exception('No context for cause_location callback')
         if not my $context = $Marpa::PP::Internal::CONTEXT;
     my ( $context_type, $and_node, $recce ) = @{$context};
     if ( $context_type eq 'and-node' ) {
@@ -43,7 +52,7 @@ sub Marpa::PP::cause_location {
 	my $earley_sets = $recce->[Marpa::PP::Internal::Recognizer::EARLEY_SETS];
 	return $earley_sets->[$earleme]->[Marpa::PP::Internal::Earley_Set::ORDINAL];
     }
-    Marpa::exception('cause_location() called outside and-node context');
+    Marpa::PP::exception('cause_location() called outside and-node context');
 } ## end sub Marpa::PP::cause_location
 
 no strict 'refs';
