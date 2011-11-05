@@ -58,14 +58,14 @@ my %pod_files = map { ( "pod/$_" => "lib/Marpa/PP/$_" ) } qw(
 );
 $pod_files{'pod/Marpa_PP.pod'} = 'lib/Marpa/PP.pod';
 
-my @no_index_namespace_inclusive = (
-
-    # not for now, at least
-    qw(Marpa::PP::Perl Marpa::PP::Offset Marpa::PP::Test Marpa::PP::Display ),
-
-    # never intended to see the light of day
-    qw( Marpa::PP::Internal),
-
+my @no_index_namespace_inclusive = qw(
+    Marpa::PP::Callback
+    Marpa::PP::Display
+    Marpa::PP::Internal
+    Marpa::PP::Offset
+    Marpa::PP::Perl
+    Marpa::PP::Test
+    Marpa::PP::Value
 );
 
 my @files_to_cleanup = (
