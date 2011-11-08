@@ -11,7 +11,10 @@ Marpa Pending release candidate: Marpa-HTML-0.103_004.tar.gz Thu, 03 Nov 2011 05
 * DONE: Checked Git vs. CPAN for Marpa-HTML-0.103_001
 * DONE: In git, checked diff of CPAN_HTML-0.103_001 vs. CPAN_HTML-0.103_003
 * DONE: On CPAN, checked Diff from Marpa-HTML-0.103_001 to Marpa-HTML-0.103_003
+* DONE: In git, compared CPAN Marpa-HTML-0.103_004.tar.gz to commit 119d507c3ac01f55374edf6e2e210296039e7681
+* DONE: On CPAN, checked Diff from Marpa-HTML-0.103_003 to Marpa-HTML-0.103_004
 * DONE: Make sure I have enough cpantesters results for Marpa::XS 0.020000
+* Uploaded Marpa-HTML-0.104000.  Seems OK.  Await cpantesters
 
 For Marpa::PP
 * Add Marpa::PP::TESTING_ONLY as guard for constant ranking method
@@ -24,9 +27,9 @@ For Marpa::XS
 * Eliminate use of tokens() call from everything but deprecated*.t
 
 For Marpa::XS, later
-* Add Marpa::XS::CLEAN_NAMESPACE global
-* Set Marpa::XS::CLEAN_NAMESPACE in all *.t but deprecated.t
+* Add Marpa::XS::NAMESPACE_CLEAN global
+* Set Marpa::XS::NAMESPACE_CLEAN in all *.t but deprecated.t
 
 For Marpa::PP, later
-* Add Marpa::PP::CLEAN_NAMESPACE global
-* Set Marpa::PP::CLEAN_NAMESPACE in all *.t but deprecated.t
+* Add Marpa::PP::NAMESPACE_CLEAN global
+* Set Marpa::PP::NAMESPACE_CLEAN in all *.t but deprecated.t
