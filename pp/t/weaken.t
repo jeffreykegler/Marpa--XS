@@ -62,7 +62,10 @@ my $test = sub {
     );
     $g->precompute();
     my $recce = Marpa::PP::Recognizer->new( { grammar => $g } );
-    $recce->tokens( [ ( [ 'a', 'a', 1 ] ) x 4 ] );
+    $recce->read( 'a', 'a' );
+    $recce->read( 'a', 'a' );
+    $recce->read( 'a', 'a' );
+    $recce->read( 'a', 'a' );
     $recce->value();
     [ $g, $recce ];
 };
@@ -91,7 +94,7 @@ DELETE_UNDEF_CONSTANT: for my $ix ( 0 .. $#{$unfreed_proberefs} ) {
         say {*STDERR} 'Unfreed: ', $unfreed_proberefs->[$ix]
             or die 'Cannot write to STDERR';
         Devel::Peek::Dump( $unfreed_proberefs->[$ix] );
-    }
+    } ## end if ($verbose)
 
 } ## end for my $ix ( 0 .. $#{$unfreed_proberefs} )
 $unfreed_count = @{$unfreed_proberefs};
