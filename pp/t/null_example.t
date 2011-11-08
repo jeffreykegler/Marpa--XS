@@ -30,9 +30,8 @@ BEGIN {
     Test::More::use_ok('Marpa::PP');
 }
 
-## no critic (InputOutput::RequireBriefOpen)
-open my $original_stdout, q{>&STDOUT};
-## use critic
+open my $original_stdout,    ## no critic (InputOutput::RequireBriefOpen)
+    q{>&STDOUT};
 
 sub save_stdout {
     my $save;
@@ -47,8 +46,6 @@ sub restore_stdout {
     open STDOUT, q{>&}, $original_stdout;
     return 1;
 }
-
-## no critic (Subroutines::RequireArgUnpacking)
 
 # Marpa::PP::Display
 # name: Null Value Example
