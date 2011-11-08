@@ -61,6 +61,26 @@
    "provides" : {
       "Marpa::HTML" : {
          "file" : "lib/Marpa/HTML.pm",
+         "version" : "0.105_000"
+      },
+      "Marpa::HTML::Internal" : {
+         "file" : "lib/Marpa/HTML.pm",
+         "version" : 0
+      },
+      "Marpa::HTML::Internal::Callback" : {
+         "file" : "lib/Marpa/HTML/Callback.pm",
+         "version" : 0
+      },
+      "Marpa::HTML::Offset" : {
+         "file" : "lib/Marpa/HTML/Offset.pm",
+         "version" : 0
+      },
+      "Marpa::HTML::Test" : {
+         "file" : "lib/Marpa/HTML/Test.pm",
+         "version" : 0
+      },
+      "Marpa::HTML::Test::Util" : {
+         "file" : "lib/Marpa/HTML/Test/Util.pm",
          "version" : 0
       }
    },
@@ -70,5 +90,5 @@
          "url" : "git://github.com/jeffreykegler/Marpa--HTML.git"
       }
    },
-   "version" : "0.103_004"
+   "version" : "0.105_000"
 }

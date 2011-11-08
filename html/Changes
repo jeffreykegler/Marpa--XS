@@ -5,7 +5,9 @@
 
 Revision history for Marpa::HTML
 
-0.104000 Mon Nov  7 17:57:51 PST 2011
+0.105_000 Mon Nov  7 18:25:10 PST 2011
+
+    * Developer's version to check indexing issues
 
     * Eliminate use of tokens() call.
 

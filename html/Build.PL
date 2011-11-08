@@ -66,10 +66,6 @@ my $build = Marpa::HTML::Build_Me->new(
             ],
         },
     },
-    meta_add => {
-        distribution_type => 'module',
-        provides => { 'Marpa::HTML' => { file => 'lib/Marpa/HTML.pm', }, },
-    },
     create_readme      => 0,
     create_makefile_pl => 'small',
     test_files => [ map { glob $_ } qw(t/*.t t/*/*.t lib/Marpa/HTML/t/*.t) ],
