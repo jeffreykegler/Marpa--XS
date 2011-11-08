@@ -35,7 +35,6 @@ package Test_Grammar;
 # formatting
 
 #<<< no perltidy
-##no critic (ValuesAndExpressions::ProhibitNoisyQuotes)
 
 $Test_Grammar::MARPA_OPTIONS = [
     {
@@ -147,6 +146,8 @@ $Test_Grammar::MARPA_OPTIONS = [
     }
   ];
 
+##no critic (ValuesAndExpressions::ProhibitNoisyQuotes)
+
 my %regexes = (
     'die:k0'                => 'die',
     'unary-function-name'   => '(caller|eof|sin|localtime)',
@@ -161,8 +162,6 @@ my %regexes = (
 
 ## use critic
 #>>>
-#
-
 package main;
 
 my @test_data = (
@@ -211,8 +210,7 @@ TEST: for my $test_data (@test_data) {
                 [ $token, $+{match}, ( ( pos $test_input ) - $pos ), 0 ];
 
         } ## end while ( my ( $token, $regex ) = each %regexes )
-        ( undef, $terminals_expected ) =
-            $recce->tokens( \@tokens );
+        ( undef, $terminals_expected ) = $recce->tokens( \@tokens );
     } ## end for ( my $pos = 0; $pos < $input_length; $pos++ )
     $recce->end_input();
 
@@ -231,8 +229,6 @@ TEST: for my $test_data (@test_data) {
     Marpa::PP::Test::is( $actual, $expected, "$test_name: Parse match" );
 } ## end for my $test_data (@test_data)
 
-## no critic (Subroutines::RequireArgUnpacking)
-
 sub show_perl_line {
     shift;
     return join ', ', grep {defined} @_;
@@ -245,8 +241,6 @@ sub show_function_call      { return $_[1] }
 sub show_die                { return 'die statement' }
 sub show_unary              { return $_[1] . ' function call' }
 sub show_nullary            { return $_[1] . ' function call' }
-
-## use critic
 
 1;    # In case used as "do" file
 
