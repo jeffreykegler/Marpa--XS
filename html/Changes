@@ -5,13 +5,7 @@
 
 Revision history for Marpa::HTML
 
-0.103_004 Wed Nov  2 21:58:40 PDT 2011
-0.103_003 Thu Oct 27 19:03:15 PDT 2011
-0.103_002 Thu Oct 27 08:43:48 PDT 2011
-0.103_001 Tue Oct 25 09:26:41 PDT 2011
-0.103_000 Wed Sep  7 21:49:01 PDT 2011
-
-    * A series of developer's releases.
+0.104000 Mon Nov  7 17:57:51 PST 2011
 
     * Eliminate use of tokens() call.
 
