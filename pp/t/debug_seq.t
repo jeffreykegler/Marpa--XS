@@ -48,10 +48,7 @@ my $grammar = Marpa::PP::Grammar->new(
 
 $grammar->precompute();
 
-my @tokens = ( ( ['Stuff'] ) x 3 );
-
-my $recce =
-    Marpa::PP::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
 # Marpa::PP::Display
 # name: Recognizer check_terminal Synopsis
@@ -62,10 +59,9 @@ my $is_symbol_a_terminal = $recce->check_terminal('Document');
 
 Test::More::ok( !$is_symbol_a_terminal, 'LHS terminal?' );
 
-my $token_ix = 0;
-
-my ( $current_earleme, $expected_tokens ) =
-    $recce->tokens( \@tokens, \$token_ix );
+$recce->read('Stuff');
+$recce->read('Stuff');
+$recce->read('Stuff');
 
 $progress_report = $recce->show_progress(0);
 

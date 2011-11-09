@@ -43,9 +43,9 @@ sub default_action {
 ## use critic
 
 my $grammar = Marpa::PP::Grammar->new(
-    {   start   => 'S',
-        strip   => 0,
-        rules   => [
+    {   start => 'S',
+        strip => 0,
+        rules => [
             [ 'S', [qw/A A A A/] ],
             [ 'A', [qw/a/] ],
             [ 'A', [qw/E/] ],
@@ -113,8 +113,9 @@ Marpa::PP::Test::is(
     'Aycock/Horspool Accessible Symbols'
 );
 
-if (defined $Marpa::XS::VERSION ) {
-    Marpa::PP::Test::is( $grammar->show_AHFA_items(), <<'EOS', 'Aycock/Horspool AHFA Items' );
+if ( defined $Marpa::XS::VERSION ) {
+    Marpa::PP::Test::is( $grammar->show_AHFA_items(),
+        <<'EOS', 'Aycock/Horspool AHFA Items' );
 AHFA item 0: sort = 9; postdot = "a"
     A -> . a
 AHFA item 1: sort = 14; completion
@@ -168,9 +169,9 @@ AHFA item 24: sort = 24; completion
 AHFA item 25: sort = 25; completion
     S['][] -> .
 EOS
-}
+} ## end if ( defined $Marpa::XS::VERSION )
 
-if (defined $Marpa::PP::VERSION ) {
+if ( defined $Marpa::PP::VERSION ) {
     Marpa::PP::Test::is( $grammar->show_NFA, <<'EOS', 'Aycock/Horspool NFA' );
 S0: /* empty */
  empty => S33 S35
@@ -255,7 +256,7 @@ S33: S['] -> . S
 S34: S['] -> S .
 S35: S['][] -> .
 EOS
-}
+} ## end if ( defined $Marpa::PP::VERSION )
 
 Marpa::PP::Test::is( $grammar->show_AHFA, <<'EOS', 'Aycock/Horspool AHFA' );
 * S0:
@@ -338,8 +339,7 @@ A -> . a
  <a> => S5
 EOS
 
-my $recce =
-    Marpa::PP::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
 my @set = (
     <<'END_OF_SET0', <<'END_OF_SET1', <<'END_OF_SET2', <<'END_OF_SET3', <<'END_OF_SET4', );
