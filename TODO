@@ -21,6 +21,7 @@ Marpa Pending release candidate: Marpa-HTML-0.103_004.tar.gz Thu, 03 Nov 2011 05
 For Marpa::PP
 * DONE: Tested commit 8bfd393f46a0507dafa900db2c524fa7654b832c Tue Nov 8 22:36:30 2011 -0800
 * TODO: Cut CPAN Marpa-PP-0.011_002
+* TODO: Check that indexing issues with Marpa-PP-0.011_001 are fixed in Marpa-PP-0.011_002
 
 For Marpa::XS
 * Add deprecated{1,2}.t
