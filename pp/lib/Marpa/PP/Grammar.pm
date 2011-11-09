@@ -33,9 +33,11 @@ use utf8;
 use vars qw($VERSION $STRING_VERSION);
 $VERSION        = '0.011_001';
 $STRING_VERSION = $VERSION;
+{
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
-$VERSION = eval $VERSION;
-## use critic
+## no critic (ValuesAndExpressions::RequireConstantVersion)
+    $VERSION = eval $VERSION;
+}
 
 BEGIN {
 my $structure = <<'END_OF_STRUCTURE';
@@ -851,7 +853,7 @@ sub Marpa::PP::show_symbol {
 
     my $nullable = $symbol->[Marpa::PP::Internal::Symbol::NULLABLE];
     if ($nullable) {
-        $text .= " nullable";
+        $text .= ' nullable';
     }
 
     ELEMENT:
@@ -1208,7 +1210,7 @@ sub Marpa::PP::show_AHFA_state {
     my $text     = q{};
     my $stripped = $#{$state} < Marpa::PP::Internal::AHFA::LAST_FIELD;
 
-    $text .= '* ' . Marpa::PP::brief_AHFA_state($state) . ':';
+    $text .= q{* } . Marpa::PP::brief_AHFA_state($state) . q{:};
 
     my @tags = ();
     $state->[Marpa::PP::Internal::AHFA::LEO_COMPLETION] and push @tags, 'leo-c';
@@ -1651,7 +1653,7 @@ sub add_user_rule {
 
     # create the sequence symbol
     my $sequence_name = $lhs_name . '[Subseq:'
-	. $lhs->[Marpa::PP::Internal::Symbol::ID] . ':'
+	. $lhs->[Marpa::PP::Internal::Symbol::ID] . q{:}
 	. $rhs->[0]->[Marpa::PP::Internal::Symbol::ID] . ']';
     my $sequence = assign_symbol( $grammar, $sequence_name );
 

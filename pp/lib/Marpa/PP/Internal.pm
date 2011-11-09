@@ -24,18 +24,18 @@ use Carp;
 use vars qw($VERSION $STRING_VERSION);
 $VERSION        = '0.011_001';
 $STRING_VERSION = $VERSION;
+{
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
-$VERSION = eval $VERSION;
-## use critic
+## no critic (ValuesAndExpressions::RequireConstantVersion)
+    $VERSION = eval $VERSION;
+}
 
 *Marpa::PP::exception = \&Carp::croak;
 
-## no critic (Subroutines::RequireArgUnpacking)
 sub Marpa::PP::internal_error {
     Carp::confess(
         "Internal Marpa::PP Error: This could be a bug in Marpa::PP\n", @_ );
 }
-## use critic
 
 # Perl critic at present is not smart about underscores
 # in hex numbers
@@ -52,17 +52,13 @@ use constant N_FORMAT_MAX => 0x7fff_ffff;
 sub Marpa::PP::offset {
     my (@desc) = @_;
     my @fields = ();
-    for my $desc (@desc) {
-        push @fields, split ' ', $desc;
-    }
+    for my $desc (@desc) { push @fields, split q{ }, $desc; }
     my $pkg        = caller;
     my $prefix     = $pkg . q{::};
     my $offset     = -1;
     my $in_comment = 0;
 
-    ## no critic (TestingAndDebugging::ProhibitNoStrict)
-    no strict 'refs';
-    ## use critic
+    no strict 'refs';    ## no critic (TestingAndDebugging::ProhibitNoStrict)
     FIELD: for my $field (@fields) {
 
         if ($in_comment) {

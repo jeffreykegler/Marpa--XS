@@ -20,11 +20,13 @@ use strict;
 use warnings;
 
 use vars qw($VERSION $STRING_VERSION $DEBUG);
-$VERSION = '0.011_001';
+$VERSION        = '0.011_001';
 $STRING_VERSION = $VERSION;
+{
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
-$VERSION = eval $VERSION;
-## use critic
+## no critic (ValuesAndExpressions::RequireConstantVersion)
+    $VERSION = eval $VERSION;
+}
 $DEBUG = 0;
 
 use Carp;

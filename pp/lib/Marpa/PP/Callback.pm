@@ -23,9 +23,11 @@ use integer;
 use vars qw($VERSION $STRING_VERSION);
 $VERSION        = '0.011_001';
 $STRING_VERSION = $VERSION;
+{
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
-$VERSION = eval $VERSION;
-## use critic
+## no critic (ValuesAndExpressions::RequireConstantVersion)
+    $VERSION = eval $VERSION;
+}
 
 package Marpa::PP::Internal::Callback;
 

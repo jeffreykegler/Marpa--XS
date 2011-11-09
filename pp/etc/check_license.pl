@@ -32,10 +32,11 @@ my $file_count = @ARGV;
 my @license_problems =
     map { Marpa::PP::License::file_license_problems( $_, $verbose ) } @ARGV;
 
-print join "\n", @license_problems;
+print join "\n", @license_problems or die "print: $ERRNO";
 
 my $problem_count = scalar @license_problems;
 
 $problem_count and say +( q{=} x 50 );
 say
-    "Found $problem_count license language problems after examining $file_count files";
+    "Found $problem_count license language problems after examining $file_count files"
+    or die "say: $ERRNO";

@@ -316,7 +316,7 @@ short_subroutine_statements = 3
 
 [Subroutines::RequireFinalReturn]
 severity=5
-terminal_funcs = Marpa::XS::exception
+terminal_funcs = Marpa::PP::exception
 
 [TestingAndDebugging::ProhibitNoStrict]
 severity=5

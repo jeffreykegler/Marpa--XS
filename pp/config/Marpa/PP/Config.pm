@@ -13,13 +13,12 @@
 # General Public License along with Marpa::PP.  If not, see
 # http://www.gnu.org/licenses/.
 
-use 5.010;
-
-package Marpa::PP;
-
 # This file is editable.  It is used during the
 # configuration process to set up version information.
 
+package Marpa::PP;
+
+use 5.010;
 use strict;
 use warnings;
 
@@ -36,3 +35,4 @@ use warnings;
     'Test::More'          => 0.94,
 );
 
+1;
