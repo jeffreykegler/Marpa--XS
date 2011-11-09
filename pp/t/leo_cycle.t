@@ -171,8 +171,7 @@ Marpa::PP::Test::is( $grammar->show_AHFA(), $expected_ahfa_output,
 
 my $length = 20;
 
-my $recce =
-    Marpa::PP::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
 my $i                 = 0;
 my $latest_earley_set = $recce->latest_earley_set();
