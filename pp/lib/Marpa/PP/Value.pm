@@ -23,28 +23,20 @@ use integer;
 use vars qw($VERSION $STRING_VERSION);
 $VERSION        = '0.011_001';
 $STRING_VERSION = $VERSION;
+{
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
-$VERSION = eval $VERSION;
-## use critic
+## no critic (ValuesAndExpressions::RequireConstantVersion)
+    $VERSION = eval $VERSION;
+}
 
 package Marpa::PP::Internal::Value;
 
 use English qw( -no_match_vars );
 
-# This perlcritic check is broken as of 9 Aug 2010
-## no critic (TestingAndDebugging::ProhibitNoWarnings)
-no warnings qw(qw);
-## use critic
-
-use vars qw($VERSION $STRING_VERSION);
-$VERSION        = '0.011_000';
-$STRING_VERSION = $VERSION;
-## no critic (BuiltinFunctions::ProhibitStringyEval)
-$VERSION = eval $VERSION;
-## use critic
+no warnings qw(qw);    ## no critic (TestingAndDebugging::ProhibitNoWarnings)
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::Or_Node
 
@@ -65,7 +57,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::And_Node
 
@@ -103,7 +95,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::Iteration_Node
 
@@ -131,7 +123,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::Task
 
@@ -150,7 +142,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::Op
 
@@ -167,7 +159,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::Choice
 
@@ -192,42 +184,47 @@ sub Marpa::PP::Recognizer::parse_count {
 }
 
 sub Marpa::PP::Recognizer::and_node_tag {
-    my ($recce, $and_node) = @_;
-    my $or_nodes = $recce->[Marpa::PP::Internal::Recognizer::OR_NODES];
-    my $grammar = $recce->[Marpa::PP::Internal::Recognizer::GRAMMAR];
+    my ( $recce, $and_node ) = @_;
+    my $or_nodes    = $recce->[Marpa::PP::Internal::Recognizer::OR_NODES];
+    my $grammar     = $recce->[Marpa::PP::Internal::Recognizer::GRAMMAR];
     my $symbol_hash = $grammar->[Marpa::PP::Internal::Grammar::SYMBOL_HASH];
     my $recce_c     = $recce->[Marpa::PP::Internal::Recognizer::C];
-    my $origin_earleme = $and_node->[Marpa::PP::Internal::And_Node::START_EARLEME];
-    my $current_earleme = $and_node->[Marpa::PP::Internal::And_Node::END_EARLEME];
-    my $middle_earleme = $and_node->[Marpa::PP::Internal::And_Node::CAUSE_EARLEME];
+    my $origin_earleme =
+        $and_node->[Marpa::PP::Internal::And_Node::START_EARLEME];
+    my $current_earleme =
+        $and_node->[Marpa::PP::Internal::And_Node::END_EARLEME];
+    my $middle_earleme =
+        $and_node->[Marpa::PP::Internal::And_Node::CAUSE_EARLEME];
     my $position = $and_node->[Marpa::PP::Internal::And_Node::POSITION] + 1;
-    my $rule = $and_node->[Marpa::PP::Internal::And_Node::RULE_ID];
-    my $tag =
-	  'R' 
-	. $rule . q{:}
-	. $position . q{@}
-	. $origin_earleme . q{-}
-	. $current_earleme;
-    my $cause_id  = $and_node->[Marpa::PP::Internal::And_Node::CAUSE_ID];
-    if (defined $cause_id) {
-	my $cause = $or_nodes->[$cause_id];
-	my $cause_rule = $cause->[Marpa::PP::Internal::Or_Node::RULE_ID];
-	$tag .= 'C' . $cause_rule;
-    } else {
-	my $token_name =
-	    $and_node->[Marpa::PP::Internal::And_Node::TOKEN_NAME];
-	my $symbol = $symbol_hash->{$token_name};
-	$tag .= 'S' . $symbol;
+    my $rule     = $and_node->[Marpa::PP::Internal::And_Node::RULE_ID];
+
+    my $tag = 'R'    # perltidy, v20090616 adds trailing whitespace here
+        . $rule . q{:}
+        . $position . q{@}
+        . $origin_earleme . q{-}
+        . $current_earleme;
+    my $cause_id = $and_node->[Marpa::PP::Internal::And_Node::CAUSE_ID];
+
+    if ( defined $cause_id ) {
+        my $cause      = $or_nodes->[$cause_id];
+        my $cause_rule = $cause->[Marpa::PP::Internal::Or_Node::RULE_ID];
+        $tag .= 'C' . $cause_rule;
     }
+    else {
+        my $token_name =
+            $and_node->[Marpa::PP::Internal::And_Node::TOKEN_NAME];
+        my $symbol = $symbol_hash->{$token_name};
+        $tag .= 'S' . $symbol;
+    } ## end else [ if ( defined $cause_id ) ]
     $tag .= q{@} . $middle_earleme;
     return $tag;
-}
+} ## end sub Marpa::PP::Recognizer::and_node_tag
 
 sub Marpa::PP::Recognizer::or_node_tag {
     my ( $recce, $or_node ) = @_;
     die unless defined $or_node;
-    my $item = $or_node->[Marpa::PP::Internal::Or_Node::ITEM];
-    my $set = $item->[Marpa::PP::Internal::Earley_Item::SET];
+    my $item     = $or_node->[Marpa::PP::Internal::Or_Node::ITEM];
+    my $set      = $item->[Marpa::PP::Internal::Earley_Item::SET];
     my $origin   = $item->[Marpa::PP::Internal::Earley_Item::ORIGIN];
     my $rule     = $or_node->[Marpa::PP::Internal::Or_Node::RULE_ID];
     my $position = $or_node->[Marpa::PP::Internal::Or_Node::POSITION];
@@ -235,54 +232,58 @@ sub Marpa::PP::Recognizer::or_node_tag {
 } ## end sub Marpa::PP::Recognizer::or_node_tag
 
 sub Marpa::PP::Recognizer::show_and_nodes {
-    my ($recce) = @_;
-    my $and_nodes  = $recce->[Marpa::PP::Internal::Recognizer::AND_NODES];
-    my @data = ();
-    for my $and_node (@{$and_nodes}) {
-         my $desc = $recce->and_node_tag($and_node);
-	 my ($rule, $position, $origin, $dot, $cause_type, $cause, $middle) = (
-	     $desc =~ /\A R (\d+) [:] (\d+)
+    my ($recce)   = @_;
+    my $and_nodes = $recce->[Marpa::PP::Internal::Recognizer::AND_NODES];
+    my @data      = ();
+    for my $and_node ( @{$and_nodes} ) {
+        my $desc = $recce->and_node_tag($and_node);
+        my ( $rule, $position, $origin, $dot, $cause_type, $cause, $middle ) =
+            (
+            $desc =~ m{
+	     \A R (\d+) [:] (\d+)
 	     [@] (\d+) [-] (\d+) ([SC]) (\d+)
-	     [@] (\d+) \z/msx
-	 );
+	     [@] (\d+) \z
+	     }msx
+            );
         push @data,
-            [ $origin, $dot, $rule, $position,
-		$middle,
-		($cause_type eq "C" ? $cause : -1),
-		($cause_type eq "S" ? $cause : -1),
-		$desc ];
-    }
+            [
+            $origin, $dot, $rule, $position, $middle,
+            ( $cause_type eq 'C' ? $cause : -1 ),
+            ( $cause_type eq 'S' ? $cause : -1 ), $desc
+            ];
+    } ## end for my $and_node ( @{$and_nodes} )
     my @tags = map { $_->[-1] } sort {
-       $a->[0] <=> $b->[0]
-       or $a->[1] <=> $b->[1]
-       or $a->[2] <=> $b->[2]
-       or $a->[3] <=> $b->[3]
-       or $a->[4] <=> $b->[4]
-       or $a->[5] <=> $b->[5]
-       or $a->[6] <=> $b->[6]
+               $a->[0] <=> $b->[0]
+            or $a->[1] <=> $b->[1]
+            or $a->[2] <=> $b->[2]
+            or $a->[3] <=> $b->[3]
+            or $a->[4] <=> $b->[4]
+            or $a->[5] <=> $b->[5]
+            or $a->[6] <=> $b->[6]
     } @data;
-    my $result = (join "\n", @tags) . "\n";
+    my $result = ( join "\n", @tags ) . "\n";
     return $result;
-}
+} ## end sub Marpa::PP::Recognizer::show_and_nodes
 
 sub Marpa::PP::Recognizer::show_or_nodes {
-    my ($recce) = @_;
-    my $or_nodes  = $recce->[Marpa::PP::Internal::Recognizer::OR_NODES];
-    my @data = ();
-    for my $or_node (@{$or_nodes}) {
-         my $desc = $recce->or_node_tag($or_node);
-	 my @elements = ($desc =~ /\A R (\d+) [:] (\d+) [@] (\d+) [-] (\d+) \z/msx);
-	 push @data, [ @elements, $desc ];
-    }
+    my ($recce)  = @_;
+    my $or_nodes = $recce->[Marpa::PP::Internal::Recognizer::OR_NODES];
+    my @data     = ();
+    for my $or_node ( @{$or_nodes} ) {
+        my $desc = $recce->or_node_tag($or_node);
+        my @elements =
+            ( $desc =~ /\A R (\d+) [:] (\d+) [@] (\d+) [-] (\d+) \z/msx );
+        push @data, [ @elements, $desc ];
+    } ## end for my $or_node ( @{$or_nodes} )
     my @tags = map { $_->[-1] } sort {
-       $a->[2] <=> $b->[2]
-       or $a->[3] <=> $b->[3]
-       or $a->[0] <=> $b->[0]
-       or $a->[1] <=> $b->[1]
+               $a->[2] <=> $b->[2]
+            or $a->[3] <=> $b->[3]
+            or $a->[0] <=> $b->[0]
+            or $a->[1] <=> $b->[1]
     } @data;
-    my $result = (join "\n", @tags) . "\n";
+    my $result = ( join "\n", @tags ) . "\n";
     return $result;
-}
+} ## end sub Marpa::PP::Recognizer::show_or_nodes
 
 sub Marpa::PP::brief_iteration_node {
     my ($iteration_node) = @_;
@@ -397,7 +398,7 @@ sub Marpa::PP::Recognizer::show_iteration_node {
             if ($verbose) {
                 $text .= q{; rank=}
                     . $choice->[Marpa::PP::Internal::Choice::RANK];
-            } ## end if ($verbose)
+            }
             $text .= "\n";
             last CHOICE if not $verbose;
         } ## end for my $choice_ix ( 0 .. $#{$choices} )
@@ -582,8 +583,9 @@ sub Marpa::PP::Internal::Recognizer::set_actions {
             push @{$ops},
                 Marpa::PP::Internal::Op::VIRTUAL_HEAD,
                 $rule->[Marpa::PP::Internal::Rule::REAL_SYMBOL_COUNT];
-        } ## end if ($virtual_rhs)
-            # assignment instead of comparison is deliberate
+        }
+
+        # assignment instead of comparison is deliberate
         elsif ( my $argc =
             scalar @{ $rule->[Marpa::PP::Internal::Rule::RHS] } )
         {
@@ -927,7 +929,7 @@ sub do_rank_all {
                     push @unranked_and_nodes, $child_and_node_id;
 
                     next CHILD_AND_NODE;
-                } ## end if ( not defined $rank_ref )
+                }
 
                 # Right now the only defined scalar value for a rank is
                 # Marpa::PP::Internal::Value::SKIP
@@ -1187,13 +1189,17 @@ sub Marpa::PP::Internal::Recognizer::evaluate {
                     my $rule_id =
                         $and_node->[Marpa::PP::Internal::And_Node::RULE_ID];
                     my $rule = $rules->[$rule_id];
-                    my $original_rule = $rule->[Marpa::PP::Internal::Rule::ORIGINAL_RULE];
-                    if ($original_rule->[Marpa::PP::Internal::Rule::DISCARD_SEPARATION])
+                    my $original_rule =
+                        $rule->[Marpa::PP::Internal::Rule::ORIGINAL_RULE];
+                    if ( $original_rule
+                        ->[Marpa::PP::Internal::Rule::DISCARD_SEPARATION] )
                     {
-                        $current_data =
-                            [ @{$current_data}[ grep { not $_ % 2 }
-                            0 .. $#{$current_data} ] ];
-                    } ## end if ( $rule->[...])
+                        $current_data = [
+                            @{$current_data}[
+                                grep { not $_ % 2 } 0 .. $#{$current_data}
+                            ]
+                        ];
+                    } ## end if ( $original_rule->[...])
                     my $result;
 
                     my @warnings;
@@ -1280,9 +1286,9 @@ sub Marpa::PP::Internal::Recognizer::do_null_parse {
     $and_node->[Marpa::PP::Internal::And_Node::END_EARLEME]   = 0;
     $and_node->[Marpa::PP::Internal::And_Node::ID]            = 0;
     my $symbol_name = $start_symbol->[Marpa::PP::Internal::Symbol::NAME];
-    $and_node->[Marpa::PP::Internal::And_Node::TOKEN_NAME]    = $symbol_name;
+    $and_node->[Marpa::PP::Internal::And_Node::TOKEN_NAME] = $symbol_name;
     $and_node->[Marpa::PP::Internal::And_Node::TAG] =
-        Marpa::PP::Recognizer::and_node_tag($recce, $and_node);
+        Marpa::PP::Recognizer::and_node_tag( $recce, $and_node );
 
     $recce->[Marpa::PP::Internal::Recognizer::AND_NODES]->[0] = $and_node;
 
@@ -1452,13 +1458,14 @@ sub Marpa::PP::Recognizer::value {
 
     my $iteration_node_worklist;
     my @and_node_in_use = ();
-    for my $iteration_node (@{$iteration_stack}) {
-	my $choices = $iteration_node->[Marpa::PP::Internal::Iteration_Node::CHOICES];
-	my $choice = $choices->[0];
-	my $and_node = $choice->[Marpa::PP::Internal::Choice::AND_NODE];
-	my $and_node_id = $and_node->[Marpa::PP::Internal::And_Node::ID];
-	$and_node_in_use[$and_node_id] = 1;
-    }
+    for my $iteration_node ( @{$iteration_stack} ) {
+        my $choices =
+            $iteration_node->[Marpa::PP::Internal::Iteration_Node::CHOICES];
+        my $choice      = $choices->[0];
+        my $and_node    = $choice->[Marpa::PP::Internal::Choice::AND_NODE];
+        my $and_node_id = $and_node->[Marpa::PP::Internal::And_Node::ID];
+        $and_node_in_use[$and_node_id] = 1;
+    } ## end for my $iteration_node ( @{$iteration_stack} )
 
     TASK: while ( my $task = pop @task_list ) {
 
@@ -1479,7 +1486,7 @@ sub Marpa::PP::Recognizer::value {
             my $start_or_node = [];
             $start_or_node->[Marpa::PP::Internal::Or_Node::ID] = 0;
             $start_or_node->[Marpa::PP::Internal::Or_Node::ITEM] =
-                    $start_item;
+                $start_item;
             $start_or_node->[Marpa::PP::Internal::Or_Node::RULE_ID] =
                 $start_rule_id;
 
@@ -1490,7 +1497,8 @@ sub Marpa::PP::Recognizer::value {
             {
                 my $start_or_node_tag =
                     $start_or_node->[Marpa::PP::Internal::Or_Node::TAG] =
-			Marpa::PP::Recognizer::or_node_tag($recce, $start_or_node);
+                    Marpa::PP::Recognizer::or_node_tag( $recce,
+                    $start_or_node );
                 $recce->[Marpa::PP::Internal::Recognizer::OR_NODE_HASH]
                     ->{$start_or_node_tag} = $start_or_node;
             }
@@ -1499,7 +1507,7 @@ sub Marpa::PP::Recognizer::value {
             $#{$and_nodes}       = -1;
             $#{$or_nodes}        = -1;
             $#{$iteration_stack} = -1;
-	    $#and_node_in_use = -1;
+            $#and_node_in_use    = -1;
 
             # Populate the start or-node
             $or_nodes->[0] = $start_or_node;
@@ -1517,8 +1525,8 @@ sub Marpa::PP::Recognizer::value {
                 ];
 
             if ( $ranking_method eq 'constant' ) {
-                push @task_list, [Marpa::PP::Internal::Task::RANK_ALL],
-            } ## end if ( $ranking_method eq 'constant' )
+                push @task_list, [Marpa::PP::Internal::Task::RANK_ALL],;
+            }
 
             push @task_list,
                 [
@@ -1552,23 +1560,28 @@ sub Marpa::PP::Recognizer::value {
             ITERATION_NODE:
             while ( $iteration_node = pop @{$iteration_stack} ) {
 
-		my $choices = $iteration_node->[Marpa::PP::Internal::Iteration_Node::CHOICES];
+                my $choices = $iteration_node
+                    ->[Marpa::PP::Internal::Iteration_Node::CHOICES];
 
-		# Eliminate the current choice
-		my $choice = $choices->[0];
-		my $and_node = $choice->[Marpa::PP::Internal::Choice::AND_NODE];
-		my $and_node_id = $and_node->[Marpa::PP::Internal::And_Node::ID];
-		$and_node_in_use[$and_node_id] = undef;
+                # Eliminate the current choice
+                my $choice = $choices->[0];
+                my $and_node =
+                    $choice->[Marpa::PP::Internal::Choice::AND_NODE];
+                my $and_node_id =
+                    $and_node->[Marpa::PP::Internal::And_Node::ID];
+                $and_node_in_use[$and_node_id] = undef;
                 shift @{$choices};
 
-		# Throw away choices until we find one that does not cycle
+                # Throw away choices until we find one that does not cycle
                 CHOICE: while ( scalar @{$choices} ) {
-		    $choice = $choices->[0];
-		    $and_node = $choice->[Marpa::PP::Internal::Choice::AND_NODE];
-		    $and_node_id = $and_node->[Marpa::PP::Internal::And_Node::ID];
-		    last CHOICE if not $and_node_in_use[$and_node_id];
-		    shift @{$choices};
-		}
+                    $choice = $choices->[0];
+                    $and_node =
+                        $choice->[Marpa::PP::Internal::Choice::AND_NODE];
+                    $and_node_id =
+                        $and_node->[Marpa::PP::Internal::And_Node::ID];
+                    last CHOICE if not $and_node_in_use[$and_node_id];
+                    shift @{$choices};
+                } ## end while ( scalar @{$choices} )
 
                 # Climb the parent links, marking the ranks
                 # of the nodes "dirty", until we hit one this is
@@ -1613,7 +1626,7 @@ sub Marpa::PP::Recognizer::value {
                             = undef;
                     } ## end if ( defined $direct_parent )
                     next ITERATION_NODE;
-                } ## end if ( scalar @{$choices} <= 1 )
+                } ## end if ( not scalar @{$choices} )
 
                 # Dirty the iteration node and put it back
                 # on the stack
@@ -1626,10 +1639,10 @@ sub Marpa::PP::Recognizer::value {
                     = 0;
                 push @{$iteration_stack}, $iteration_node;
 
-		$choice = $choices->[0];
-		$and_node = $choice->[Marpa::PP::Internal::Choice::AND_NODE];
-		$and_node_id = $and_node->[Marpa::PP::Internal::And_Node::ID];
-		$and_node_in_use[$and_node_id] = 1;
+                $choice   = $choices->[0];
+                $and_node = $choice->[Marpa::PP::Internal::Choice::AND_NODE];
+                $and_node_id = $and_node->[Marpa::PP::Internal::And_Node::ID];
+                $and_node_in_use[$and_node_id] = 1;
 
                 last ITERATION_NODE;
 
@@ -1712,10 +1725,9 @@ sub Marpa::PP::Recognizer::value {
                 next TASK;
             } ## end for my $field ( ...)
 
-	    $working_node->[Marpa::PP::Internal::Iteration_Node::CLEAN] =
-		1;
-	    pop @{$iteration_node_worklist};
-	    next FIX_TREE_LOOP;
+            $working_node->[Marpa::PP::Internal::Iteration_Node::CLEAN] = 1;
+            pop @{$iteration_node_worklist};
+            next FIX_TREE_LOOP;
 
         } ## end while ( $task_type == Marpa::PP::Internal::Task::FIX_TREE)
 
@@ -1738,10 +1750,10 @@ sub Marpa::PP::Recognizer::value {
             my $or_node_item =
                 $work_or_node->[Marpa::PP::Internal::Or_Node::ITEM];
 
-	    my $work_set =
-		$or_node_item->[Marpa::PP::Internal::Earley_Item::SET];
-	    my $work_node_origin =
-		$or_node_item->[Marpa::PP::Internal::Earley_Item::ORIGIN];
+            my $work_set =
+                $or_node_item->[Marpa::PP::Internal::Earley_Item::SET];
+            my $work_node_origin =
+                $or_node_item->[Marpa::PP::Internal::Earley_Item::ORIGIN];
 
             my $work_rule_id =
                 $work_or_node->[Marpa::PP::Internal::Or_Node::RULE_ID];
@@ -1751,39 +1763,41 @@ sub Marpa::PP::Recognizer::value {
             my $work_symbol =
                 $work_rule->[Marpa::PP::Internal::Rule::RHS]
                 ->[$work_position];
-	    my $work_symbol_name = $work_symbol->[Marpa::PP::Internal::Symbol::NAME];
+            my $work_symbol_name =
+                $work_symbol->[Marpa::PP::Internal::Symbol::NAME];
 
             {
 
-		my $item = $or_node_item;
+                my $item           = $or_node_item;
                 my $or_sapling_set = $work_set;
 
                 my $leo_links =
-                    defined $item->[Marpa::PP::Internal::Earley_Item::IS_LEO_EXPANDED]
-                    ? [] : $item->[Marpa::PP::Internal::Earley_Item::LEO_LINKS];
+                    defined
+                    $item->[Marpa::PP::Internal::Earley_Item::IS_LEO_EXPANDED]
+                    ? []
+                    : $item->[Marpa::PP::Internal::Earley_Item::LEO_LINKS];
                 $leo_links //= [];
 
                 # If this is a Leo completion, translate the Leo links
                 for my $leo_link ( @{$leo_links} ) {
 
-                    my ( $leo_item, $cause ) =
-                        @{$leo_link};
+                    my ( $leo_item, $cause ) = @{$leo_link};
 
                     my $next_leo_item = $leo_item
                         ->[Marpa::PP::Internal::Leo_Item::PREDECESSOR];
-		    my $leo_symbol_name =
-			$leo_item->[Marpa::PP::Internal::Leo_Item::LEO_POSTDOT_SYMBOL];
+                    my $leo_symbol_name = $leo_item
+                        ->[Marpa::PP::Internal::Leo_Item::LEO_POSTDOT_SYMBOL];
                     my $leo_base_item =
                         $leo_item->[Marpa::PP::Internal::Leo_Item::BASE];
 
-                    my $next_links = [[ $leo_base_item, $cause, ]];
+                    my $next_links = [ [ $leo_base_item, $cause, ] ];
 
                     LEO_ITEM: for ( ;; ) {
 
                         if ( not $next_leo_item ) {
 
                             # die join " ", __FILE__, __LINE__, "next link cnt", (scalar @{$next_links})
-                                # if scalar @{$next_links} != 1;
+                            # if scalar @{$next_links} != 1;
 
                             #<<< perltidy cycles as of version 20090616
                             push @{ $item
@@ -2072,7 +2086,7 @@ sub Marpa::PP::Recognizer::value {
                             }
                             = $and_node;
 
-                    } ## end for my $cause_rule ( @{ $state->[...]})
+                    } ## end for
 
                     next LINK_WORK_ITEM;
 
@@ -2094,7 +2108,7 @@ sub Marpa::PP::Recognizer::value {
                     }
                     = $and_node;
 
-            } ## end for my $link_work_item (@link_worklist)
+            } ## end for
 
             my @child_and_nodes =
                 map { $and_node_data{$_} } sort keys %and_node_data;
@@ -2122,7 +2136,7 @@ sub Marpa::PP::Recognizer::value {
                     if $id & ~(Marpa::PP::Internal::N_FORMAT_MAX);
                 $and_node->[Marpa::PP::Internal::And_Node::ID] = $id;
                 $and_node->[Marpa::PP::Internal::And_Node::TAG] =
-		    Marpa::PP::Recognizer::and_node_tag($recce, $and_node);
+                    Marpa::PP::Recognizer::and_node_tag( $recce, $and_node );
 
             } ## end for my $and_node (@child_and_nodes)
 
@@ -2211,7 +2225,7 @@ sub Marpa::PP::Recognizer::value {
 
                 @task_list = ( [Marpa::PP::Internal::Task::ITERATE] );
                 next TASK;
-            } ## end if ( not scalar @{$choices} )
+            }
 
             # Make our choice and set RANK
             my $choice = $choices->[0];
@@ -2222,27 +2236,26 @@ sub Marpa::PP::Recognizer::value {
             my $and_node_id = $and_node->[Marpa::PP::Internal::And_Node::ID];
             my $next_iteration_stack_ix = scalar @{$iteration_stack};
 
-	    # Check if we are about to cycle.
-	    if ( $and_node_in_use[$and_node_id] ) {
+            # Check if we are about to cycle.
+            if ( $and_node_in_use[$and_node_id] ) {
 
-		# If there is another choice, increment choice and restack
-		# this task ...
-		#
-		# This iteration node is not yet on the stack, so we
-		# don't need to do anything with the pointers.
-		if ( scalar @{$choices} > 1 ) {
-		    shift @{$choices};
-		    push @task_list, $task;
-		    next TASK;
-		}
+                # If there is another choice, increment choice and restack
+                # this task ...
+                #
+                # This iteration node is not yet on the stack, so we
+                # don't need to do anything with the pointers.
+                if ( scalar @{$choices} > 1 ) {
+                    shift @{$choices};
+                    push @task_list, $task;
+                    next TASK;
+                }
 
-		# Otherwise, throw away all pending tasks and
-		# iterate
-		@task_list = ( [Marpa::PP::Internal::Task::ITERATE] );
-		next TASK;
-	    } ## end if ( $and_node_in_use[$and_node_id] )
-	    $and_node_in_use[$and_node_id] = 1;
-
+                # Otherwise, throw away all pending tasks and
+                # iterate
+                @task_list = ( [Marpa::PP::Internal::Task::ITERATE] );
+                next TASK;
+            } ## end if ( $and_node_in_use[$and_node_id] )
+            $and_node_in_use[$and_node_id] = 1;
 
             # Tell the parent that the new iteration node is its child.
             if (defined(
