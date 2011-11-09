@@ -33,8 +33,7 @@ my %build_requires =
     map { ( $_, $Marpa::PP::VERSION_FOR_CONFIG{$_} ) }
     qw( ExtUtils::CBuilder Test::More );
 my %configure_requires =
-    map { ( $_, $Marpa::PP::VERSION_FOR_CONFIG{$_} ) }
-    qw( Module::Build );
+    map { ( $_, $Marpa::PP::VERSION_FOR_CONFIG{$_} ) } qw( Module::Build );
 my %requires =
     map { ( $_, $Marpa::PP::VERSION_FOR_CONFIG{$_} ) }
     qw( Scalar::Util List::Util Task::Weaken Carp Data::Dumper Storable );
@@ -69,7 +68,7 @@ my @no_index_namespace_inclusive = qw(
 );
 
 my @files_to_cleanup = (
-    'lib/Marpa/PP/Version.pm', 'pperl/Marpa/PP/Perl/Version.pm',
+    'lib/Marpa/PP/Version.pm',   'pperl/Marpa/PP/Perl/Version.pm',
     'lib/Marpa/PP/Installed.pm', 'pperl/Marpa/PP/Perl/Installed.pm',
     'libmarpa/main/build',
 );
@@ -100,7 +99,7 @@ my $build = Marpa::PP::Build_Me->new(
     pod_files          => \%pod_files,
     create_readme      => 0,
     create_makefile_pl => 'small',
-    test_files => [ map { glob $_ } qw(t/*.t) ],
+    test_files         => [ map { glob $_ } qw(t/*.t) ],
 );
 
 $build->create_build_script;

@@ -40,7 +40,7 @@ $STRING_VERSION = $VERSION;
 }
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
             :package=Marpa::PP::Internal::Symbol
 
             ID
@@ -87,7 +87,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::Rule
 
@@ -123,7 +123,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::NFA
 
@@ -139,7 +139,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::AHFA
 
@@ -175,7 +175,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::LR0_item
 
@@ -187,7 +187,7 @@ END_OF_STRUCTURE
 } ## end BEGIN
 
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::Grammar
 
@@ -245,7 +245,7 @@ use POSIX qw(ceil);
 
 # values for grammar phases
 BEGIN {
-my $structure = <<'END_OF_STRUCTURE';
+    my $structure = <<'END_OF_STRUCTURE';
 
     :package=Marpa::PP::Internal::Phase
     NEW RULES PRECOMPUTED
@@ -1213,8 +1213,10 @@ sub Marpa::PP::show_AHFA_state {
     $text .= q{* } . Marpa::PP::brief_AHFA_state($state) . q{:};
 
     my @tags = ();
-    $state->[Marpa::PP::Internal::AHFA::LEO_COMPLETION] and push @tags, 'leo-c';
-    $state->[Marpa::PP::Internal::AHFA::RESET_ORIGIN] and push @tags, 'predict';
+    $state->[Marpa::PP::Internal::AHFA::LEO_COMPLETION]
+        and push @tags, 'leo-c';
+    $state->[Marpa::PP::Internal::AHFA::RESET_ORIGIN]
+        and push @tags, 'predict';
     scalar @tags and $text .= q{ } . join '; ', @tags;
     $text .= "\n";
 
@@ -1254,8 +1256,8 @@ sub Marpa::PP::show_AHFA_state {
 sub Marpa::PP::Grammar::show_AHFA {
     my ($grammar) = @_;
 
-    my $text         = q{};
-    my $AHFA         = $grammar->[Marpa::PP::Internal::Grammar::AHFA];
+    my $text = q{};
+    my $AHFA = $grammar->[Marpa::PP::Internal::Grammar::AHFA];
 
     for my $state ( @{$AHFA} ) {
         $text .= Marpa::PP::show_AHFA_state($state);
@@ -1323,9 +1325,7 @@ sub assign_user_symbol {
     my $terminal;
 
     PROPERTY: while ( my ( $property, $value ) = each %{$options} ) {
-        if (not $property ~~
-            [qw(terminal ranking_action null_value)] )
-        {
+        if ( not $property ~~ [qw(terminal ranking_action null_value)] ) {
             Marpa::PP::exception(qq{Unknown symbol property "$property"});
         }
         if ( $property eq 'terminal' ) {
@@ -1356,11 +1356,11 @@ sub add_rule {
 
     while ( my ( $option, $value ) = each %{$arg_hash} ) {
         given ($option) {
-            when ('grammar')        { $grammar        = $value }
-            when ('lhs')            { $lhs            = $value }
-            when ('rhs')            { $rhs            = $value }
-            when ('action')         { $action         = $value }
-            when ('ranking_action') { $ranking_action = $value }
+            when ('grammar')            { $grammar            = $value }
+            when ('lhs')                { $lhs                = $value }
+            when ('rhs')                { $rhs                = $value }
+            when ('action')             { $action             = $value }
+            when ('ranking_action')     { $ranking_action     = $value }
             when ('virtual_lhs')        { $virtual_lhs        = $value }
             when ('virtual_rhs')        { $virtual_rhs        = $value }
             when ('discard_separation') { $discard_separation = $value }
@@ -1423,8 +1423,8 @@ sub add_rule {
     $new_rule->[Marpa::PP::Internal::Rule::RHS]            = $rhs;
     $new_rule->[Marpa::PP::Internal::Rule::ACTION]         = $action;
     $new_rule->[Marpa::PP::Internal::Rule::RANKING_ACTION] = $ranking_action;
-    $new_rule->[Marpa::PP::Internal::Rule::VIRTUAL_LHS] = $virtual_lhs;
-    $new_rule->[Marpa::PP::Internal::Rule::VIRTUAL_RHS] = $virtual_rhs;
+    $new_rule->[Marpa::PP::Internal::Rule::VIRTUAL_LHS]    = $virtual_lhs;
+    $new_rule->[Marpa::PP::Internal::Rule::VIRTUAL_RHS]    = $virtual_rhs;
     $new_rule->[Marpa::PP::Internal::Rule::DISCARD_SEPARATION] =
         $discard_separation;
     $new_rule->[Marpa::PP::Internal::Rule::REAL_SYMBOL_COUNT] =
@@ -1477,9 +1477,9 @@ sub add_user_rules {
                 my ( $lhs, $rhs, $action, ) = @{$rule};
                 add_user_rule(
                     $grammar,
-                    {   lhs      => $lhs,
-                        rhs      => $rhs,
-                        action   => $action,
+                    {   lhs    => $lhs,
+                        rhs    => $rhs,
+                        action => $action,
                     }
                 );
 
@@ -1652,9 +1652,11 @@ sub add_user_rule {
     }
 
     # create the sequence symbol
-    my $sequence_name = $lhs_name . '[Subseq:'
-	. $lhs->[Marpa::PP::Internal::Symbol::ID] . q{:}
-	. $rhs->[0]->[Marpa::PP::Internal::Symbol::ID] . ']';
+    my $sequence_name =
+          $lhs_name
+        . '[Subseq:'
+        . $lhs->[Marpa::PP::Internal::Symbol::ID] . q{:}
+        . $rhs->[0]->[Marpa::PP::Internal::Symbol::ID] . ']';
     my $sequence = assign_symbol( $grammar, $sequence_name );
 
     # The top sequence rule
@@ -1664,8 +1666,8 @@ sub add_user_rule {
             rhs               => [$sequence],
             virtual_rhs       => 1,
             real_symbol_count => 0,
-            action         => $action,
-            ranking_action => $ranking_action,
+            action            => $action,
+            ranking_action    => $ranking_action,
         }
     );
     $top_rule->[Marpa::PP::Internal::Rule::ORIGINAL_RULE] = $original_rule;
@@ -1673,16 +1675,17 @@ sub add_user_rule {
     # An alternative top sequence rule needed for perl5 separation
     if ( defined $separator and not $proper_separation ) {
         my $alt_top_rule = add_rule(
-            {   grammar            => $grammar,
-                lhs                => $lhs,
-                rhs                => [ $sequence, $separator, ],
-                virtual_rhs        => 1,
-                real_symbol_count  => 1,
-                action             => $action,
-                ranking_action     => $ranking_action,
+            {   grammar           => $grammar,
+                lhs               => $lhs,
+                rhs               => [ $sequence, $separator, ],
+                virtual_rhs       => 1,
+                real_symbol_count => 1,
+                action            => $action,
+                ranking_action    => $ranking_action,
             }
         );
-	$alt_top_rule->[Marpa::PP::Internal::Rule::ORIGINAL_RULE] = $original_rule;
+        $alt_top_rule->[Marpa::PP::Internal::Rule::ORIGINAL_RULE] =
+            $original_rule;
     } ## end if ( defined $separator and not $proper_separation )
 
     my @separated_rhs =
@@ -1748,14 +1751,13 @@ sub check_start {
 
     if ( not $start->[Marpa::PP::Internal::Symbol::PRODUCTIVE] ) {
         my $problem = qq{Unproductive start symbol: "$start_name"};
-	Marpa::PP::exception($problem);
-    } ## end if ( not $start->[Marpa::PP::Internal::Symbol::PRODUCTIVE...])
+        Marpa::PP::exception($problem);
+    }
 
     if ( not scalar @{$lh_rule_ids} ) {
-        my $problem =
-            qq{Start symbol "$start_name" not on LHS of any rule};
-	Marpa::PP::exception($problem);
-    } ## end if ( not scalar @{$lh_rule_ids} and not $terminal )
+        my $problem = qq{Start symbol "$start_name" not on LHS of any rule};
+        Marpa::PP::exception($problem);
+    }
 
     $grammar->[Marpa::PP::Internal::Grammar::START] = $start;
 
@@ -1995,8 +1997,8 @@ sub nulling {
 #
 sub nullable {
     my ($grammar) = @_;
-    my $rules = $grammar->[Marpa::PP::Internal::Grammar::RULES];
-    my $symbols = $grammar->[Marpa::PP::Internal::Grammar::SYMBOLS];
+    my $rules     = $grammar->[Marpa::PP::Internal::Grammar::RULES];
+    my $symbols   = $grammar->[Marpa::PP::Internal::Grammar::SYMBOLS];
 
     my @worklist =
         map  { $_->[Marpa::PP::Internal::Rule::LHS] }
@@ -2013,14 +2015,16 @@ sub nullable {
         # Assume it is not nullable and look for a nullable rule
         # with this symbol on the LHS
         my $nullable = 0;
-        RULE: for my $lh_rule_id (
+        RULE:
+        for my $lh_rule_id (
             @{ $symbol->[Marpa::PP::Internal::Symbol::LH_RULE_IDS] } )
         {
             for my $rh_symbol (
                 @{ $rules->[$lh_rule_id]->[Marpa::PP::Internal::Rule::RHS] } )
             {
                 next RULE
-                    if not $rh_symbol->[Marpa::PP::Internal::Symbol::NULLABLE];
+                    if
+                    not $rh_symbol->[Marpa::PP::Internal::Symbol::NULLABLE];
             } ## end for my $rh_symbol ( @{ $rules->[$lh_rule_id]->[...]})
 
             # No non-nullable symbol found, so the rule and therefore its
@@ -2060,9 +2064,8 @@ sub nullable {
     } ## end for my $symbol ( @{$symbols} )
     if ($counted_nullable_count) {
         Marpa::PP::exception( Marpa::PP::Grammar::show_problems($grammar),
-            'Counted nullables confuse Marpa -- please rewrite the grammar'
-        );
-    } ## end if ($counted_nullable_count)
+            'Counted nullables confuse Marpa -- please rewrite the grammar' );
+    }
 
     return 1;
 
@@ -2207,7 +2210,7 @@ sub detect_infinite {
                 Marpa::PP::brief_rule($warning_rule), "\n"
                 or Marpa::PP::exception("Could not print: $ERRNO");
         } ## end if ( $warn_on_infinite and defined $warning_rule )
-    } ## end for my $rule ( @{$infinite_rules} )
+    } ## end for my $rule ( reverse @{$infinite_rules} )
 
     if ( scalar @{$infinite_rules} ) {
         Marpa::PP::exception('Cycle in grammar, fatal error')
@@ -2542,13 +2545,15 @@ sub create_AHFA {
         }    # $NFA_state
 
         # for each transition symbol, create the transition to the AHFA kernel state
-        for my $symbol ( sort
-		{ $symbol_hash->{$a} <=> $symbol_hash->{$b} }
-		keys %{$NFA_to_states_by_symbol} ) {
+        for my $symbol (
+            sort { $symbol_hash->{$a} <=> $symbol_hash->{$b} }
+            keys %{$NFA_to_states_by_symbol}
+            )
+        {
             my $to_states_by_symbol = $NFA_to_states_by_symbol->{$symbol};
             $AHFA_state->[Marpa::PP::Internal::AHFA::TRANSITION]->{$symbol} =
                 assign_AHFA_state_set( $grammar, $to_states_by_symbol );
-        }
+        } ## end for my $symbol ( sort { $symbol_hash->{$a} <=> $symbol_hash...})
     } ## end while ( $next_state_id < scalar @{$AHFA} )
 
     return;
@@ -2766,9 +2771,9 @@ sub rewrite_as_CHAF {
         my $rule = $rules->[$rule_id];
 
         # Ignore rules already marked useless, but then re-mark
-	# all rules as useless --
-	# Rules will be considered useless unless proved otherwise
-	next RULE if not $rule->[Marpa::PP::Internal::Rule::USED];
+        # all rules as useless --
+        # Rules will be considered useless unless proved otherwise
+        next RULE if not $rule->[Marpa::PP::Internal::Rule::USED];
         $rule->[Marpa::PP::Internal::Rule::USED] = 0;
 
         # unreachable rules are useless
@@ -2793,8 +2798,8 @@ sub rewrite_as_CHAF {
 
         my $lhs      = $rule->[Marpa::PP::Internal::Rule::LHS];
         my $nullable = !defined List::Util::first {
-            not $_->[Marpa::PP::Internal::Symbol::NULLABLE] and
-            not $_->[Marpa::PP::Internal::Symbol::NULL_ALIAS];
+            not $_->[Marpa::PP::Internal::Symbol::NULLABLE]
+                and not $_->[Marpa::PP::Internal::Symbol::NULL_ALIAS];
         }
         @{$rhs};
 

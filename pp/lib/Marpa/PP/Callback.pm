@@ -38,10 +38,13 @@ sub Marpa::PP::location {
         if not my $context = $Marpa::PP::Internal::CONTEXT;
     my ( $context_type, $and_node, $recce ) = @{$context};
     if ( $context_type eq 'and-node' ) {
-        my $earleme = $and_node->[Marpa::PP::Internal::And_Node::START_EARLEME];
-	my $earley_sets = $recce->[Marpa::PP::Internal::Recognizer::EARLEY_SETS];
-	return $earley_sets->[$earleme]->[Marpa::PP::Internal::Earley_Set::ORDINAL];
-    }
+        my $earleme =
+            $and_node->[Marpa::PP::Internal::And_Node::START_EARLEME];
+        my $earley_sets =
+            $recce->[Marpa::PP::Internal::Recognizer::EARLEY_SETS];
+        return $earley_sets->[$earleme]
+            ->[Marpa::PP::Internal::Earley_Set::ORDINAL];
+    } ## end if ( $context_type eq 'and-node' )
     Marpa::PP::exception('LOCATION called outside and-node context');
 } ## end sub Marpa::PP::location
 
@@ -50,10 +53,13 @@ sub Marpa::PP::cause_location {
         if not my $context = $Marpa::PP::Internal::CONTEXT;
     my ( $context_type, $and_node, $recce ) = @{$context};
     if ( $context_type eq 'and-node' ) {
-        my $earleme = $and_node->[Marpa::PP::Internal::And_Node::CAUSE_EARLEME];
-	my $earley_sets = $recce->[Marpa::PP::Internal::Recognizer::EARLEY_SETS];
-	return $earley_sets->[$earleme]->[Marpa::PP::Internal::Earley_Set::ORDINAL];
-    }
+        my $earleme =
+            $and_node->[Marpa::PP::Internal::And_Node::CAUSE_EARLEME];
+        my $earley_sets =
+            $recce->[Marpa::PP::Internal::Recognizer::EARLEY_SETS];
+        return $earley_sets->[$earleme]
+            ->[Marpa::PP::Internal::Earley_Set::ORDINAL];
+    } ## end if ( $context_type eq 'and-node' )
     Marpa::PP::exception('cause_location() called outside and-node context');
 } ## end sub Marpa::PP::cause_location
 

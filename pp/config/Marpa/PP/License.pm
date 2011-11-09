@@ -117,8 +117,8 @@ END_OF_STRING
 =cut
 
 my %original = (
-    'libmarpa/dist/marpa_obs.c'  => [ 'libmarpa/orig/gnu/obstack.c', 1022 ],
-    'libmarpa/dist/marpa_obs.h'  => [ 'libmarpa/orig/gnu/obstack.h', 1022 ],
+    'libmarpa/dist/marpa_obs.c' => [ 'libmarpa/orig/gnu/obstack.c', 1022 ],
+    'libmarpa/dist/marpa_obs.h' => [ 'libmarpa/orig/gnu/obstack.h', 1022 ],
 );
 
 my %GNU_file = map { ( $_, 1 ) } qw(
@@ -232,9 +232,9 @@ sub file_type {
         if scalar @dirs == 2
             and $dirs[0] eq 't'
             and $dirs[1] eq 'shared'
-	    and $filepart =~ /[.]t\z/xms;
+            and $filepart =~ /[.]t\z/xms;
     return sub {;}
-        if scalar @dirs >= 1 and $dirs[0] eq 'html' ;
+        if scalar @dirs >= 1 and $dirs[0] eq 'html';
     return \&trivial if $filepart eq '.gitignore';
     return \&check_GNU_copyright
         if $GNU_file{$filename};
@@ -259,22 +259,25 @@ sub Marpa::PP::License::file_license_problems {
     CHECK_VS_ORIGINAL: {
         my $original = $original{$filename};
         last CHECK_VS_ORIGINAL if not defined $original;
-	my ($original_file, $length);
-	if (ref $original eq 'ARRAY') {
-	    ($original_file, $length) = @{$original};
-	} else {
-	   $original_file = $original;
-	}
+        my ( $original_file, $length );
+        if ( ref $original eq 'ARRAY' ) {
+            ( $original_file, $length ) = @{$original};
+        }
+        else {
+            $original_file = $original;
+        }
         if ( not -r $original_file ) {
             push @problems,
                 qq{Original of "$filename" is not readable: "$original_file"\n};
             last CHECK_VS_ORIGINAL;
         }
-        if ( not defined $length and not files_equal( $original_file, $filename ) ) {
+        if (    not defined $length
+            and not files_equal( $original_file, $filename ) )
+        {
             push @problems,
                 "Difference between original ($original_file) and $filename\n";
             last CHECK_VS_ORIGINAL;
-        }
+        } ## end if ( not defined $length and not files_equal( $original_file...))
         if ( not tops_equal( $original_file, $filename, $length ) ) {
             push @problems,
                 "Difference between top of original ($original_file) and $filename\n";
@@ -325,7 +328,8 @@ sub files_equal {
 
 sub tops_equal {
     my ( $filename1, $filename2, $length ) = @_;
-    return ${ slurp_top($filename1, $length) } eq ${ slurp_top($filename2, $length) };
+    return ${ slurp_top( $filename1, $length ) } eq
+        ${ slurp_top( $filename2, $length ) };
 }
 
 sub license_problems_in_license_file {

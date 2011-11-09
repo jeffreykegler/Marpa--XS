@@ -59,9 +59,10 @@ PACKAGE: for my $package (@Marpa::PP::CARP_NOT) {
     *{ $package . q{::CARP_NOT} } = \@Marpa::PP::CARP_NOT;
 }
 
-if (not $ENV{'MARPA_AUTHOR_TEST'}) {
+if ( not $ENV{'MARPA_AUTHOR_TEST'} ) {
     $Marpa::PP::DEBUG = 0;
-} else {
+}
+else {
     $Marpa::PP::DEBUG = 1;
 }
 
@@ -99,41 +100,52 @@ $Marpa::USING_XS = undef;
 $Marpa::MODULE   = 'Marpa::PP';
 
 *Marpa::Grammar::check_terminal = \&Marpa::PP::Grammar::check_terminal;
-*Marpa::Grammar::new = \&Marpa::PP::Grammar::new;
-*Marpa::Grammar::precompute = \&Marpa::PP::Grammar::precompute;
-*Marpa::Grammar::set = \&Marpa::PP::Grammar::set;
-*Marpa::Grammar::show_AHFA = \&Marpa::PP::Grammar::show_AHFA;
-*Marpa::Grammar::show_NFA = \&Marpa::PP::Grammar::show_NFA;
-*Marpa::Grammar::show_accessible_symbols = \&Marpa::PP::Grammar::show_accessible_symbols;
-*Marpa::Grammar::show_nullable_symbols = \&Marpa::PP::Grammar::show_nullable_symbols;
-*Marpa::Grammar::show_nulling_symbols = \&Marpa::PP::Grammar::show_nulling_symbols;
-*Marpa::Grammar::show_productive_symbols = \&Marpa::PP::Grammar::show_productive_symbols;
-*Marpa::Grammar::show_problems = \&Marpa::PP::Grammar::show_problems;
-*Marpa::Grammar::show_rules = \&Marpa::PP::Grammar::show_rules;
-*Marpa::Grammar::show_symbols = \&Marpa::PP::Grammar::show_symbols;
-*Marpa::Recognizer::alternative = \&Marpa::PP::Recognizer::alternative;
+*Marpa::Grammar::new            = \&Marpa::PP::Grammar::new;
+*Marpa::Grammar::precompute     = \&Marpa::PP::Grammar::precompute;
+*Marpa::Grammar::set            = \&Marpa::PP::Grammar::set;
+*Marpa::Grammar::show_AHFA      = \&Marpa::PP::Grammar::show_AHFA;
+*Marpa::Grammar::show_NFA       = \&Marpa::PP::Grammar::show_NFA;
+*Marpa::Grammar::show_accessible_symbols =
+    \&Marpa::PP::Grammar::show_accessible_symbols;
+*Marpa::Grammar::show_nullable_symbols =
+    \&Marpa::PP::Grammar::show_nullable_symbols;
+*Marpa::Grammar::show_nulling_symbols =
+    \&Marpa::PP::Grammar::show_nulling_symbols;
+*Marpa::Grammar::show_productive_symbols =
+    \&Marpa::PP::Grammar::show_productive_symbols;
+*Marpa::Grammar::show_problems     = \&Marpa::PP::Grammar::show_problems;
+*Marpa::Grammar::show_rules        = \&Marpa::PP::Grammar::show_rules;
+*Marpa::Grammar::show_symbols      = \&Marpa::PP::Grammar::show_symbols;
+*Marpa::Recognizer::alternative    = \&Marpa::PP::Recognizer::alternative;
 *Marpa::Recognizer::check_terminal = \&Marpa::PP::Recognizer::check_terminal;
-*Marpa::Recognizer::current_earleme = \&Marpa::PP::Recognizer::current_earleme;
-*Marpa::Recognizer::earleme_complete = \&Marpa::PP::Recognizer::earleme_complete;
-*Marpa::Recognizer::earley_set_size = \&Marpa::PP::Recognizer::earley_set_size;
+*Marpa::Recognizer::current_earleme =
+    \&Marpa::PP::Recognizer::current_earleme;
+*Marpa::Recognizer::earleme_complete =
+    \&Marpa::PP::Recognizer::earleme_complete;
+*Marpa::Recognizer::earley_set_size =
+    \&Marpa::PP::Recognizer::earley_set_size;
 *Marpa::Recognizer::end_input = \&Marpa::PP::Recognizer::end_input;
 *Marpa::Recognizer::exhausted = \&Marpa::PP::Recognizer::exhausted;
-*Marpa::Recognizer::latest_earley_set = \&Marpa::PP::Recognizer::latest_earley_set;
-*Marpa::Recognizer::new = \&Marpa::PP::Recognizer::new;
+*Marpa::Recognizer::latest_earley_set =
+    \&Marpa::PP::Recognizer::latest_earley_set;
+*Marpa::Recognizer::new         = \&Marpa::PP::Recognizer::new;
 *Marpa::Recognizer::parse_count = \&Marpa::PP::Recognizer::parse_count;
-*Marpa::Recognizer::read = \&Marpa::PP::Recognizer::read;
-*Marpa::Recognizer::reset_evaluation = \&Marpa::PP::Recognizer::reset_evaluation;
-*Marpa::Recognizer::set = \&Marpa::PP::Recognizer::set;
+*Marpa::Recognizer::read        = \&Marpa::PP::Recognizer::read;
+*Marpa::Recognizer::reset_evaluation =
+    \&Marpa::PP::Recognizer::reset_evaluation;
+*Marpa::Recognizer::set            = \&Marpa::PP::Recognizer::set;
 *Marpa::Recognizer::show_and_nodes = \&Marpa::PP::Recognizer::show_and_nodes;
-*Marpa::Recognizer::show_earley_sets = \&Marpa::PP::Recognizer::show_earley_sets;
+*Marpa::Recognizer::show_earley_sets =
+    \&Marpa::PP::Recognizer::show_earley_sets;
 *Marpa::Recognizer::show_or_nodes = \&Marpa::PP::Recognizer::show_or_nodes;
 *Marpa::Recognizer::show_progress = \&Marpa::PP::Recognizer::show_progress;
-*Marpa::Recognizer::status = \&Marpa::PP::Recognizer::status;
-*Marpa::Recognizer::terminals_expected = \&Marpa::PP::Recognizer::terminals_expected;
+*Marpa::Recognizer::status        = \&Marpa::PP::Recognizer::status;
+*Marpa::Recognizer::terminals_expected =
+    \&Marpa::PP::Recognizer::terminals_expected;
 *Marpa::Recognizer::tokens = \&Marpa::PP::Recognizer::tokens;
-*Marpa::Recognizer::value = \&Marpa::PP::Recognizer::value;
-*Marpa::location = \&Marpa::PP::location;
-*Marpa::token_location = \&Marpa::PP::token_location;
+*Marpa::Recognizer::value  = \&Marpa::PP::Recognizer::value;
+*Marpa::location           = \&Marpa::PP::location;
+*Marpa::token_location     = \&Marpa::PP::token_location;
 
 1;
 

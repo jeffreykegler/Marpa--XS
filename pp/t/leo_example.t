@@ -359,8 +359,8 @@ New Virtual Rule: R7:1@0-9C0@0, rule: 7: Statement['] -> Statement
 Real symbol count is 1
 END_TRACE_OUTPUT
 
-Marpa::PP::Test::is( $trace_output,
-    $expected_trace_output, 'Leo Example Trace Output' );
+Marpa::PP::Test::is( $trace_output, $expected_trace_output,
+    'Leo Example Trace Output' );
 
 1;    # In case used as "do" file
 

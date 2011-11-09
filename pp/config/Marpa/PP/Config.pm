@@ -23,16 +23,16 @@ use strict;
 use warnings;
 
 %Marpa::PP::VERSION_FOR_CONFIG = (
-    'Scalar::Util'        => 1.21,
-    'List::Util'          => 1.21,
-    'Carp'                => 1.08,
-    'Data::Dumper'        => '2.125',
-    'Storable'            => 2.21,
-    'PPI'                 => '1.206',
-    'Test::Weaken'        => '3.004000',
-    'Task::Weaken'        => '0',
-    'Module::Build'       => 0.3601,
-    'Test::More'          => 0.94,
+    'Scalar::Util'  => 1.21,
+    'List::Util'    => 1.21,
+    'Carp'          => 1.08,
+    'Data::Dumper'  => '2.125',
+    'Storable'      => 2.21,
+    'PPI'           => '1.206',
+    'Test::Weaken'  => '3.004000',
+    'Task::Weaken'  => '0',
+    'Module::Build' => 0.3601,
+    'Test::More'    => 0.94,
 );
 
 1;

@@ -40,10 +40,11 @@ BEGIN {
 defined $INC{'Marpa/PP.pm'}
     or Test::More::BAIL_OUT('Could not load Marpa::PP');
 
-Test::More::ok( ( defined $Marpa::PP::VERSION ),
-    'PP version not defined' );
-Test::More::ok( ( defined $Marpa::PP::STRING_VERSION ),
-    'PP string version not defined' );
+Test::More::ok( ( defined $Marpa::PP::VERSION ), 'PP version not defined' );
+Test::More::ok(
+    ( defined $Marpa::PP::STRING_VERSION ),
+    'PP string version not defined'
+);
 
 Test::More::ok( ( not defined $Marpa::PP::Internal::{check_version}{CODE} ),
     'Pure Perl mode' );

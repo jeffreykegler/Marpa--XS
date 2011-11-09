@@ -44,8 +44,8 @@ sub default_action {
 ## use critic
 
 my $grammar = Marpa::PP::Grammar->new(
-    {   start   => 'S',
-        strip   => 0,
+    {   start => 'S',
+        strip => 0,
 
         rules => [
             [ 'S', [qw/p p p n/], ],

@@ -34,9 +34,9 @@ BEGIN {
 my $g = Marpa::PP::Grammar->new(
     {   start => 'S',
         rules => [
-            [ 'S',   [qw/A A A A/] ],
-            [ 'A',   [qw/a/] ],
-            [ 'A',   [qw/E/] ],
+            [ 'S', [qw/A A A A/] ],
+            [ 'A', [qw/a/] ],
+            [ 'A', [qw/E/] ],
             ['E'],
         ],
     }

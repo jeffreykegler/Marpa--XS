@@ -25,6 +25,6 @@ my $loaded_marpa_bare = eval { require Marpa; 1 };
 SKIP: {
     Test::More::skip 'No Marpa, which is OK', 1 unless $loaded_marpa_bare;
     my $loaded_marpa = eval { require Marpa::PP; 1 };
-    Test::More::ok(!$loaded_marpa, 'Marpa incompatible with Marpa::PP');
+    Test::More::ok( !$loaded_marpa, 'Marpa incompatible with Marpa::PP' );
 }
 
