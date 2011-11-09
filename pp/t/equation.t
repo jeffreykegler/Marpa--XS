@@ -139,15 +139,15 @@ END_RULES
 
 # Alternative tests: AHFA items if XS, NFA items if PP
 
-if (defined $Marpa::XS::VERSION ) {
+if ( defined $Marpa::XS::VERSION ) {
 
-$actual_ref = save_stdout();
+    $actual_ref = save_stdout();
 
-print $grammar->show_AHFA_items()
-    or die "print failed: $ERRNO";
+    print $grammar->show_AHFA_items()
+        or die "print failed: $ERRNO";
 
-Marpa::PP::Test::is( ${$actual_ref},
-    <<'EOS', 'Ambiguous Equation AHFA Items' );
+    Marpa::PP::Test::is( ${$actual_ref},
+        <<'EOS', 'Ambiguous Equation AHFA Items' );
 AHFA item 0: sort = 0; postdot = "E"
     E -> . E Op E
 AHFA item 1: sort = 3; postdot = "Op"
@@ -166,9 +166,9 @@ AHFA item 7: sort = 7; completion
     E['] -> E .
 EOS
 
-} # USING_XS
+}    # USING_XS
 
-if ( $Marpa::PP::VERSION ) {
+if ($Marpa::PP::VERSION) {
     $actual_ref = save_stdout();
     print $grammar->show_NFA()
         or die "print failed: $ERRNO";
@@ -193,7 +193,7 @@ S7: E['] -> . E
  <E> => S8
 S8: E['] -> E .
 END_NFA
-} # USING_PP
+}    # USING_PP
 
 $actual_ref = save_stdout();
 
@@ -249,16 +249,13 @@ restore_stdout();
 
 my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
-$recce->tokens(
-    [   [ 'Number', 2,    1 ],
-        [ 'Op',     q{-}, 1 ],
-        [ 'Number', 0,    1 ],
-        [ 'Op',     q{*}, 1 ],
-        [ 'Number', 3,    1 ],
-        [ 'Op',     q{+}, 1 ],
-        [ 'Number', 1,    1 ],
-    ]
-);
+$recce->read( 'Number', 2 );
+$recce->read( 'Op',     q{-} );
+$recce->read( 'Number', 0 );
+$recce->read( 'Op',     q{*} );
+$recce->read( 'Number', 3 );
+$recce->read( 'Op',     q{+} );
+$recce->read( 'Number', 1 );
 
 $actual_ref = save_stdout();
 
@@ -317,8 +314,8 @@ S3@6-7 [p=S1@6-6; c=S4@6-7]
 S4@6-7 [p=S1@6-6; s=Number; t=\1]
 END_OF_EARLEY_SETS
 
-Marpa::PP::Test::is( ${$actual_ref},
-    $expected_earley_sets, 'Ambiguous Equation Earley Sets' );
+Marpa::PP::Test::is( ${$actual_ref}, $expected_earley_sets,
+    'Ambiguous Equation Earley Sets' );
 
 restore_stdout();
 
