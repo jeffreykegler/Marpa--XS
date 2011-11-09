@@ -407,6 +407,9 @@ sub Marpa::PP::Recognizer::set {
         } ## end if ( defined( my $value = $args->{'mode'} ) )
 
         if ( defined( my $value = $args->{'ranking_method'} ) ) {
+            Marpa::PP::exception(q{ranking_method no longer implemented})
+                if not defined $Marpa::PP::DEPRECATED_OK
+                    or $Marpa::PP::DEPRECATED_OK < 99;
             Marpa::PP::exception(
                 q{ranking_method must be 'constant' or 'none'})
                 if not $value ~~ [qw(constant none)];
