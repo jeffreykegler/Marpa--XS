@@ -17,8 +17,6 @@ Marpa Pending release candidate: Marpa-HTML-0.103_004.tar.gz Thu, 03 Nov 2011 05
 * Uploaded Marpa-HTML-0.104000.  Seems OK.  Await cpantesters
 
 For Marpa::PP
-* Add Marpa::PP::TESTING_ONLY as guard for constant ranking method
-* Add eliminate tokens() from all but deprecated*.t
 * perlcritic, perltidy
  
 For Marpa::XS
