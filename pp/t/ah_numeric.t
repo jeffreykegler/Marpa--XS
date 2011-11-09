@@ -25,7 +25,7 @@ use warnings;
 use Test::More tests => 11;
 use lib 'tool/lib';
 
-$Marpa::PP::DEPRECATED_OK = 99;
+$Marpa::PP::AUTHOR_TEST_ONLY = 99;
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');

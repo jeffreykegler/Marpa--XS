@@ -41,7 +41,7 @@ BEGIN {
     else {
         Test::More::plan tests => 6;
     }
-    $Marpa::PP::DEPRECATED_OK = 99;
+    $Marpa::PP::AUTHOR_TEST_ONLY = 99;
     Test::More::use_ok('Marpa::PP');
     Test::More::use_ok('Marpa::PP::Perl');
 } ## end BEGIN
