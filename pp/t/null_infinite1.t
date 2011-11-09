@@ -120,7 +120,7 @@ my @expected = (
 for my $input_length ( 1 .. 3 ) {
     my $recce = Marpa::PP::Recognizer->new(
         { grammar => $grammar, max_parses => 99 } );
-    $recce->tokens( [ ( [ 'a', 'A' ] ) x $input_length ] );
+    for ( 1 .. $input_length ) { $recce->read( 'a', 'A' ); }
     my $expected = $expected[$input_length];
     my @values   = ();
     while ( my $value_ref = $recce->value() ) {
