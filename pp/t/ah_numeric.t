@@ -73,7 +73,7 @@ my $recce = Marpa::PP::Recognizer->new(
     { grammar => $grammar, ranking_method => 'constant' } );
 
 my $input_length = 4;
-$recce->tokens( [ ( [ 'a', 'a', 1 ] ) x $input_length ] );
+for ( 1 .. $input_length ) { $recce->read( 'a', 'a' ) }
 
 my @maximal = ( q{}, qw[(a;;;) (a;a;;) (a;a;a;) (a;a;a;a)] );
 my @minimal = ( q{}, qw[(;;;a) (;;a;a) (;a;a;a) (a;a;a;a)] );

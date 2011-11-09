@@ -77,7 +77,7 @@ EOS
 
 my $recce = Marpa::PP::Recognizer->new( { grammar => $grammar } );
 
-$recce->tokens( [ [ 'a', 'a' ] ], );
+$recce->read( 'a', 'a' );
 
 my $value_ref = $recce->value();
 my $value = defined $value_ref ? ${$value_ref} : 'undef';
