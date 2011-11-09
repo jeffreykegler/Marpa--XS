@@ -58,7 +58,7 @@ sub Marpa::PP::offset {
     my $offset     = -1;
     my $in_comment = 0;
 
-    no strict 'refs';    ## no critic (TestingAndDebugging::ProhibitNoStrict)
+    no strict 'refs';
     FIELD: for my $field (@fields) {
 
         if ($in_comment) {

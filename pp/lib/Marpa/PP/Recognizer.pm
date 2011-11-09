@@ -18,10 +18,8 @@ package Marpa::PP::Recognizer;
 use 5.010;
 use warnings;
 
-# As of 9 Aug 2010 there's a problem with this perlcritic check
-## no critic (TestingAndDebugging::ProhibitNoWarnings)
-no warnings 'recursion';
-## use critic
+no warnings    ## no critic (TestingAndDebugging::ProhibitNoWarnings)
+    'recursion';
 
 use strict;
 use integer;
@@ -31,9 +29,11 @@ use English qw( -no_match_vars );
 use vars qw($VERSION $STRING_VERSION);
 $VERSION        = '0.011_001';
 $STRING_VERSION = $VERSION;
+{
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
-$VERSION = eval $VERSION;
-## use critic
+## no critic (ValuesAndExpressions::RequireConstantVersion)
+    $VERSION = eval $VERSION;
+}
 
 BEGIN {
     my $structure = <<'END_OF_STRUCTURE';
@@ -554,6 +554,7 @@ sub Marpa::PP::Recognizer::latest_earley_set {
         return $ordinal if defined $ordinal;
         $earleme--;
     } ## end while (1)
+    die 'Internal error: this line should not be reached';
 } ## end sub Marpa::PP::Recognizer::latest_earley_set
 
 sub Marpa::PP::Recognizer::check_terminal {
@@ -847,7 +848,7 @@ sub Marpa::PP::Recognizer::show_progress {
         if ( $end_ordinal < 0 ) {
             return
                 "Marpa::PP::Recognizer::show_progress end index is $end_ordinal_argument, "
-                . sprintf " must be in range %d-%d", -( $last_ordinal + 1 ),
+                . sprintf ' must be in range %d-%d', -( $last_ordinal + 1 ),
                 $last_ordinal;
         } ## end if ( $end_ordinal < 0 )
         $end_ix =
@@ -1015,10 +1016,10 @@ sub Marpa::PP::Recognizer::alternative {
 
     {
         my $recce_class = ref $recce;
-        $recce_class //= "not defined";
+        $recce_class //= 'not defined';
         Marpa::PP::exception(
             "recognizer argument of alternative() has wrong class\n",
-            "Class of argument is ",
+            'Class of argument is ',
             $recce_class,
             "\n",
             "Class of argument should be Marpa::PP::Recognizer\n"
@@ -1126,7 +1127,7 @@ sub Marpa::PP::Recognizer::alternative {
             my $reset = $to_state->[Marpa::PP::Internal::AHFA::RESET_ORIGIN];
             my $new_origin  = $reset ? $target_ix : $origin;
             my $to_state_id = $to_state->[Marpa::PP::Internal::AHFA::ID];
-            my $hash_key    = join ':', $to_state_id, $new_origin;
+            my $hash_key    = join q{:}, $to_state_id, $new_origin;
             my $target_item = $target_hash->{$hash_key};
             if ( defined $target_item ) {
                 next TO_STATE if $reset;
@@ -1150,7 +1151,7 @@ sub Marpa::PP::Recognizer::alternative {
                 $target_item = [];
                 $target_item->[Marpa::PP::Internal::Earley_Item::ID] =
                     $recce
-                    ->[Marpa::PP::Internal::Recognizer::NEXT_EARLEY_ITEM_ID
+                    ->[ Marpa::PP::Internal::Recognizer::NEXT_EARLEY_ITEM_ID
                     ]++;
                 $target_item->[Marpa::PP::Internal::Earley_Item::STATE] =
                     $to_state;
@@ -1500,9 +1501,11 @@ sub Marpa::PP::Recognizer::earleme_complete {
                     }    # unless defined $target_item
                     next TRANSITION_STATE if $reset;
                     if ($postdot_item_is_leo) {
-                        push @{ $target_item
-                                ->[Marpa::PP::Internal::Earley_Item::LEO_LINKS
-                                ] },
+                        push @{
+                            $target_item->[
+                                Marpa::PP::Internal::Earley_Item::LEO_LINKS
+                            ]
+                            },
                             [ $postdot_item, $earley_item, $lhs_symbol ];
 
                         # If we do the Leo item, do *ONLY* the Leo item
