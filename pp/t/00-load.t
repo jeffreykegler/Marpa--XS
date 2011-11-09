@@ -22,7 +22,7 @@ use Test::More tests => 2;
 
 use Carp;
 use Data::Dumper;
-use lib "tool/lib";
+use lib 'tool/lib';
 
 BEGIN {
     Test::More::use_ok('Marpa::PP');
@@ -32,7 +32,7 @@ defined $INC{'Marpa/PP.pm'}
     or Test::More::BAIL_OUT('Could not load Marpa::PP');
 
 Test::More::ok( defined $Marpa::PP::VERSION, 'Marpa::PP::VERSION defined' );
-Test::More::diag( "Using Marpa::PP ", $Marpa::PP::VERSION, q{ }, $Marpa::PP::TIMESTAMP );
+Test::More::diag( 'Using Marpa::PP ', $Marpa::PP::VERSION, q{ }, $Marpa::PP::TIMESTAMP );
 
 1;    # In case used as "do" file
 

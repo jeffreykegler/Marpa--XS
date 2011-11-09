@@ -915,36 +915,39 @@ my @RECCE_NAMED_ARGUMENTS =
     qw(trace_tasks trace_terminals trace_values trace_actions);
 
 sub token_not_accepted {
-    my ($ppi_token, $token_name, $token_value, $length) = @_;
+    my ( $ppi_token, $token_name, $token_value, $length ) = @_;
     local $Data::Dumper::Maxdepth = 2;
-    local $Data::Dumper::Terse = 1;
-    say STDERR $Marpa::PP::Perl::RECOGNIZER->show_progress();
+    local $Data::Dumper::Terse    = 1;
+    say {*STDERR} $Marpa::PP::Perl::RECOGNIZER->show_progress()
+        or die "say: $ERRNO";
     my $perl_token_desc;
-    if (not defined $token_name) {
-         $perl_token_desc = 'Undefined Perl token was not accepted: ';
-    } else {
-         $perl_token_desc = qq{Perl token "$token_name" was not accepted: };
+    if ( not defined $token_name ) {
+        $perl_token_desc = 'Undefined Perl token was not accepted: ';
     }
-    if (defined $length and $length != 1) {
-         $perl_token_desc .= " length=" . $length;
+    else {
+        $perl_token_desc = qq{Perl token "$token_name" was not accepted: };
     }
-    $perl_token_desc .= Data::Dumper::Dumper( $token_value );
+    if ( defined $length and $length != 1 ) {
+        $perl_token_desc .= ' length=' . $length;
+    }
+    $perl_token_desc .= Data::Dumper::Dumper($token_value);
     Carp::croak(
-	"$perl_token_desc",
-	'PPI token is ', (ref $ppi_token), q{: },
-	  $ppi_token->logical_filename(), q{:},
-	  $ppi_token->logical_line_number(), q{:},
-	  $ppi_token->column_number(), q{, },
-	  q{content="},  $ppi_token->content(), q{"}
+        "$perl_token_desc",                'PPI token is ',
+        ( ref $ppi_token ),                q{: },
+        $ppi_token->logical_filename(),    q{:},
+        $ppi_token->logical_line_number(), q{:},
+        $ppi_token->column_number(),       q{, },
+        q{content="},                      $ppi_token->content(),
+        q{"}
     );
-}
+} ## end sub token_not_accepted
 
 sub unknown_ppi_token {
     my ($ppi_token) = @_;
     die 'Failed at Token: ', Data::Dumper::Dumper($ppi_token),
-	'Marpa::PP::Perl did not know how to process token',
-	Marpa::PP::Perl::default_show_location($ppi_token), "\n"
-}
+        'Marpa::PP::Perl did not know how to process token',
+        Marpa::PP::Perl::default_show_location($ppi_token), "\n";
+} ## end sub unknown_ppi_token
 
 sub Marpa::PP::Perl::parse {
 

@@ -1549,7 +1549,6 @@ sub Marpa::PP::Recognizer::value {
             # In this pass, we go up the iteration stack,
             # looking a node which we can iterate.
             my $iteration_node;
-            my $choices;
             ITERATION_NODE:
             while ( $iteration_node = pop @{$iteration_stack} ) {
 
@@ -1736,7 +1735,7 @@ sub Marpa::PP::Recognizer::value {
                 $work_or_node->[Marpa::PP::Internal::Or_Node::TAG];
 
             # SET Should be the same for all items
-            my $or_node_item = 
+            my $or_node_item =
                 $work_or_node->[Marpa::PP::Internal::Or_Node::ITEM];
 
 	    my $work_set =
@@ -1814,7 +1813,7 @@ sub Marpa::PP::Recognizer::value {
                             $base_to_state->[Marpa::PP::Internal::AHFA::ID],
                             $origin,
                             $or_sapling_set;
-			my $hash_key = join ':', 
+			my $hash_key = join q{:},
                             $base_to_state->[Marpa::PP::Internal::AHFA::ID],
 			    $origin;
 			my $earley_hash =
