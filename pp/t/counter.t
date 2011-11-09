@@ -89,7 +89,7 @@ my $recce = Marpa::PP::Recognizer->new(
     { grammar => $grammar, ranking_method => 'constant' } );
 
 my $input_length = 4;
-$recce->tokens( [ ( ['t'] ) x $input_length ] );
+for ( 1 .. $input_length ) { $recce->read('t'); }
 
 my @counting_up =
     qw{ 0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111 };
