@@ -15,9 +15,8 @@ Marpa::PP pending release candidate: CPAN Marpa-PP-0.011_002
 * TODO: Check that indexing issues with Marpa-PP-0.011_001 are fixed in Marpa-PP-0.011_002
 
 For Marpa::XS
-* Add deprecated{1,2}.t
-* Eliminate Marpa namespace from all other *.t
-* Eliminate use of tokens() call from everything but deprecated*.t
+* Eliminate Marpa namespace from everything but deprecated*.t
+* Eliminate stream mode, use of tokens() call from everything but deprecated*.t
 
 For Marpa::XS, later
 * Add Marpa::XS::NAMESPACE_CLEAN global
