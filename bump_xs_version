@@ -1,0 +1,26 @@
+#!/usr/bin/env perl
+
+use 5.010;
+use strict;
+use warnings FATAL => 'all';
+use autodie;
+
+chomp(my $LATEST = qx(grep '^[0-9]' xs/Changes | head -1 | awk '{print \$1}'));
+
+warn "Bumping -> $LATEST\n";
+
+my @versioned_files = split /\n/xms, <<'END_OF_LIST';
+xs/lib/Marpa/XS/Grammar.pm
+xs/lib/Marpa/XS/Internal.pm
+xs/lib/Marpa/XS/Recognizer.pm
+xs/lib/Marpa/XS/Value.pm
+xs/lib/Marpa/XS.pm
+END_OF_LIST
+
+for my $versioned_file (@versioned_files) {
+    say STDERR $versioned_file;
+    my $file = do { local ( @ARGV, $/ ) = ($versioned_file); <> };
+    $file =~ s/(\$VERSION \s+ =  \s+ ['] ) \d [.] \d\d\d [_.] \d\d\d /$1${LATEST}/xms;
+    open my $out, '>', $versioned_file;
+    print $out $file;
+} ## end for my $versioned_file (@versioned_files)
