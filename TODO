@@ -6,21 +6,12 @@ Left over TODO's from alpha (save for R2?):
 * Document Symbol::RANK
 * Document LHS_RANK and TERMINAL_RANK once tested
 
-Marpa Pending release candidate: Marpa-HTML-0.103_004.tar.gz Thu, 03 Nov 2011 05:03:01 GMT
-* DONE: On CPAN, Checked Diff from Marpa-HTML-0.102000 to Marpa-HTML-0.103_001
-* DONE: Checked Git vs. CPAN for Marpa-HTML-0.103_001
-* DONE: In git, checked diff of CPAN_HTML-0.103_001 vs. CPAN_HTML-0.103_003
-* DONE: On CPAN, checked Diff from Marpa-HTML-0.103_001 to Marpa-HTML-0.103_003
-* DONE: In git, compared CPAN Marpa-HTML-0.103_004.tar.gz to commit 119d507c3ac01f55374edf6e2e210296039e7681
-* DONE: On CPAN, checked Diff from Marpa-HTML-0.103_003 to Marpa-HTML-0.103_004
-* DONE: Make sure I have enough cpantesters results for Marpa::XS 0.020000
-* Uploaded Marpa-HTML-0.104000.  Seems OK.  Await cpantesters
-* Fix Changes to include Marpa-HTML-0.104000.
-* Release new official version with META.* indexing fixes
+Marpa Pending release candidate: Marpa-HTML-0.105_000
+* Date: Tue, 08 Nov 2011 02:34:58 GMT
+* TODO: Await cpantesters on 0.104000 and 0.105_000
 
-For Marpa::PP
-* DONE: Tested commit 8bfd393f46a0507dafa900db2c524fa7654b832c Tue Nov 8 22:36:30 2011 -0800
-* TODO: Cut CPAN Marpa-PP-0.011_002
+Marpa::PP pending release candidate: CPAN Marpa-PP-0.011_002
+* CPAN Marpa-PP-0.011_002 Date: of Thu, 10 Nov 2011 03:08:06 GMT
 * TODO: Check that indexing issues with Marpa-PP-0.011_001 are fixed in Marpa-PP-0.011_002
 
 For Marpa::XS
