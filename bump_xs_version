@@ -20,7 +20,7 @@ END_OF_LIST
 for my $versioned_file (@versioned_files) {
     say STDERR $versioned_file;
     my $file = do { local ( @ARGV, $/ ) = ($versioned_file); <> };
-    $file =~ s/(\$VERSION \s+ =  \s+ ['] ) \d [.] \d\d\d [_.] \d\d\d /$1${LATEST}/xms;
+    $file =~ s/(\$VERSION \s+ =  \s+ ['] ) \d [.] \d\d\d [_]? \d\d\d /$1${LATEST}/xms;
     open my $out, '>', $versioned_file;
     print $out $file;
 } ## end for my $versioned_file (@versioned_files)
