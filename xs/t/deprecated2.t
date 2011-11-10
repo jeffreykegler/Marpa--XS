@@ -14,6 +14,10 @@
 # General Public License along with Marpa::XS.  If not, see
 # http://www.gnu.org/licenses/.
 
+# This test uses two DEPRECATED features: the tokens() method and
+# method using the bare Marpa namespace (Marpa::) instead of Marpa::PP.
+# This code is NOT to be taken as an example.
+
 use 5.010;
 use strict;
 use warnings;
@@ -173,7 +177,7 @@ my @test_data = (
     [ 'time', q{time  / 25 ; # / ; die "this dies!"}, ['division, comment'] ]
 );
 
-my $g = Marpa::XS::Grammar->new(
+my $g = Marpa::Grammar->new(
     {   warnings => 1,
         actions  => 'main',
     },
@@ -185,7 +189,7 @@ $g->precompute();
 TEST: for my $test_data (@test_data) {
 
     my ( $test_name, $test_input, $test_results ) = @{$test_data};
-    my $recce = Marpa::XS::Recognizer->new( { grammar => $g } );
+    my $recce = Marpa::Recognizer->new( { grammar => $g, mode => 'stream' } );
 
     my $input_length = length $test_input;
     pos $test_input = 0;
@@ -198,22 +202,19 @@ TEST: for my $test_data (@test_data) {
 # Marpa::XS::Display::End
 
     for ( my $pos = 0; $pos < $input_length; $pos++ ) {
+        my @tokens = ();
         TOKEN_TYPE: while ( my ( $token, $regex ) = each %regexes ) {
             next TOKEN_TYPE if not $token ~~ $terminals_expected;
             pos $test_input = $pos;
             next TOKEN_TYPE
                 if not $test_input =~ m{ \G \s* (?<match>$regex) }xgms;
 
-            $recce->alternative(
-                $token,
-                $+{match},   ## no critic (Variables::ProhibitPunctuationVars)
-                ( ( pos $test_input ) - $pos )
-            );
+## no critic (Variables::ProhibitPunctuationVars)
+            push @tokens,
+                [ $token, $+{match}, ( ( pos $test_input ) - $pos ), 0 ];
 
         } ## end while ( my ( $token, $regex ) = each %regexes )
-        $recce->earleme_complete();
-        $terminals_expected = $recce->terminals_expected();
-
+        ( undef, $terminals_expected ) = $recce->tokens( \@tokens );
     } ## end for ( my $pos = 0; $pos < $input_length; $pos++ )
     $recce->end_input();
 

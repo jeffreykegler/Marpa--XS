@@ -18,6 +18,10 @@
 # _The Computer Journal_, Vol. 45, No. 6, pp. 620-630,
 # in its "NNF" form
 
+# This test uses two DEPRECATED features: the tokens() method and
+# method using the bare Marpa namespace (Marpa::) instead of Marpa::PP.
+# This code is NOT to be taken as an example.
+
 use 5.010;
 use strict;
 use warnings;
@@ -44,7 +48,7 @@ sub default_action {
 
 sub gen_grammar {
     my ($null_ranking) = @_;
-    my $grammar = Marpa::XS::Grammar->new(
+    my $grammar = Marpa::Grammar->new(
         {   start => 'S',
             rules => [
                 {   lhs          => 'S',
@@ -68,11 +72,11 @@ my @minimal = ( q{}, qw[(;;;a) (;;a;a) (;a;a;a) (a;a;a;a)] );
 
 for my $maximal ( 0, 1 ) {
     my $grammar = gen_grammar( $maximal ? 'low' : 'high' );
-    my $recce = Marpa::XS::Recognizer->new(
+    my $recce = Marpa::Recognizer->new(
         { grammar => $grammar, ranking_method => 'high_rule_only' } );
 
     my $input_length = 4;
-    for (1 .. $input_length) { $recce->read( 'a', 'a') ; }
+    $recce->tokens( [ ( [ 'a', 'a', 1 ] ) x $input_length ] );
 
     for my $i ( 0 .. $input_length ) {
         my $expected = $maximal ? \@maximal : \@minimal;
