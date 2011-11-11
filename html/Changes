@@ -5,9 +5,11 @@
 
 Revision history for Marpa::HTML
 
-0.105_000 Mon Nov  7 18:25:10 PST 2011
+0.106000 Thu Nov 10 19:39:44 PST 2011
 
-    * Developer's version to check indexing issues
+    * Fix CPAN indexing issues
+
+0.104000 Tue, 08 Nov 2011 02:04:22 GMT
 
     * Eliminate use of tokens() call.
 

@@ -30,7 +30,7 @@ no_index:
 provides:
   Marpa::HTML:
     file: lib/Marpa/HTML.pm
-    version: 0.105_000
+    version: 0.106000
   Marpa::HTML::Internal:
     file: lib/Marpa/HTML.pm
     version: 0
@@ -59,4 +59,4 @@ requires:
   perl: 5.01
 resources:
   repository: git://github.com/jeffreykegler/Marpa--HTML.git
-version: 0.105_000
+version: 0.106000
