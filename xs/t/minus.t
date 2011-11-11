@@ -80,7 +80,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start => 'E',
         strip => 0,
 
@@ -113,7 +113,7 @@ my $grammar = Marpa::Grammar->new(
 );
 $grammar->precompute();
 
-my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
 
 Marpa::XS::Test::is( $grammar->show_rules,
     <<'END_RULES', 'Minuses Equation Rules' );

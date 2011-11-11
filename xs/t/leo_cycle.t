@@ -38,7 +38,7 @@ sub main::default_action {
     return ( join q{}, grep {defined} @_ );
 }
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start => 'S',
         strip => 0,
         rules => [
@@ -173,7 +173,7 @@ my $a_token = [ 'a', 'a' ];
 my $length = 20;
 
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+    Marpa::XS::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
 
 my $i                 = 0;
 my $latest_earley_set = $recce->latest_earley_set();

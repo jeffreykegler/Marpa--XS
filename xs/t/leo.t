@@ -50,7 +50,7 @@ my $default_action = generate_action(q{?});
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start => 'S',
         strip => 0,
         rules => [
@@ -152,7 +152,7 @@ for my $a_length ( 1 .. 4 ) {
     for my $b_length ( 0 .. $a_length ) {
 
         my $string = ( 'a' x $a_length ) . ( 'b' x $b_length );
-        my $recce = Marpa::Recognizer->new(
+        my $recce = Marpa::XS::Recognizer->new(
             {   grammar  => $grammar,
                 closures => {
                     'C_action'       => $C_action,

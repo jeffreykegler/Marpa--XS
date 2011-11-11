@@ -63,7 +63,7 @@ sub preposition       { return "pr($_[1])" }
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start   => 'sentence',
         strip   => 0,
         actions => 'main',
@@ -108,7 +108,7 @@ while ( my ( $lexical_class, $words ) = each %lexical_class ) {
 
 for my $data ( 'time flies like an arrow', 'fruit flies like a banana' ) {
 
-    my $recce = Marpa::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
     die 'Failed to create recognizer' if not $recce;
 
     for my $word ( split q{ }, $data ) {

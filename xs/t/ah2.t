@@ -42,7 +42,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start => 'S',
         strip => 0,
         rules => [
@@ -340,7 +340,7 @@ A -> . a
 EOS
 
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+    Marpa::XS::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
 
 my @set = (
     <<'END_OF_SET0', <<'END_OF_SET1', <<'END_OF_SET2', <<'END_OF_SET3', <<'END_OF_SET4', );

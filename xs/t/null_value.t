@@ -88,9 +88,9 @@ $Test_Grammar::MARPA_OPTIONS = [
 
 package main;
 
-my $g = Marpa::Grammar->new( @{$Test_Grammar::MARPA_OPTIONS} );
+my $g = Marpa::XS::Grammar->new( @{$Test_Grammar::MARPA_OPTIONS} );
 $g->precompute();
-my $recce = Marpa::Recognizer->new( { grammar => $g } );
+my $recce = Marpa::XS::Recognizer->new( { grammar => $g } );
 $recce->tokens( [ [ 'Z', 'Z' ] ] );
 my $ref_value = $recce->value();
 my $value = $ref_value ? ${$ref_value} : 'No parse';

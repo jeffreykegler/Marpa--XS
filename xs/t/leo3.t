@@ -39,7 +39,7 @@ sub main::default_action {
 
 ## use critic
 
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     {   start => 'S',
         strip => 0,
         rules => [
@@ -126,7 +126,7 @@ my $a_token = [ 'a', 'a' ];
 my $length = 20;
 
 LEO_FLAG: for my $leo_flag ( 0, 1 ) {
-    my $recce = Marpa::Recognizer->new(
+    my $recce = Marpa::XS::Recognizer->new(
         { grammar => $grammar, mode => 'stream', leo => $leo_flag } );
 
     my $i                 = 0;

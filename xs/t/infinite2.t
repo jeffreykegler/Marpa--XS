@@ -64,7 +64,7 @@ $Test_Grammar::MARPA_OPTIONS = [
 
 my $trace;
 open my $MEMORY, '>', \$trace;
-my $grammar = Marpa::Grammar->new(
+my $grammar = Marpa::XS::Grammar->new(
     { trace_file_handle => $MEMORY, infinite_action => 'warn' },
     @{$Test_Grammar::MARPA_OPTIONS} );
 $grammar->precompute();
@@ -75,7 +75,7 @@ Cycle found involving rule: 1: a -> b
 Cycle found involving rule: 3: b -> a
 EOS
 
-my $recce = Marpa::Recognizer->new(
+my $recce = Marpa::XS::Recognizer->new(
     {   grammar           => $grammar,
         trace_file_handle => *STDERR,
     }

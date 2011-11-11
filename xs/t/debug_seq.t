@@ -51,7 +51,7 @@ $grammar->precompute();
 my @tokens = ( ( ['Stuff'] ) x 3 );
 
 my $recce =
-    Marpa::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
+    Marpa::XS::Recognizer->new( { grammar => $grammar, mode => 'stream' } );
 
 # Marpa::XS::Display
 # name: Recognizer check_terminal Synopsis
