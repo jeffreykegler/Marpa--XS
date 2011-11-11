@@ -48,8 +48,7 @@ my $grammar = Marpa::XS::Grammar->new(
 
 $grammar->precompute();
 
-my $recce =
-    Marpa::XS::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
 
 # Marpa::XS::Display
 # name: Recognizer check_terminal Synopsis
@@ -60,7 +59,7 @@ my $is_symbol_a_terminal = $recce->check_terminal('Document');
 
 Test::More::ok( !$is_symbol_a_terminal, 'LHS terminal?' );
 
-for (1 .. 3) { $recce->read( 'Stuff'); }
+for ( 1 .. 3 ) { $recce->read('Stuff'); }
 
 $progress_report = $recce->show_progress(0);
 

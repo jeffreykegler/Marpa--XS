@@ -118,9 +118,9 @@ my @expected = (
 );
 
 for my $input_length ( 1 .. 3 ) {
-    my $recce =
-        Marpa::XS::Recognizer->new( { grammar => $grammar, max_parses => 99 } );
-    for (1 .. $input_length) { $recce->read( 'a', 'A' ); }
+    my $recce = Marpa::XS::Recognizer->new(
+        { grammar => $grammar, max_parses => 99 } );
+    for ( 1 .. $input_length ) { $recce->read( 'a', 'A' ); }
     my $expected = $expected[$input_length];
     my @values   = ();
     while ( my $value_ref = $recce->value() ) {

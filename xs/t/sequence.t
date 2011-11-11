@@ -88,8 +88,7 @@ sub run_sequence_test {
             . ( $keep ? 'keep;' : q{} )
             . ( $separation ne 'none' ? "$separation;" : q{} )
             . ";count=$symbol_count";
-        my $recce = Marpa::XS::Recognizer->new(
-            { grammar => $grammar } );
+        my $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
 
         my @expected       = ();
         my $last_symbol_ix = $symbol_count - 1;
