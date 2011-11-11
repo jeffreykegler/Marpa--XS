@@ -8,7 +8,7 @@ Left over TODO's from alpha (save for R2?):
 
 Marpa Pending release candidate: Marpa-HTML-0.105_000
 * Date: Tue, 08 Nov 2011 02:34:58 GMT
-* TODO: Await cpantesters on 0.104000 and 0.105_000
+* 12 passes for 0.105_000 with XS 0.020000
 
 Marpa::PP pending release candidate: CPAN Marpa-PP-0.011_002
 * CPAN Marpa-PP-0.011_002 Date: of Thu, 10 Nov 2011 03:08:06 GMT
