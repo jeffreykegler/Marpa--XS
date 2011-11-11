@@ -44,7 +44,8 @@ sub test_grammar {
     my ( $grammar_args, $tokens ) = @_;
 
     my $grammar;
-    my $eval_ok = eval { $grammar = Marpa::XS::Grammar->new($grammar_args); 1; };
+    my $eval_ok =
+        eval { $grammar = Marpa::XS::Grammar->new($grammar_args); 1; };
     die "Exception while creating Grammar:\n$EVAL_ERROR"
         if not $eval_ok;
     die "Grammar not created\n" if not $grammar;
@@ -52,8 +53,7 @@ sub test_grammar {
 
     my $recce;
     $eval_ok = eval {
-        $recce = Marpa::XS::Recognizer->new(
-            { grammar => $grammar, mode => 'stream' } );
+        $recce = Marpa::XS::Recognizer->new( { grammar => $grammar } );
         1;
     };
 
@@ -63,10 +63,7 @@ sub test_grammar {
 
     for my $token ( @{$tokens} ) {
         my $earleme_result;
-        $eval_ok = eval {
-            $earleme_result = $recce->tokens( [$token] );
-            1;
-        };
+        $eval_ok = eval { $earleme_result = $recce->read( @{$token} ); 1; };
         die "Exception while recognizing earleme:\n$EVAL_ERROR"
             if not $eval_ok;
         die "Parsing exhausted\n"
