@@ -19,6 +19,10 @@ Revision history for Marpa::XS
 
    * New series of developer's releases
 
+   * Restrict use of Marpa namespace
+
+   * Eliminate deprecated methods from tests
+
 0.020000 Tue Nov  1 09:55:37 PDT 2011
 
     * Cosmetic fix to indexing and docs
