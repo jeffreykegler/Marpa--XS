@@ -15,6 +15,7 @@ Marpa::PP pending release candidate: CPAN Marpa-PP-0.011_002
 * TODO: Check that indexing issues with Marpa-PP-0.011_001 are fixed in Marpa-PP-0.011_002
 
 Marpa::XS pending release candidate: Marpa-XS-0.021_000
+* DONE: On CPAN, checked "Diff from Marpa-XS-0.020000 to Marpa-XS-0.021_000"
 * Date: Fri, 11 Nov 2011 02:24:19 GMT
 
 For Marpa::XS, later
