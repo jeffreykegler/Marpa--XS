@@ -142,7 +142,7 @@ for my $test_data ( $plex1_test, $plex2_test ) {
         my $recce = Marpa::XS::Recognizer->new(
             { grammar => $grammar, trace_file_handle => \*STDERR } );
 
-        $recce->tokens( [ [ 't', 't', 1 ] ] );
+        $recce->read( 't', 't' );
 
         my @values = ();
         while ( my $value_ref = $recce->value() ) {
