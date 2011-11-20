@@ -15,9 +15,7 @@
 
 Revision history for Marpa::XS
 
-0.021_000 Thu Nov 10 11:48:20 PST 2011
-
-   * New series of developer's releases
+0.022000 Sun Nov 20 08:36:11 PST 2011
 
    * Restrict use of Marpa namespace
 
