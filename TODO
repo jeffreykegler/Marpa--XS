@@ -14,13 +14,10 @@ Marpa::PP pending release candidate: CPAN Marpa-PP-0.011_002
 * DONE: On CPAN, checked "Diff from Marpa-PP-0.010000 to Marpa-PP-0.011_002"
 * DONE: Checked CPAN Marpa-PP-0.010000 v. git tag
 * DONE: Checked CPAN Marpa-PP-0.011_002 v. git tag
-* TODO: Check that indexing issues with Marpa-PP-0.011_001 are fixed in Marpa-PP-0.011_002
+* DONE: Check that indexing issues with Marpa-PP-0.011_001 are fixed in Marpa-PP-0.011_002
 
-Marpa::XS pending release candidate: Marpa-XS-0.021_000
-* DONE: On CPAN, checked "Diff from Marpa-XS-0.020000 to Marpa-XS-0.021_000"
-* DONE: Checked CPAN Marpa-XS-0.020000 v. git tag
-* DONE: Checked CPAN Marpa-XS-0.021_000 v. git tag
-* Date: Fri, 11 Nov 2011 02:24:19 GMT
+Uploaded Marpa-XS-0.021_000 Sun Nov 20 08:54:03 PST 2011
+* Awaiting CPAN testers results
 
 For Marpa::XS, later
 * Add Marpa::XS::NAMESPACE_CLEAN global
