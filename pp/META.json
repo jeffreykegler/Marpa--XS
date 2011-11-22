@@ -73,19 +73,19 @@
    "provides" : {
       "Marpa::PP" : {
          "file" : "lib/Marpa/PP.pm",
-         "version" : "0.011_002"
+         "version" : "0.012000"
       },
       "Marpa::PP::Callback" : {
          "file" : "lib/Marpa/PP/Callback.pm",
-         "version" : "0.011_002"
+         "version" : "0.012000"
       },
       "Marpa::PP::Grammar" : {
          "file" : "lib/Marpa/PP/Grammar.pm",
-         "version" : "0.011_002"
+         "version" : "0.012000"
       },
       "Marpa::PP::Internal" : {
          "file" : "lib/Marpa/PP/Internal.pm",
-         "version" : "0.011_002"
+         "version" : "0.012000"
       },
       "Marpa::PP::Internal::Callback" : {
          "file" : "lib/Marpa/PP/Callback.pm",
@@ -105,18 +105,18 @@
       },
       "Marpa::PP::Recognizer" : {
          "file" : "lib/Marpa/PP/Recognizer.pm",
-         "version" : "0.011_002"
+         "version" : "0.012000"
       },
       "Marpa::PP::Value" : {
          "file" : "lib/Marpa/PP/Value.pm",
-         "version" : "0.011_002"
+         "version" : "0.012000"
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "repository" : {
          "url" : "git://github.com/jeffreykegler/Marpa-PP.git"
       }
    },
-   "version" : "0.011_002"
+   "version" : "0.012000"
 }

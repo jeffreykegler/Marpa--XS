@@ -15,11 +15,7 @@
 
 Revision history for Marpa::PP
 
-0.011_002 Tue Nov  8 22:29:21 PST 2011
-0.011_001 Fri Nov  4 09:27:57 PDT 2011
-0.011_000 Tue Oct 25 09:31:34 PDT 2011
-
-    * A new series of developer's releases.
+0.012000 Tue Nov 22 00:20:33 PST 2011
 
     * Eliminated deprecated interfaces from tests
 
