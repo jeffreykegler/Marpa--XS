@@ -61,7 +61,7 @@
    "provides" : {
       "Marpa::HTML" : {
          "file" : "lib/Marpa/HTML.pm",
-         "version" : "0.106000"
+         "version" : "0.108000"
       },
       "Marpa::HTML::Internal" : {
          "file" : "lib/Marpa/HTML.pm",
@@ -90,5 +90,5 @@
          "url" : "git://github.com/jeffreykegler/Marpa--HTML.git"
       }
    },
-   "version" : "0.106000"
+   "version" : "0.108000"
 }

@@ -5,6 +5,10 @@
 
 Revision history for Marpa::HTML
 
+0.108000 Wed Nov 23 08:29:35 PST 2011
+
+    * Fix document typo.
+
 0.106000 Thu Nov 10 19:39:44 PST 2011
 
     * Fix CPAN indexing issues
