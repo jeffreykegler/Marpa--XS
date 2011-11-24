@@ -20,7 +20,7 @@ use warnings;
 use Fatal qw(open close mkdir chdir);
 use File::Spec 0.82;
 use IPC::Cmd;
-use File::Path;
+use English qw( -no_match_vars );
 
 use Config;
 use Module::Build;
@@ -50,6 +50,20 @@ my %recommends =
     map { ( $_, $Marpa::XS::VERSION_FOR_CONFIG{$_} ) } qw( PPI Test::Weaken );
 
 my %pod_files = ();
+{
+    local $RS = undef;
+    open my $manifest_fh, q{<}, 'MANIFEST';
+    my @pod_files = split /\n/xms, $manifest_fh->getline();
+    close $manifest_fh;
+    LINE: for my $pod_file (@pod_files) {
+        $pod_file =~ s/ \s* [#] .* \z //xms;
+        next LINE if not $pod_file =~ / [.] pod \z /xms;
+        if ( $pod_file =~ m{ \A pod [/] }xms ) {
+            ( my $destfile = $pod_file ) =~ s{ \A pod [/] }{lib/Marpa/XS/}xms;
+            $pod_files{$pod_file} = $destfile;
+        }
+    } ## end for my $pod_file (@pod_files)
+}
 $pod_files{'pod/Marpa_XS.pod'} = 'lib/Marpa/XS.pod';
 
 my @no_index_namespace_inclusive = (
