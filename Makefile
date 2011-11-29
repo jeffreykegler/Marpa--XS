@@ -25,15 +25,19 @@ xst: xs_basic_test xs_html_test
 
 libs: pplib xslib
 
+# PERL_MB_OPT unset to work around bug in Module::Build --
+# if install_base is specified twice it turns into an array
+# and the install breaks.
+# Anyway, it may be good practice to unset it.
 pplib:
 	-mkdir dpplib
 	-rm -rf dpplib/lib dpplib/man dpplib/html
-	(cd pp && ./Build install --install_base ../dpplib)
+	(cd pp && PERL_MB_OPT= ./Build install --install_base ../dpplib)
 
 xslib:
 	-mkdir dxslib
 	-rm -rf dxslib/lib dxslib/man dxslib/html
-	(cd xs && ./Build install --install_base ../dxslib)
+	(cd xs && PERL_MB_OPT= ./Build install --install_base ../dxslib)
 
 html_blib:
 	(cd html && ./Build code)
