@@ -6,20 +6,7 @@ Left over TODO's from alpha (save for R2?):
 * Document Symbol::RANK
 * Document LHS_RANK and TERMINAL_RANK once tested
 
-Uploaded Marpa-PP-0.012000 Tue Nov 22 00:30:32 PST 2011
-* Awaiting CPAN testers results
-
-Uploaded Marpa-XS-0.021_000 Sun Nov 20 08:54:03 PST 2011
-* Awaiting CPAN testers results
-
-Uploaded CPAN_XS-0.023_000 Thu Nov 24 11:41:25 PST 2011
-* Awaiting CPAN testers results
-* DONE: "diff -r Marpa-XS-0.022000 Marpa-XS-0.023_000" OK
-* DONE: git HEAD vs. CPAN Marpa-XS-0.023_000 OK
-* DONE: git HEAD vs. git Marpa-XS-0.023_000 OK
-* DONE: Created Marpa-XS-0.024000
-* Wait a couple of days for more cpantesters data
-* To Do: git tag for Marpa-XS-0.024000
+Uploaded CPAN_XS-0.024000 Wed Nov 30 20:25:51 PST 2011
 
 For Marpa::XS, later
 * Add Marpa::XS::NAMESPACE_CLEAN global
