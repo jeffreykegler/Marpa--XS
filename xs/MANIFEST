@@ -148,6 +148,7 @@ t/infinite.t
 t/infinite2.t
 t/infinite_plex.t
 t/initial_nulls.t
+t/jirotka.t
 t/leo.t
 t/leo2.t
 t/leo3.t
