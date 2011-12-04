@@ -13523,19 +13523,26 @@ A function to print a descriptive tag for
 an Leo item.
 @<Private function prototypes@> =
 #if MARPA_DEBUG
-static inline gchar*
-lim_tag (gchar *buffer, LIM lim);
+PRIVATE_NOT_INLINE gchar* lim_tag_safe (gchar *buffer, LIM lim);
+PRIVATE_NOT_INLINE gchar* lim_tag (LIM lim);
 #endif
 @ This function is passed a buffer to keep it thread-safe.
 be made thread-safe.
 @<Function definitions@> =
 #if MARPA_DEBUG
-static inline gchar*
-lim_tag (gchar *buffer, LIM lim)
+PRIVATE_NOT_INLINE gchar*
+lim_tag_safe (gchar *buffer, LIM lim)
 {
   sprintf (buffer, "L%d@@%d",
 	   Postdot_SYMID_of_LIM (lim), Earleme_of_LIM (lim));
 	return buffer;
+}
+
+static char DEBUG_lim_tag_buffer[1000];
+PRIVATE_NOT_INLINE gchar*
+lim_tag (LIM lim)
+{
+  return lim_tag_safe (DEBUG_lim_tag_buffer, lim);
 }
 #endif
 
@@ -13555,6 +13562,7 @@ PRIVATE_NOT_INLINE const gchar* or_tag(OR or);
 PRIVATE_NOT_INLINE const gchar *
 or_tag_safe (gchar * buffer, OR or)
 {
+  if (!or) return "NULL";
   if (OR_is_Token(or)) return "TOKEN";
   if (Type_of_OR(or) == DUMMY_OR_NODE) return "DUMMY";
   sprintf (buffer, "R%d:%d@@%d-%d",
@@ -13569,6 +13577,41 @@ PRIVATE_NOT_INLINE const gchar*
 or_tag (OR or)
 {
   return or_tag_safe (DEBUG_or_tag_buffer, or);
+}
+#endif
+
+@*0 AHFA Item Tag.
+Functions to print a descriptive tag for
+an AHFA item.
+One is passed a buffer to keep it thread-safe.
+The other uses a global buffer,
+which is not thread-safe, but
+convenient when debugging in a non-threaded environment.
+@<Private function prototypes@> =
+#if MARPA_DEBUG
+PRIVATE_NOT_INLINE const gchar* aim_tag_safe(gchar *buffer, AIM aim);
+PRIVATE_NOT_INLINE const gchar* aim_tag(AIM aim);
+#endif
+@ @<Function definitions@> =
+#if MARPA_DEBUG
+PRIVATE_NOT_INLINE const gchar *
+aim_tag_safe (gchar * buffer, AIM aim)
+{
+  if (!aim) return "NULL";
+  const gint aim_position = Position_of_AIM (aim);
+  if (aim_position >= 0) {
+      sprintf (buffer, "R%d@@%d", RULEID_of_AIM (aim), Position_of_AIM (aim));
+  } else {
+      sprintf (buffer, "R%d@@end", RULEID_of_AIM (aim));
+  }
+  return buffer;
+}
+
+static char DEBUG_aim_tag_buffer[1000];
+PRIVATE_NOT_INLINE const gchar*
+aim_tag (AIM aim)
+{
+  return aim_tag_safe (DEBUG_aim_tag_buffer, aim);
 }
 #endif
 

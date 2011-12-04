@@ -733,7 +733,7 @@ sub Marpa::XS::Internal::Recognizer::evaluate {
             $recce_c->val_event();
         last EVENT if not defined $arg_n;
         if ( $trace_values >= 3 ) {
-            for my $i ( reverse 0 .. $arg_n ) {
+            for my $i ( reverse 0 .. $arg_n-1 ) {
                 printf {$Marpa::XS::Internal::TRACE_FH} 'Stack position %3d:',
                     $i
                     or Marpa::XS::exception('print to trace handle failed');
