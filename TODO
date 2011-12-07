@@ -6,7 +6,7 @@ Left over TODO's from alpha (save for R2?):
 * Document Symbol::RANK
 * Document LHS_RANK and TERMINAL_RANK once tested
 
-Uploaded CPAN_XS-0.024000 Wed Nov 30 20:25:51 PST 2011
+RC: Marpa-XS-0.025_001.tar.gz Sun, 04 Dec 2011 17:14:12 GMT
 
 For Marpa::XS, later
 * Add Marpa::XS::NAMESPACE_CLEAN global
