@@ -7,6 +7,9 @@ Left over TODO's from alpha (save for R2?):
 * Document LHS_RANK and TERMINAL_RANK once tested
 
 RC: Marpa-XS-0.025_001.tar.gz Sun, 04 Dec 2011 17:14:12 GMT
+DONE: Marpa-XS-0.025_001 CPAN vs. git HEAD OK
+DONE: Marpa-XS-0.025_001 CPAN vs. CPAN 0.024000 OK
+DONE: Marpa-XS-0.025_001 git HEAD vs tag OK
 
 For Marpa::XS, later
 * Add Marpa::XS::NAMESPACE_CLEAN global

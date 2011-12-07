@@ -15,10 +15,7 @@
 
 Revision history for Marpa::XS
 
-0.025_001 Sun Dec  4 09:04:23 PST 2011
-0.025_000 Sat Dec  3 17:31:46 PST 2011
-
-  * New series of developer releases
+0.026000 Wed Dec  7 08:43:16 PST 2011
 
   * Fixed [rt.cpan.org #72869]: In certain very unusual circumstances
     evaluation might miss a nullable symbol: see jirotka.t for an
