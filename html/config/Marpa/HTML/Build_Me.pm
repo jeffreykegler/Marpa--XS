@@ -3,10 +3,9 @@
 # under the same terms as the Perl 5 programming language system
 # itself.
 
-use 5.010;
-
 package Marpa::HTML::Build_Me;
 
+use 5.010;
 use strict;
 use warnings;
 
@@ -39,12 +38,15 @@ sub write_file {
 
 sub html_version_contents {
     my ( $self, $package ) = @_;
-    my @use_packages =
-    qw( );
+    my @use_packages = qw(
+	Scalar::Util List::Util Carp Data::Dumper
+	HTML::Parser HTML::PullParser);
     my $text = $preamble;
     $text .= "package $package;\n";
-    $text .= q{use vars qw($TIMESTAMP)} . qq{;\n};
+    $text .= q{use vars qw($TIMESTAMP $MARPA_XS_VERSION $MARPA_PP_VERSION)} . qq{;\n};
     $text .= q{$TIMESTAMP='} . localtime()->datetime . qq{';\n};
+    $text .= q{$MARPA_XS_VERSION='} . $Marpa::HTML::VERSION_FOR_CONFIG{'Marpa::XS'} . qq{';\n};
+    $text .= q{$MARPA_PP_VERSION='} . $Marpa::HTML::VERSION_FOR_CONFIG{'Marpa::PP'} . qq{';\n};
     for my $package (@use_packages) {
         my $version = $Marpa::HTML::VERSION_FOR_CONFIG{$package};
         die "No version defined for $package" if not defined $version;

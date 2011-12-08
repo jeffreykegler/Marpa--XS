@@ -10,9 +10,13 @@ use strict;
 use warnings;
 
 use vars qw( $VERSION $STRING_VERSION );
-$VERSION = '0.108000';
+$VERSION        = '0.108000';
 $STRING_VERSION = $VERSION;
-$VERSION = eval $VERSION;
+{
+## no critic (BuiltinFunctions::ProhibitStringyEval)
+## no critic (ValuesAndExpressions::RequireConstantVersion)
+    $VERSION = eval $VERSION;
+}
 
 use Marpa::HTML::Version;
 
@@ -26,13 +30,18 @@ use Carp;
 use HTML::PullParser;
 use HTML::Entities qw(decode_entities);
 use HTML::Tagset ();
+
 # versions below must be coordinated with
 # those required in Build.PL
 BEGIN {
-    my $using_xs = eval { require Marpa::XS::Installed; 1 };
+    my $using_xs = eval {
+        require Marpa::XS::Installed;
+        !CPAN::Version->vlt( $Marpa::XS::Installed::VERSION,
+            $MARPA_XS_VERSION );
+    };
     if ($using_xs) {
         require Marpa::XS;
-        Marpa::XS->VERSION(0.020000);
+        Marpa::XS->VERSION($MARPA_XS_VERSION);    # double check
         $Marpa::HTML::MARPA_MODULE = 'Marpa::XS';
         no strict 'refs';
         *Marpa::HTML::Recognizer::new = \&Marpa::XS::Recognizer::new;
@@ -40,9 +49,8 @@ BEGIN {
     } ## end if ($using_xs)
     else {
         require Marpa::PP;
-        Marpa::PP->VERSION(0.010000);
+        Marpa::PP->VERSION($MARPA_PP_VERSION);
         $Marpa::HTML::MARPA_MODULE = 'Marpa::PP';
-        no strict 'refs';
         no strict 'refs';
         *Marpa::HTML::Recognizer::new = \&Marpa::PP::Recognizer::new;
         *Marpa::HTML::Grammar::new    = \&Marpa::PP::Grammar::new;
@@ -525,8 +533,7 @@ sub add_handler {
 sub add_handlers_from_hashes {
     my ( $self, $handler_specs ) = @_;
     my $ref_type = ref $handler_specs || 'not a reference';
-    Carp::croak(
-        "handlers arg must must be ref to ARRAY, it is $ref_type")
+    Carp::croak("handlers arg must must be ref to ARRAY, it is $ref_type")
         if $ref_type ne 'ARRAY';
     for my $handler_spec ( keys %{$handler_specs} ) {
         add_handler( $self, $handler_spec );
@@ -587,8 +594,7 @@ sub create {
             Marpa::HTML::Internal::add_handlers( $self, $arg );
             next ARG;
         }
-        Carp::croak(
-            "Argument must be hash or refs to hash: it is $ref_type")
+        Carp::croak("Argument must be hash or refs to hash: it is $ref_type")
             if $ref_type ne 'REF';
         my $option_hash = ${$arg};
         $ref_type = ref $option_hash || 'not a reference';
