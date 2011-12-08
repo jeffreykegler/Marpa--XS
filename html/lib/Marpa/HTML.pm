@@ -10,7 +10,7 @@ use strict;
 use warnings;
 
 use vars qw( $VERSION $STRING_VERSION );
-$VERSION        = '0.108000';
+$VERSION        = '0.109_000';
 $STRING_VERSION = $VERSION;
 {
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
@@ -37,11 +37,11 @@ BEGIN {
     my $using_xs = eval {
         require Marpa::XS::Installed;
         !CPAN::Version->vlt( $Marpa::XS::Installed::VERSION,
-            $MARPA_XS_VERSION );
+            $Marpa::HTML::MARPA_XS_VERSION );
     };
     if ($using_xs) {
         require Marpa::XS;
-        Marpa::XS->VERSION($MARPA_XS_VERSION);    # double check
+        Marpa::XS->VERSION($Marpa::HTML::MARPA_XS_VERSION);    # double check
         $Marpa::HTML::MARPA_MODULE = 'Marpa::XS';
         no strict 'refs';
         *Marpa::HTML::Recognizer::new = \&Marpa::XS::Recognizer::new;
@@ -49,7 +49,7 @@ BEGIN {
     } ## end if ($using_xs)
     else {
         require Marpa::PP;
-        Marpa::PP->VERSION($MARPA_PP_VERSION);
+        Marpa::PP->VERSION($Marpa::HTML::MARPA_PP_VERSION);
         $Marpa::HTML::MARPA_MODULE = 'Marpa::PP';
         no strict 'refs';
         *Marpa::HTML::Recognizer::new = \&Marpa::PP::Recognizer::new;
