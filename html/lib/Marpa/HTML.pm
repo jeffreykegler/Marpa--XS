@@ -36,8 +36,7 @@ use HTML::Tagset ();
 BEGIN {
     my $using_xs = eval {
         require Marpa::XS::Installed;
-        !CPAN::Version->vlt( $Marpa::XS::Installed::VERSION,
-            $Marpa::HTML::MARPA_XS_VERSION );
+        $Marpa::XS::Installed::VERSION >= $Marpa::HTML::MARPA_XS_VERSION;
     };
     if ($using_xs) {
         require Marpa::XS;
