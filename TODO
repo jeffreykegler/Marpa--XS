@@ -6,11 +6,11 @@ Left over TODO's from alpha (save for R2?):
 * Document Symbol::RANK
 * Document LHS_RANK and TERMINAL_RANK once tested
 
-RC: Marpa-XS-0.025_001.tar.gz Sun, 04 Dec 2011 17:14:12 GMT
-DONE: Marpa-XS-0.025_001 CPAN vs. git HEAD OK
-DONE: Marpa-XS-0.025_001 CPAN vs. CPAN 0.024000 OK
-DONE: Marpa-XS-0.025_001 git HEAD vs tag OK
-DONE: Uploaded Marpa-XS-0.026000.tar.gz Wed, 07 Dec 2011 16:53:23 GMT
+RC: Marpa-HTML-0.109_000.tar.gz Thu, 08 Dec 2011 02:27:23 GMT
+OK: Diff from Marpa-HTML-0.108000 to Marpa-HTML-0.109_000
+OK: 13 XS PASS results (of 13) as of Sat Dec 10 17:33:32 PST 2011
+OK: Diff of git HEAD versus CPAN Marpa-HTML-0.109_000
+DONE: Uploaded html/Marpa-HTML-0.110000.tar.gz Sun Dec 11 01:47:08 GMT 2011
 
 For Marpa::XS, later
 * Add Marpa::XS::NAMESPACE_CLEAN global

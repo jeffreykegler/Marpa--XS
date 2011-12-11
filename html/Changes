@@ -5,11 +5,12 @@
 
 Revision history for Marpa::HTML
 
-0.109_000
-    * New series of developer's version
+0.110000 Sat Dec 10 17:39:10 PST 2011
+
     * Fix problem in checking Marpa::XS version
-    * Require Marpa:XS 0.026000 or later (because it has
-	a significant bug fix)
+
+    * Require Marpa:XS 0.026000 or later.  Marpa:XS 0.026000 has
+      a significant bug fix.
 
 0.108000 Wed Nov 23 08:29:35 PST 2011
 
