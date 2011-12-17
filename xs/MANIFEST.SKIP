@@ -20,8 +20,8 @@
 ^MYMETA.yml$
 ^MYMETA.json$
 ^Makefile$
-^Marpa-XS-0.\d{3}_\d{3}/
-^Marpa-XS-0.\d{6}/
+^Marpa-XS-\d+.\d{3}_\d{3}/
+^Marpa-XS-\d+.\d{6}/
 ^\.git\/
 ^\.gitignore$
 ^\_build\/
@@ -77,7 +77,7 @@
 ^html/inc/save/
 ^html/junk$
 ^html/MANIFEST\.SKIP$
-^html/Marpa-HTML-0.\d{3}_\d{3}/
-^html/Marpa-HTML-0.\d{6}/
+^html/Marpa-HTML-\d+.\d{3}_\d{3}/
+^html/Marpa-HTML-\d+.\d{6}/
 ^html/MYMETA.yml$
 ^html/sandbox/

@@ -15,6 +15,10 @@
 
 Revision history for Marpa::XS
 
+1.000000 Sat Dec 17 09:28:06 PST 2011
+
+  * First full release.
+
 0.026000 Wed Dec  7 08:43:16 PST 2011
 
   * Fixed [rt.cpan.org #72869]: In certain very unusual circumstances

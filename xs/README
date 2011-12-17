@@ -1,3 +1,15 @@
-This module is the XS version of the Marpa module.
+To build and install:
 
-Marpa::XS is BETA software.
+      perl Build.PL
+      ./Build
+      ./Build test
+      ./Build install
+
+To build and install on a platform (like DOS or Windows) that doesn't
+require the "./" notation, you can do this:
+
+      perl Build.PL
+      Build
+      Build test
+      Build install
+
