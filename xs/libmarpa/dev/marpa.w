@@ -619,33 +619,11 @@ unless tag names are distinct from other names.
 
 @** To Do.
 
-@ These are notes to myself,
-most of which will only be relevant
-while |libmarpa| is being written.
-These notes will be 
-deleted once development is finished.
+Most of the to do list has been moved to Marpa::R2.
 
-@ \li Eliminate all memoization and
-references to start symbol,
-start rule, etc., which are not needed for the recognizer.
-Evaluation should allow the user to specify an
-alternative start symbol, and not prefer the
-recognizer's.
-
-@ \li Make tracing no longer the default in the recognizer.
-
-\li Add a ``tracing" flag to the recognizer.  Also add a
-warning message when tracing is turned on.  The flag
-turns off the message.
-
-\li When (if?) I convert Marpa to use Marpa::XS,
+\li If I convert Marpa to use Marpa::XS,
+and if I continue to implement the |tokens()| call,
 make sure the ``interactive" flag works.
-
-\li Within libmarpa, eliminate some of the
-tracking of start symbols and rules?
-In particular, to the extent that the
-tracking implements semantics, leave it to
-the higher layers.
 
 @** The Public Header File.
 @*0 Version Constants.
@@ -5500,11 +5478,6 @@ EARLEME t_current_earleme;
 r->t_first_earley_set = NULL;
 r->t_latest_earley_set = NULL;
 r->t_current_earleme = -1;
-@ @<Destroy recognizer elements@> =
-{
-  if (r->t_earley_item_tree)
-    g_tree_destroy (r->t_earley_item_tree);
-}
 
 @*0 Current Earleme.
 @d Latest_ES_of_R(r) ((r)->t_latest_earley_set)
@@ -5673,27 +5646,6 @@ gint marpa_terminals_expected(struct marpa_r* r, GArray* result)
       }
     return (gint)result->len;
 }
-
-@*0 Tracing.
-A boolean, set if we are tracing earley sets.
-If set, a |GTree| is used to allow fast lookup
-of earley sets by earleme.
-Keeping this tree takes $O(n \log n)$ time,
-which means that the grammar's time complexity becomes
-$O( s(n) \cdot n \log n )$, where $s(n)$ is the time it takes to
-process an earley set.
-
-Without tracing the time complexity is
-$O( s(n) \cdot n )$, so tracing worsens the time complexity by
-a factor of $\log n$.
-Unless otherwise stated,
-time complexity results elsewhere in this document
-assume that tracing is not enabled.
-@ @<Widely aligned recognizer elements@> =
-GTree* t_earley_item_tree;
-@
-@<Initialize recognizer elements@> =
-r->t_earley_item_tree = g_tree_new(trace_earley_item_cmp);
 
 @*0 Leo-Related Booleans.
 @*1 Turning Leo Logic Off and On.
@@ -6221,7 +6173,6 @@ static inline EIM earley_item_create(const RECCE r,
   Ord_of_EIM(new_item) = count - 1;
   top_of_work_stack = WORK_EIM_PUSH(r);
   *top_of_work_stack = new_item;
-  g_tree_insert(r->t_earley_item_tree, new_item, new_item);
   return new_item;
 }
 
