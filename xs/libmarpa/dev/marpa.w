@@ -6228,39 +6228,6 @@ if (count >= r->t_earley_item_warning_threshold)
 No destructor.  All earley item elements are either owned by other objects.
 The Earley item itself is on the obstack.
 
-@*0 Comparison Function.
-This must be valid for comparing Earley item keys,
-so it does not use any non-key elements.
-This function is for comparison of Earley items in the
-|GTree| used for tracing.
-@<Private function prototypes@> =
-static inline gint trace_earley_item_cmp(gconstpointer ap, gconstpointer bp);
-@ @<Function definitions@> =
-static inline gint trace_earley_item_cmp(gconstpointer ap, gconstpointer bp)
-{
-  const EIM_Object* eim_a = ap;
-  const EIM_Object* eim_b = bp;
-  gint subkey = Earleme_of_EIM (eim_a) - Earleme_of_EIM (eim_b);
-  if (subkey) return subkey;
-  return earley_item_cmp(ap, bp, 0);
-}
-@ @<Private function prototypes@> =
-static inline gint earley_item_cmp(gconstpointer ap,
-    gconstpointer bp,
-    gpointer user_data @, G_GNUC_UNUSED);
-@ @<Function definitions@> =
-static inline gint earley_item_cmp (gconstpointer ap,
-		 gconstpointer bp, gpointer user_data @, G_GNUC_UNUSED)
-{
-  const struct s_earley_item* eim_a = ap;
-  const struct s_earley_item* eim_b = bp;
-  gint subkey =
-    AHFAID_of_EIM (eim_a) -
-    AHFAID_of_EIM (eim_b);
-  if (subkey) return subkey;
-  return Origin_Earleme_of_EIM (eim_a) - Origin_Earleme_of_EIM (eim_b);
-}
-
 @*0 Source of the Earley Item.
 @d NO_SOURCE (0U)
 @d SOURCE_IS_TOKEN (1U)
