@@ -10,7 +10,7 @@ use strict;
 use warnings;
 
 use vars qw( $VERSION $STRING_VERSION );
-$VERSION        = '0.110000';
+$VERSION        = '0.110_001';
 $STRING_VERSION = $VERSION;
 {
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
@@ -36,7 +36,8 @@ use HTML::Tagset ();
 BEGIN {
     my $using_xs = eval {
         require Marpa::XS::Installed;
-        $Marpa::XS::Installed::VERSION >= $Marpa::HTML::MARPA_XS_VERSION;
+        defined $Marpa::XS::Installed::VERSION
+            and $Marpa::XS::Installed::VERSION >= $Marpa::HTML::MARPA_XS_VERSION;
     };
     if ($using_xs) {
         require Marpa::XS;

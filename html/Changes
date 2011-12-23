@@ -5,6 +5,12 @@
 
 Revision history for Marpa::HTML
 
+0.110_001 Thu Dec 22 21:55:24 PST 2011
+
+    * New series of developer's versions.
+
+    * Silence warning if no Marpa::XS.
+
 0.110000 Sat Dec 10 17:39:10 PST 2011
 
     * Fix problem in checking Marpa::XS version
