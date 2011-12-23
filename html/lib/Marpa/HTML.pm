@@ -10,7 +10,7 @@ use strict;
 use warnings;
 
 use vars qw( $VERSION $STRING_VERSION );
-$VERSION        = '0.110_001';
+$VERSION        = '0.110_002';
 $STRING_VERSION = $VERSION;
 {
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
