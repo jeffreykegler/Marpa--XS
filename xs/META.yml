@@ -44,13 +44,13 @@ no_index:
 provides:
   Marpa::XS:
     file: lib/Marpa/XS.pm
-    version: 1.001_000
+    version: 1.002000
   Marpa::XS::Grammar:
     file: lib/Marpa/XS/Grammar.pm
-    version: 1.001_000
+    version: 1.002000
   Marpa::XS::Internal:
     file: lib/Marpa/XS/Internal.pm
-    version: 1.001_000
+    version: 1.002000
   Marpa::XS::Internal::Grammar:
     file: lib/Marpa/XS/Grammar.pm
     version: 0
@@ -62,10 +62,10 @@ provides:
     version: 0
   Marpa::XS::Recognizer:
     file: lib/Marpa/XS/Recognizer.pm
-    version: 1.001_000
+    version: 1.002000
   Marpa::XS::Value:
     file: lib/Marpa/XS/Value.pm
-    version: 1.001_000
+    version: 1.002000
 recommends:
   PPI: 1.206
   Test::Weaken: 3.004000
@@ -79,4 +79,4 @@ requires:
   Task::Weaken: 0
 resources:
   repository: git://github.com/jeffreykegler/Marpa-XS.git
-version: 1.001_000
+version: 1.002000

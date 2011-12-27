@@ -15,13 +15,12 @@
 
 Revision history for Marpa::XS
 
-1.001_000 Sat Dec 17 18:32:47 PST 2011
+1.002000 Mon Dec 26 16:19:15 PST 2011
 
-  * New series of developer's releases.
-
-  * Eliminate building of tree of earley items.
-    This tree, left over from the development
-    phase, was no longer used.
+  * Eliminate tree of earley items.
+    Left over from the development
+    phase, this tree was no longer used
+    and therefore a pointless overhead.
 
 1.000000 Sat Dec 17 09:28:06 PST 2011
 
