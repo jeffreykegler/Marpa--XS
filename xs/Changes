@@ -15,6 +15,12 @@
 
 Revision history for Marpa::XS
 
+1.003_000 Thu Dec 29 09:46:11 PST 2011
+
+  * New series of developer's releases.
+
+  * Fixes to installation issues.
+
 1.002000 Mon Dec 26 16:19:15 PST 2011
 
   * Eliminate tree of earley items.
