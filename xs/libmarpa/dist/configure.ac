@@ -131,7 +131,6 @@ if test x"$GCC" = xyes; then
     -Wshadow \
     -Winline \
     -Wmissing-declarations \
-    -Wconversion \
     -ansi -pedantic"
 fi
 
