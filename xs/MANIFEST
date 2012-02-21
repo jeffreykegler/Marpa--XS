@@ -173,7 +173,6 @@ t/syn_engine.t
 t/timeflies.t
 t/use.t
 t/wall.t
-t/weaken.t
 tool/lib/Marpa/XS/Display.pm
 tool/lib/Marpa/XS/Test.pm
 typemap
