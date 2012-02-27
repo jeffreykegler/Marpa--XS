@@ -15,11 +15,9 @@
 
 Revision history for Marpa::XS
 
-1.003_000 Thu Dec 29 09:46:11 PST 2011
+1.004000 Sun Feb 26 16:23:44 PST 2012
 
-  * New series of developer's releases.
-
-  * Fixes to installation issues.
+  * Fix various installation issues.
 
 1.002000 Mon Dec 26 16:19:15 PST 2011
 
