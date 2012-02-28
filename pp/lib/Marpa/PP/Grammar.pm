@@ -31,7 +31,7 @@ use integer;
 use utf8;
 
 use vars qw($VERSION $STRING_VERSION);
-$VERSION        = '0.012000';
+$VERSION        = '0.013_000';
 $STRING_VERSION = $VERSION;
 {
 ## no critic (BuiltinFunctions::ProhibitStringyEval)
