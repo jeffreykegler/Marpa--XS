@@ -8,7 +8,7 @@ build_requires:
 configure_requires:
   Module::Build: 0.3601
 dynamic_config: 1
-generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.110930'
+generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.112621'
 license: unknown
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -43,16 +43,16 @@ no_index:
 provides:
   Marpa::PP:
     file: lib/Marpa/PP.pm
-    version: 0.012000
+    version: 0.013_000
   Marpa::PP::Callback:
     file: lib/Marpa/PP/Callback.pm
-    version: 0.012000
+    version: 0.013_000
   Marpa::PP::Grammar:
     file: lib/Marpa/PP/Grammar.pm
-    version: 0.012000
+    version: 0.013_000
   Marpa::PP::Internal:
     file: lib/Marpa/PP/Internal.pm
-    version: 0.012000
+    version: 0.013_000
   Marpa::PP::Internal::Callback:
     file: lib/Marpa/PP/Callback.pm
     version: 0
@@ -67,10 +67,10 @@ provides:
     version: 0
   Marpa::PP::Recognizer:
     file: lib/Marpa/PP/Recognizer.pm
-    version: 0.012000
+    version: 0.013_000
   Marpa::PP::Value:
     file: lib/Marpa/PP/Value.pm
-    version: 0.012000
+    version: 0.013_000
 recommends:
   PPI: 1.206
   Test::Weaken: 3.004000
@@ -83,4 +83,4 @@ requires:
   Task::Weaken: 0
 resources:
   repository: git://github.com/jeffreykegler/Marpa-PP.git
-version: 0.012000
+version: 0.013_000
