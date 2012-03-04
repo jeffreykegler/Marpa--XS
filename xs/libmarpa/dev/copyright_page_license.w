@@ -1,4 +1,4 @@
-Copyright \copyright\ 2011 Jeffrey Kegler
+Copyright \copyright\ 2012 Jeffrey Kegler
 \bigskip\noindent
 This file is part of Marpa::XS.  Marpa::XS is free software: you can
 redistribute it and/or modify it under the terms of the GNU Lesser
