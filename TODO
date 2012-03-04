@@ -1,20 +1,11 @@
 Left over TODO's from alpha (save for R2?):
+(Not sure if these are all relevant to XS)
 * Remove Marpa::XS::length static method
 * Document recce->latest_earley_set method
 * Document rule name, recce->rule_by_name() once there is a test for them
 * Do not document DEFAULT_RANK and Symbol::RANK until there are tests for them
 * Document Symbol::RANK
 * Document LHS_RANK and TERMINAL_RANK once tested
-
-RC: Marpa-HTML-0.109_000.tar.gz Thu, 08 Dec 2011 02:27:23 GMT
-OK: Diff from Marpa-HTML-0.108000 to Marpa-HTML-0.109_000
-OK: 13 XS PASS results (of 13) as of Sat Dec 10 17:33:32 PST 2011
-OK: Diff of git HEAD versus CPAN Marpa-HTML-0.109_000
-DONE: Uploaded html/Marpa-HTML-0.110000.tar.gz Sun Dec 11 01:47:08 GMT 2011
-
-For Marpa::XS, later
-* Add Marpa::XS::NAMESPACE_CLEAN global
-* Set Marpa::XS::NAMESPACE_CLEAN in all *.t but deprecated.t
 
 For Marpa::PP, later
 * Add Marpa::PP::NAMESPACE_CLEAN global
