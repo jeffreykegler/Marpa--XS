@@ -1,7 +1,5 @@
-/devlib/
 errs
 junk
 /nogit/
-/dxslib/
-/dpplib/
+/stage/
 nogit*

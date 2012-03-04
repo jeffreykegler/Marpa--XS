@@ -18,23 +18,23 @@
 dummy: 
 
 xs_test:
-        cd xs;perl Build.PL
-        cd xs;./Build realclean
-        cd xs;perl Build.PL
-        cd xs;./Build
-        cd xs;./Build distmeta
-        cd xs;./Build test
-        cd xs;./Build distcheck
-        cd xs;./Build dist
+	cd xs;perl Build.PL
+	cd xs;./Build realclean
+	cd xs;perl Build.PL
+	cd xs;./Build
+	cd xs;./Build distmeta
+	cd xs;./Build test
+	cd xs;./Build distcheck
+	cd xs;./Build dist
 
 full_test: xs_test html_test
 
 html_test:
-        -test -d stage && rm -rf stage
-        mkdir stage
-        cpanm -v --reinstall -l stage ./xs/
-        PERL5LIB=$(CURDIR)/nopp/lib:$(CURDIR)/stage:$$PERL5LIB \
-            cpanm -v --reinstall -l stage Marpa::HTML
+	-test -d stage && rm -rf stage
+	mkdir stage
+	cpanm -v --reinstall -l stage ./xs/
+	PERL5LIB=$(CURDIR)/nopp/lib:$(CURDIR)/stage:$$PERL5LIB \
+	    cpanm -v --reinstall -l stage Marpa::HTML
 
 install:
 	(cd xs/libmarpa/dev && make)
