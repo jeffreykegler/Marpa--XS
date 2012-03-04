@@ -1,4 +1,4 @@
-# Copyright 2011 Jeffrey Kegler
+# Copyright 2012 Jeffrey Kegler
 # This file is part of Marpa::XS.  Marpa::XS is free software: you can
 # redistribute it and/or modify it under the terms of the GNU Lesser
 # General Public License as published by the Free Software Foundation,
@@ -24,7 +24,7 @@ use Fatal qw(open close read);
 use File::Spec;
 use Text::Diff ();
 
-my $copyright_line = q{Copyright 2011 Jeffrey Kegler};
+my $copyright_line = q{Copyright 2012 Jeffrey Kegler};
 ( my $copyright_line_in_tex = $copyright_line )
     =~ s/ ^ Copyright \s /Copyright \\copyright\\ /xms;
 
