@@ -106,11 +106,11 @@
          "version" : "1.005_000"
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "repository" : {
          "url" : "git://github.com/jeffreykegler/Marpa-XS.git"
       }
    },
-   "version" : "1.004000"
+   "version" : "1.005_000"
 }
