@@ -13,61 +13,29 @@
 # General Public License along with Marpa::XS.  If not, see
 # http://www.gnu.org/licenses/.
 
-.PHONY: libs dummy full pp_html_test xs_html_test pp_etc_make xs_etc_make \
-    pplib xslib libs
+.PHONY: dummy xs_test html_test full_test install
 
 dummy: 
 
-xs_basic_test:
-	(cd xs && ./Build test)
+xs_test:
+        cd xs;perl Build.PL
+        cd xs;./Build realclean
+        cd xs;perl Build.PL
+        cd xs;./Build
+        cd xs;./Build distmeta
+        cd xs;./Build test
+        cd xs;./Build distcheck
+        cd xs;./Build dist
 
-xst: xs_basic_test xs_html_test
+full_test: xs_test html_test
 
-libs: pplib xslib
+html_test:
+        -test -d stage && rm -rf stage
+        mkdir stage
+        cpanm -v --reinstall -l stage ./xs/
+        PERL5LIB=$(CURDIR)/nopp/lib:$(CURDIR)/stage:$$PERL5LIB \
+            cpanm -v --reinstall -l stage Marpa::HTML
 
-# PERL_MB_OPT unset to work around bug in Module::Build --
-# if install_base is specified twice it turns into an array
-# and the install breaks.
-# Anyway, it may be good practice to unset it.
-pplib:
-	-mkdir dpplib
-	-rm -rf dpplib/lib dpplib/man dpplib/html
-	(cd pp && PERL_MB_OPT= ./Build install --install_base ../dpplib)
-
-xslib:
-	-mkdir dxslib
-	-rm -rf dxslib/lib dxslib/man dxslib/html
-	(cd xs && PERL_MB_OPT= ./Build install --install_base ../dxslib)
-
-html_blib:
-	(cd html && ./Build code)
-
-pp_html_test: html_blib pplib
-	(cd html && \
-	PERL5LIB=$(CURDIR)/noxs/lib:$(CURDIR)/dpplib/lib/perl5:$$PERL5LIB prove -Ilib t )
-
-xs_html_test: html_blib xslib
-	(cd html && \
-	PERL5LIB=$(CURDIR)/dxslib/lib/perl5:$$PERL5LIB prove -Ilib t )
-
-
-pp_etc_make:
-	(cd pp/etc && make)
-
-xs_etc_make:
-	(cd xs/etc && make)
-
-pp_full_test: pplib pp_etc_make pp_html_test
-
-xs_full_test: xslib xs_etc_make xs_html_test
-
-full_test: pp_full_test  xs_full_test
-
-html_full_test:
-	(cd html/etc && \
-	    PERL5LIB=$(CURDIR)/noxs/lib:$(CURDIR)/dpplib/lib/perl5:$$PERL5LIB make )
-	(cd html/etc && PERL5LIB=$(CURDIR)/dxslib/lib/perl5:$$PERL5LIB make )
-	
 install:
 	(cd xs/libmarpa/dev && make)
 	(cd xs/libmarpa/dev && make install)
@@ -75,12 +43,8 @@ install:
 	(cd xs/libmarpa/dist && autoreconf -ivf)
 	-mkdir xs/libmarpa/test/dev/m4
 	(cd xs/libmarpa/test/dev && autoreconf -ivf)
-	(cd pp && perl Build.PL)
-	(cd pp && ./Build code)
 	(cd xs && perl Build.PL)
 	(cd xs && ./Build code)
-	(cd html && perl Build.PL)
-	(cd html && ./Build code)
 	-mkdir xs/libmarpa/test/work
 	(cd xs/libmarpa/test/work && sh ../dev/configure)
 	(cd xs/libmarpa/test/work && make)
