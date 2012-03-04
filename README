@@ -1,16 +1,2 @@
-This is a working repository for the various Marpa projects.  The
-projects are joined into a single repository because at this point
-they are being refactored.
-
-Because this repository is an ad hoc collection of separate development
-environments, there is no real installation procedure.
-
-There are installation notes in the file INSTALL_NOTES.  The author
-created these as an aid to his memory.  For his own sake, he makes
-a certain amount of effort to keep these installation notes accurate
-and up-to-date.  At points they have amounted to a fairly good
-installation procedure.  At other times ... well, they're better
-than nothing.
-
-If this combined repository lasts long enough, and stabilizes, maybe
-someday there will be a real installation procedure.
+This is the repository for the CPAN Marpa::XS distribution.  The
+distribution directory is the xs/ directory.
