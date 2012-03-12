@@ -15,7 +15,7 @@
 
 Revision history for Marpa::XS
 
-1.005_000 Sat Mar  3 21:49:10 PST 2012
+1.006000 Mon Mar 12 08:57:43 PDT 2012
 
   * Fix potential Windows installation issue
 
