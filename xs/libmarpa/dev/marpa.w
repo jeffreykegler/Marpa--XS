@@ -8050,8 +8050,7 @@ This section is devoted to the logic for completion.
 @ @<Initialize recognizer elements@> = DSTACK_SAFE(r->t_eim_work_stack);
 @ @<Initialize Earley item work stacks@> =
     DSTACK_IS_INITIALIZED(r->t_eim_work_stack) ||
-	DSTACK_INIT (r->t_eim_work_stack, EIM ,
-	     MAX (1024, r->t_earley_item_warning_threshold));
+	DSTACK_INIT (r->t_eim_work_stack, EIM , 1024);
 @ @<Destroy recognizer elements@> = DSTACK_DESTROY(r->t_eim_work_stack);
 
 @ The completion stack is initialized to a very high-ball estimate of the
@@ -8062,8 +8061,7 @@ Large stacks may needed for very ambiguous grammars.
 @ @<Initialize recognizer elements@> = DSTACK_SAFE(r->t_completion_stack);
 @ @<Initialize Earley item work stacks@> =
     DSTACK_IS_INITIALIZED(r->t_completion_stack) ||
-    DSTACK_INIT (r->t_completion_stack, EIM ,
-	     MAX (1024, r->t_earley_item_warning_threshold));
+    DSTACK_INIT (r->t_completion_stack, EIM , 1024);
 @ @<Destroy recognizer elements@> = DSTACK_DESTROY(r->t_completion_stack);
 
 @ The completion stack is initialized to a very high-ball estimate of the
